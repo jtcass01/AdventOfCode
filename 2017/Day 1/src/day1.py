@@ -87,20 +87,17 @@ def test_part2_example(example):
 def process_part2_string(string_input):
     look_distance = len(string_input)/2
     start_char = string_input[-1]
-    char_pass = 0
     current_char = -1
     next_char = current_char + look_distance
     matches = list([])
 
-    while char_pass < len(string_input):
+    while current_char < len(string_input) - 1:
         if start_char == string_input[next_char]:
             matches.append(int(start_char))
 
         current_char += 1
         start_char = string_input[current_char]
         next_char = current_char + look_distance
-
-        char_pass += 1
 
         if next_char >= len(string_input):
             next_char -= len(string_input)
