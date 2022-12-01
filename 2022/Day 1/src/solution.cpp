@@ -34,17 +34,16 @@ void loadElves(std::vector<Elf> &elves, std::string fileName) {
   for(std::string line; std::getline(File, line);) {
     if (line.length() != 0) {
       int calorieCount = std::stoi(line);
-      std::cout << "line as int: " << calorieCount << std::endl;
     } else {
-      Elf *elf = new Elf(foodCalories);
+      Elf elf(foodCalories);
       foodCalories.clear();
-      elves.push_back(*elf);
+      elves.push_back(elf);
     }
   }
 
   std::cout << "exampleElves: ";
-  for (auto elf: elves)
-      std::cout << elf.sumCalories() << ' ';
+  for (int i; i < 4; i++)
+      std::cout << elves[i].sumCalories() << ' ';
   std::cout << std::endl;
 }
 
