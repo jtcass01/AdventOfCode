@@ -23,4 +23,8 @@ void loadElves(std::vector<Elf> &elves, const std::string fileName);
 
 int getMaxCalories(const std::vector<Elf> elves);
 
+int getTopThreeCalories(const std::vector<Elf> elves);
+
 int partOne(const std::string fileName);
+
+int partTwo(const std::string fileName);

@@ -60,12 +60,29 @@ int getMaxCalories(const std::vector<Elf> elves) {
   return maxCalories;
 }
 
+int getTopThreeCalories(const std::vector<Elf> elves) {
+  std::vector<int> maxCalories{0, 0, 0};
+
+  for (auto elf: elves) {
+    int calories = elf.sumCalories();
+
+    for(std::vector<int>::size_type maxCaloriesIndex = 0; maxCaloriesIndex != maxCalories.size(); maxCaloriesIndex++) {
+      if(maxCalories[maxCaloriesIndex] < calories) {
+        maxCalories[maxCaloriesIndex] = calories;
+        break;
+      }
+    }
+  }
+
+  return std::accumulate(maxCalories.begin(), maxCalories.end(), 0);
+}
+
 int partOne(const std::string fileName) {
   std::vector<Elf> exampleElves;
 
   loadElves(exampleElves, fileName);
 
-  std::cout << "exampleElves: ";
+  std::cout << fileName << ": ";
   for (auto elf: exampleElves)
       std::cout << elf.sumCalories() << ' ';
   std::cout << std::endl;
@@ -74,11 +91,27 @@ int partOne(const std::string fileName) {
   return getMaxCalories(exampleElves);
 }
 
+int partTwo(const std::string fileName) {
+  std::vector<Elf> exampleElves;
+
+  loadElves(exampleElves, fileName);
+
+  std::cout << fileName << ": ";
+  for (auto elf: exampleElves)
+      std::cout << elf.sumCalories() << ' ';
+  std::cout << std::endl;
+  std::cout << "Top 3: " << getTopThreeCalories(exampleElves) << std::endl;
+
+  return getTopThreeCalories(exampleElves);
+}
+
 int main() {
   int examplePartOneResult = partOne("example.txt");
   assert(24000 == examplePartOneResult);
   int partOneResult = partOne("input.txt");
   assert(72017 == partOneResult);
+
+  int examplePartTwoResult = partTwo("example.txt");
 
   return 0;
 }
