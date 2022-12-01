@@ -73,19 +73,19 @@ int getTopThreeCalories(const std::vector<Elf> elves) {
 }
 
 int partOne(const std::string fileName) {
-  std::vector<Elf> exampleElves;
+  std::vector<Elf> elves;
 
-  loadElves(exampleElves, fileName);
+  loadElves(elves, fileName);
 
-  return getMaxCalories(exampleElves);
+  return getMaxCalories(elves);
 }
 
 int partTwo(const std::string fileName) {
-  std::vector<Elf> exampleElves;
+  std::vector<Elf> elves;
 
-  loadElves(exampleElves, fileName);
+  loadElves(elves, fileName);
 
-  return getTopThreeCalories(exampleElves);
+  return getTopThreeCalories(elves);
 }
 
 int main() {
