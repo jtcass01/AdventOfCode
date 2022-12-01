@@ -39,6 +39,7 @@ void loadElves(std::vector<Elf> &elves, std::string fileName) {
   for(std::string line; std::getline(File, line);) {
     if (line.length() != 0) {
       int calorieCount = std::stoi(line);
+      foodCalories.push_back(calorieCount);
     } else {
       std::cout << "Before foodCalories: ";
       for (auto foodCalorie: foodCalories)
