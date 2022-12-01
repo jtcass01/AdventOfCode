@@ -17,11 +17,6 @@ std::string loadFile(std::string fileName) {
 }
 
 Elf::Elf(const std::vector<int> foodCalories) {
-  std::cout << "foodCalories: ";
-  for (auto i: foodCalories)
-      std::cout << i << ' ';
-  std::cout << std::endl;
-
   foodCalories_.assign(foodCalories.begin(), foodCalories.end());
 
   std::cout << "foodCalories_: ";
@@ -45,6 +40,11 @@ void loadElves(std::vector<Elf> &elves, std::string fileName) {
       std::cout << "line as int: " << std::stoi(line) << std::endl;
       foodCalories.push_back(std::stoi(line));
     } else {
+      std::cout << "foodCalories: ";
+      for (auto i: foodCalories)
+          std::cout << i << ' ';
+      std::cout << std::endl;
+
       Elf elf(foodCalories);
       elves.push_back(elf);
       std::cout << "Elf created with calories " << elf.sumCalories() << "." << std::endl;
