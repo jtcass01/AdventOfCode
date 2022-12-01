@@ -74,7 +74,7 @@ int getTopThreeCalories(const std::vector<Elf> elves) {
     }
   }
 
-  std::cout << maxCalories << ": ";
+  std::cout << "maxCalories" << ": ";
   for (auto calories: maxCalories)
       std::cout << calories << ' ';
   std::cout << std::endl;
