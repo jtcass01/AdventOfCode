@@ -18,7 +18,7 @@ std::string loadFile(std::string fileName) {
 
 
 int Elf::sumCalories() {
-  return std::reduce(foodCalories.begin(), foodCalories.end());
+  return std::accumulate(foodCalories.begin(), foodCalories.end(), 0);
 }
 
 
