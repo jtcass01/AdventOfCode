@@ -37,6 +37,7 @@ void loadElves(std::vector<Elf> &elves, std::string fileName) {
     } else {
       Elf elf(foodCalories);
       foodCalories.clear();
+      std::cout << "Elf: " << elf.sumCalories() << std::endl;
       elves.push_back(elf);
     }
   }
