@@ -47,7 +47,17 @@ void loadElves(std::vector<Elf> &elves, std::string fileName) {
 }
 
 int getMaxCalories(const std::vector<Elf> elves) {
-  return std::max_element(elves.begin(), elves.end());
+  int maxCalories = 0;
+
+  for (auto elf: elves) {
+    int calories = elf.sumCalories();
+
+    if (calories > maxCalories) {
+      maxCalories = calories;
+    }
+
+    return maxCalories;
+  }
 }
 
 int main() {
