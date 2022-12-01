@@ -76,7 +76,9 @@ int partOne(const std::string fileName) {
 
 int main() {
   int examplePartOneResult = partOne("example.txt");
+  assert(24000 == examplePartOneResult);
   int partOneResult = partOne("input.txt");
+  assert(72017 == partOneResult);
 
   return 0;
 }
