@@ -17,11 +17,23 @@ std::string loadFile(std::string fileName) {
 }
 
 
+int Elf::sumCalories() {
+  return std::reduce(foodCalories.begin(), foodCalories.end());
+}
+
+
 void loadElves(std::vector<Elf> &elves, std::string fileName) {
   std::ifstream File(fileName, std::fstream::in);
 
   for(std::string line; std::getline(File, line);) {
-    std::cout << "Line has length " << line.length() << " and value " << line;
+    std::vector<int> foodCalories;
+    if (line.length() != 0) {
+      foodCalories.push_back(std::stoi(line));
+    } else {
+      Elf elf(foodCalories);
+      elves.push_back(elf);
+      std::cout << "Elf created with calories " << elf.sumCalories() << "." << std::endl;
+    }
   }
 }
 

@@ -3,15 +3,16 @@
 #include <string>
 #include <streambuf>
 #include <vector>
+#include <numeric>
 
 class Elf {
     public:
-        Elf(std::string calorieList);
+        Elf(std::vector<int> foodCalories);
 
-        void countCalories(std::string calorieList);
+        int sumCalories();
 
     private:
-        double calories;
+        std::vector<int> foodCalories;
 };
 
 std::string loadFile(std::string fileName);
