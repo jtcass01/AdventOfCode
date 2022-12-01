@@ -126,6 +126,8 @@ int main() {
   assert(72017 == partOneResult);
 
   int examplePartTwoResult = partTwo("example.txt");
+  assert(45000 == examplePartTwoResult);
+  int partTwoResult = partTwo("input.txt");
 
   return 0;
 }
