@@ -42,6 +42,7 @@ void loadElves(std::vector<Elf> &elves, std::string fileName) {
   for(std::string line; std::getline(File, line);) {
     std::vector<int> foodCalories;
     if (line.length() != 0) {
+      std::cout << "line as int: " << std::stoi(line) << std::endl;
       foodCalories.push_back(std::stoi(line));
     } else {
       Elf elf(foodCalories);
