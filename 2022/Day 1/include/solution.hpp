@@ -18,4 +18,8 @@ class Elf {
 
 std::string loadFile(std::string fileName);
 
-void loadElves(std::vector<Elf> &elves, std::string fileName);
+void loadElves(std::vector<Elf> &elves, const std::string fileName);
+
+int getMaxCalories(const std::vector<Elf> elves);
+
+int partOne(const std::string fileName);

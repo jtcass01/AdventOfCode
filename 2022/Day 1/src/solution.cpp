@@ -26,7 +26,7 @@ int Elf::sumCalories() {
 }
 
 
-void loadElves(std::vector<Elf> &elves, std::string fileName) {
+void loadElves(std::vector<Elf> &elves, const std::string fileName) {
   std::ifstream File(fileName, std::fstream::in);
 
   std::vector<int> foodCalories;
@@ -56,19 +56,27 @@ int getMaxCalories(const std::vector<Elf> elves) {
       maxCalories = calories;
     }
   }
+
   return maxCalories;
 }
 
-int main() {
+int partOne(const std::string fileName) {
   std::vector<Elf> exampleElves;
 
-  loadElves(exampleElves, "example.txt");
+  loadElves(exampleElves, fileName);
 
   std::cout << "exampleElves: ";
   for (auto elf: exampleElves)
       std::cout << elf.sumCalories() << ' ';
   std::cout << std::endl;
   std::cout << "Max: " << getMaxCalories(exampleElves) << std::endl;
+
+  return getMaxCalories(exampleElves);
+}
+
+int main() {
+  int examplePartOneResult = partOne("example.txt");
+  int partOneResult = partOne("input.txt");
 
   return 0;
 }
