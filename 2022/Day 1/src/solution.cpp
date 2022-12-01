@@ -16,12 +16,7 @@ std::string loadFile(std::string fileName) {
   return str;
 }
 
-Elf::Elf(std::vector<int> foodCalories) {
-  std::cout << "foodCalories: ";
-  for (auto foodCalorie: foodCalories)
-      std::cout << foodCalorie << ' ';
-  std::cout << std::endl;
-
+Elf::Elf(const std::vector<int> foodCalories) {
   foodCalories_.assign(foodCalories.begin(), foodCalories.end());
 }
 
@@ -49,14 +44,11 @@ void loadElves(std::vector<Elf> &elves, std::string fileName) {
     Elf elf(foodCalories);
     foodCalories.clear();
     elves.push_back(elf);
-
-  // std::cout << "exampleElves: ";
-  // for (int i=0; i < 4; i++)
-  //     std::cout << elves[i].sumCalories() << ' ';
-  // std::cout << std::endl;
 }
 
-
+int getMaxCalories(const std::vector<Elf> elves) {
+  return std::max_element(elves.begin(), elves.end());
+}
 
 int main() {
   std::vector<Elf> exampleElves;
@@ -67,6 +59,7 @@ int main() {
   for (auto elf: exampleElves)
       std::cout << elf.sumCalories() << ' ';
   std::cout << std::endl;
+  std::cout << "Max: " << getMaxCalories(exampleElves) << std::endl;
 
   return 0;
 }

@@ -4,6 +4,7 @@
 #include <streambuf>
 #include <vector>
 #include <numeric>
+#include <algorithm>
 
 class Elf {
     public:
