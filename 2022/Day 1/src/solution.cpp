@@ -18,8 +18,8 @@ std::string loadFile(std::string fileName) {
 
 Elf::Elf(const std::vector<int> foodCalories) {
   std::cout << "foodCalories: ";
-  for (int i=0; i < 4; i++)
-      std::cout << foodCalories[i] << ' ';
+  for (auto foodCalorie: foodCalories)
+      std::cout << foodCalorie << ' ';
   std::cout << std::endl;
 
   foodCalories_.assign(foodCalories.begin(), foodCalories.end());
