@@ -55,9 +55,8 @@ int getMaxCalories(const std::vector<Elf> elves) {
     if (calories > maxCalories) {
       maxCalories = calories;
     }
-
-    return maxCalories;
   }
+  return maxCalories;
 }
 
 int main() {
