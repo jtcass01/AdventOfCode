@@ -114,12 +114,12 @@ int main() {
   assert(72017 == partOneResult);
 
   int examplePartTwoResult = partTwo("example.txt");
-  assert(45000 == examplePartTwoResult);
   std::cout << "Part Two Example Result: " << examplePartTwoResult << std::endl;
+  assert(45000 == examplePartTwoResult);
 
   int partTwoResult = partTwo("input.txt");
-  assert(212520 == partTwoResult);
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
+  assert(212520 == partTwoResult);
 
   return 0;
 }
