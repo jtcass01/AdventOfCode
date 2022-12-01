@@ -12,7 +12,7 @@ class Elf {
         int sumCalories();
 
     private:
-        std::vector<int> foodCalories;
+        std::vector<int> foodCalories_;
 };
 
 std::string loadFile(std::string fileName);

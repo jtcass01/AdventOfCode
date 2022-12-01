@@ -16,9 +16,13 @@ std::string loadFile(std::string fileName) {
   return str;
 }
 
+Elf::Elf(const std::vector<int> foodCalories) {
+  foodCalories_.assign(foodCalories.begin(), foodCalories.end());
+}
+
 
 int Elf::sumCalories() {
-  return std::accumulate(foodCalories.begin(), foodCalories.end(), 0);
+  return std::accumulate(foodCalories_.begin(), foodCalories_.end(), 0);
 }
 
 
