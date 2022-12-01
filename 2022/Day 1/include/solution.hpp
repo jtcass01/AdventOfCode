@@ -17,8 +17,6 @@ class Elf {
         std::vector<int> foodCalories_;
 };
 
-std::string loadFile(std::string fileName);
-
 void loadElves(std::vector<Elf> &elves, const std::string fileName);
 
 int getMaxCalories(const std::vector<Elf> elves);

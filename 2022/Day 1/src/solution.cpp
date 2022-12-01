@@ -1,21 +1,5 @@
 #include "../include/solution.hpp"
 
-std::string loadFile(std::string fileName) {
-  std::ifstream File(fileName, std::fstream::in);
-  std::string str;
-
-  // Alocate memory for file.
-  File.seekg(0, std::ios::end);
-  str.reserve(File.tellg());
-  File.seekg(0, std::ios::beg);
-
-  // Store file data inside str
-  str.assign((std::istreambuf_iterator<char>(File)),
-              std::istreambuf_iterator<char>());
-
-  return str;
-}
-
 Elf::Elf(const std::vector<int> foodCalories) {
   foodCalories_.assign(foodCalories.begin(), foodCalories.end());
 }
