@@ -62,15 +62,24 @@ int getMaxCalories(const std::vector<Elf> elves) {
 
 int getTopThreeCalories(const std::vector<Elf> elves) {
   std::vector<int> maxCalories{0, 0, 0};
+  int calories = 0;
+  int minimumCalories = 0;
+  std::vector<int>::size_type minimumCalorieIndex = 0;
 
   for (auto elf: elves) {
-    int calories = elf.sumCalories();
+    calories = elf.sumCalories();
+    minimumCalorieIndex = 0;
+    minimumCalories = maxCalories[minimumCalorieIndex];
 
     for(std::vector<int>::size_type maxCaloriesIndex = 0; maxCaloriesIndex != maxCalories.size(); maxCaloriesIndex++) {
-      if(maxCalories[maxCaloriesIndex] < calories) {
-        maxCalories[maxCaloriesIndex] = calories;
-        break;
+      if(minimumCalories > maxCalories[maxCaloriesIndex]) {
+        minimumCalories = maxCalories[maxCaloriesIndex];
+        minimumCalorieIndex = maxCaloriesIndex;
       }
+    }
+
+    if(maxCalories[minimumCalorieIndex] < calories) {
+      maxCalories[minimumCalorieIndex] = calories;
     }
   }
 
