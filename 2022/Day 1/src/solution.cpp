@@ -71,7 +71,9 @@ int getTopThreeCalories(const std::vector<Elf> elves) {
     minimumCalorieIndex = 0;
     minimumCalories = maxCalories[minimumCalorieIndex];
 
-    for(std::vector<int>::size_type maxCaloriesIndex = 0; maxCaloriesIndex != maxCalories.size(); maxCaloriesIndex++) {
+    for(std::vector<int>::size_type maxCaloriesIndex = 0;
+        maxCaloriesIndex != maxCalories.size();
+        maxCaloriesIndex++) {
       if(minimumCalories > maxCalories[maxCaloriesIndex]) {
         minimumCalories = maxCalories[maxCaloriesIndex];
         minimumCalorieIndex = maxCaloriesIndex;
@@ -83,11 +85,6 @@ int getTopThreeCalories(const std::vector<Elf> elves) {
     }
   }
 
-  std::cout << "maxCalories" << ": ";
-  for (auto calories: maxCalories)
-      std::cout << calories << ' ';
-  std::cout << std::endl;
-
   return std::accumulate(maxCalories.begin(), maxCalories.end(), 0);
 }
 
@@ -95,12 +92,6 @@ int partOne(const std::string fileName) {
   std::vector<Elf> exampleElves;
 
   loadElves(exampleElves, fileName);
-
-  std::cout << fileName << ": ";
-  for (auto elf: exampleElves)
-      std::cout << elf.sumCalories() << ' ';
-  std::cout << std::endl;
-  std::cout << "Max: " << getMaxCalories(exampleElves) << std::endl;
 
   return getMaxCalories(exampleElves);
 }
@@ -110,24 +101,25 @@ int partTwo(const std::string fileName) {
 
   loadElves(exampleElves, fileName);
 
-  std::cout << fileName << ": ";
-  for (auto elf: exampleElves)
-      std::cout << elf.sumCalories() << ' ';
-  std::cout << std::endl;
-  std::cout << "Top 3: " << getTopThreeCalories(exampleElves) << std::endl;
-
   return getTopThreeCalories(exampleElves);
 }
 
 int main() {
   int examplePartOneResult = partOne("example.txt");
+  std::cout << "Part One Example Result: " << examplePartOneResult << std::endl;
   assert(24000 == examplePartOneResult);
+
   int partOneResult = partOne("input.txt");
+  std::cout << "Part One Input Result: " << partOneResult << std::endl;
   assert(72017 == partOneResult);
 
   int examplePartTwoResult = partTwo("example.txt");
   assert(45000 == examplePartTwoResult);
+  std::cout << "Part Two Example Result: " << examplePartTwoResult << std::endl;
+
   int partTwoResult = partTwo("input.txt");
+  assert(212520 == partTwoResult);
+  std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
 
   return 0;
 }
