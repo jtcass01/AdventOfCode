@@ -5,10 +5,10 @@ CC = g++
 CFLAGS = -wall -g
 
 # libs
-LIBS = solution.hpp
+LIBS = include/solution.hpp
 
 # source files
-SRCS = solution.cpp
+SRCS = src/solution.cpp
 
 # object files
 OBJS = $(SRCS:.cpp=.o)
