@@ -1,4 +1,4 @@
-#include <solution.hpp>
+#include "solution.hpp"
 
 std::string loadFile(std::string fileName) {
     std::ifstream File(fileName);
