@@ -79,7 +79,9 @@ int partOne(const std::string fileName) {
     scanf("%c %c", &opMoveChar, &myMoveChar);
     myMove = classifyMove(static_cast<MyMove>(myMoveChar));
     opMove = classifyMove(static_cast<OpMove>(opMoveChar));
+    std::cout <<  "I choose " << myMove << " while this idiot chooses " << opMove << std::endl;
     rpsGame.addRound(myMove, opMove);
+    std::cout <<  "New score " << rpsGame.getMyScore() << std::endl;
   }
 
   return rpsGame.getMyScore();
