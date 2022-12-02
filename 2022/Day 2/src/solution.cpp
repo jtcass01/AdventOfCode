@@ -75,6 +75,8 @@ int partOne(const std::string fileName) {
   Move myMove;
   Move opMove;
 
+  std::cout << "Starting part 1" << std::endl;
+
   for(std::string line; std::getline(File, line);) {
     scanf("%c %c", &opMoveChar, &myMoveChar);
     myMove = classifyMove(static_cast<MyMove>(myMoveChar));
