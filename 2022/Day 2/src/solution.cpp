@@ -149,6 +149,8 @@ int partOne(const std::string fileName) {
     rpsGame.addRound(myMove, opMove);
   }
 
+  File.close();
+
   return rpsGame.getMyScore();
 }
 
@@ -166,6 +168,8 @@ int partTwo(const std::string fileName) {
     opMove = RockPaperScissors::classifyMove(static_cast<OpMove>(opMoveChar));
     rpsGame.addRound(static_cast<GoalResult>(goalChar), opMove);
   }
+
+  File.close();
 
   return rpsGame.getMyScore();
 }
