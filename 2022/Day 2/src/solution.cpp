@@ -40,7 +40,7 @@ int RockPaperScissors::getMyScore() {
   return myScore_;
 }
 
-Move RockPaperScissors::classifyMove(MyMove myMove) {
+static Move RockPaperScissors::classifyMove(MyMove myMove) {
   Move move;
 
   switch(myMove) {
@@ -58,7 +58,7 @@ Move RockPaperScissors::classifyMove(MyMove myMove) {
   return move;
 }
 
-Move RockPaperScissors::classifyMove(OpMove opMove) {
+static Move RockPaperScissors::classifyMove(OpMove opMove) {
   Move move;
 
   switch(opMove) {
@@ -76,7 +76,7 @@ Move RockPaperScissors::classifyMove(OpMove opMove) {
   return move;
 }
 
-Result RockPaperScissors::classifyGoal(GoalResult goal) {
+static Result RockPaperScissors::classifyGoal(GoalResult goal) {
   Result result;
 
   switch(goal) {
@@ -94,7 +94,7 @@ Result RockPaperScissors::classifyGoal(GoalResult goal) {
   return result;
 }
 
-Move RockPaperScissors::findMove(GoalResult goal, Move opMove) {
+static Move RockPaperScissors::findMove(GoalResult goal, Move opMove) {
   Move myMove;
 
   switch(goal) {
