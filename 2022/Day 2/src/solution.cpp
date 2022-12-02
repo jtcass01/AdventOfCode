@@ -187,7 +187,7 @@ int main() {
 
   int partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
-  assert(0 == partTwoResult);
+  assert(13193 == partTwoResult);
 
   return 0;
 }
