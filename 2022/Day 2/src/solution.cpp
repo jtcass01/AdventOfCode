@@ -69,7 +69,7 @@ Move classifyMove(OpMove opMove) {
 
 int partOne(const std::string fileName) {
   std::ifstream File(fileName, std::fstream::in);
-  RockPaperScissors rpsGame();
+  RockPaperScissors rpsGame;
   char myMoveChar = '\0';
   char opMoveChar = '\0';
   Move myMove;
