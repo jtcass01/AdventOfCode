@@ -45,7 +45,6 @@ class RockPaperScissors {
         void addRound(GoalResult goal, Move opMove);
 
         int getMyScore();
-
     private:
         Result decideRound(Move myMove, Move opMove);
 
