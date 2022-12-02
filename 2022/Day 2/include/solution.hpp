@@ -4,6 +4,7 @@
 #include <streambuf>
 #include <cassert>
 #include <stdio.h>
+#include <cstring>
 
 enum Move {
     rock = 1,
