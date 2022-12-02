@@ -13,6 +13,16 @@ void RockPaperScissors::addRound(Move myMove, Move opMove) {
   myScore_ += movePoints + resultPoints;
 }
 
+void RockPaperScissors::addRound(GoalResult goal, Move opMove) {
+  Result roundResult = classifyGoal(goal);
+  Move myMove = findMove(goal, opMove);
+
+  int movePoints = static_cast<int>(myMove);
+  int resultPoints = static_cast<int>(roundResult);
+
+  myScore_ += movePoints + resultPoints;
+}
+
 Result RockPaperScissors::decideRound(Move myMove, Move opMove) {
   if(myMove == opMove) {
     return Result::draw;
@@ -67,6 +77,62 @@ Move classifyMove(OpMove opMove) {
   return move;
 }
 
+Result classifyGoal(GoalResult goal) {
+  Result result;
+
+  switch(goal) {
+    case GoalResult::G_loss:
+      result = Result::loss;
+      break;
+    case GoalResult::G_draw:
+      result = Result::draw;
+      break;
+    case GoalResult::G_win:
+      result = Result::win;
+      break;
+  }
+
+  return result;
+}
+
+Move findMove(GoalResult goal, Move opMove) {
+  Move myMove;
+
+  switch(goal) {
+    case GoalResult::G_draw:
+      myMove = opMove;
+      break;
+    case GoalResult::G_loss:
+      switch(opMove) {
+        case Move::paper:
+          myMove = Move::rock;
+          break;
+        case Move::rock:
+          myMove = Move::scissors;
+          break;
+        case Move::scissors:
+          myMove = Move::paper;
+          break;
+      }
+      break;
+    case GoalResult::G_win:
+      switch(opMove) {
+        case Move::paper:
+          myMove = Move::scissors;
+          break;
+        case Move::rock:
+          myMove = Move::paper;
+          break;
+        case Move::scissors:
+          myMove = Move::rock;
+          break;
+      }
+      break;
+  }
+
+  return myMove;
+}
+
 int partOne(const std::string fileName) {
   std::ifstream File(fileName, std::fstream::in);
   char *pLineChar = nullptr;
@@ -77,21 +143,32 @@ int partOne(const std::string fileName) {
   Move opMove;
 
   for(std::string line; std::getline(File, line);) {
-    std::cout << "Starting part 1" << std::endl;
     pLineChar = strcpy(new char[line.length() + 1], line.c_str());
     sscanf(pLineChar, "%c %c", &opMoveChar, &myMoveChar);
     myMove = classifyMove(static_cast<MyMove>(myMoveChar));
     opMove = classifyMove(static_cast<OpMove>(opMoveChar));
-    std::cout <<  "I choose " << myMove << " while this idiot chooses " << opMove << std::endl;
     rpsGame.addRound(myMove, opMove);
-    std::cout <<  "New score " << rpsGame.getMyScore() << std::endl;
   }
 
   return rpsGame.getMyScore();
 }
 
 int partTwo(const std::string fileName) {
-  return 0;
+  std::ifstream File(fileName, std::fstream::in);
+  char *pLineChar = nullptr;
+  RockPaperScissors rpsGame;
+  char goalChar = '\0';
+  char opMoveChar = '\0';
+  Move opMove;
+
+  for(std::string line; std::getline(File, line);) {
+    pLineChar = strcpy(new char[line.length() + 1], line.c_str());
+    sscanf(pLineChar, "%c %c", &opMoveChar, &goalChar);
+    opMove = classifyMove(static_cast<OpMove>(opMoveChar));
+    rpsGame.addRound(static_cast<GoalResult>(goalChar), opMove);
+  }
+
+  return rpsGame.getMyScore();
 }
 
 
@@ -102,11 +179,11 @@ int main() {
 
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
-  assert(0 == partOneResult);
+  assert(12586 == partOneResult);
 
   int examplePartTwoResult = partTwo("example.txt");
   std::cout << "Part Two Example Result: " << examplePartTwoResult << std::endl;
-  assert(0 == examplePartTwoResult);
+  assert(12 == examplePartTwoResult);
 
   int partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;

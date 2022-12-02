@@ -18,6 +18,12 @@ enum Result {
     win = 6
 };
 
+enum GoalResult {
+    G_loss = 'X',
+    G_draw = 'Y',
+    G_win = 'Z'
+};
+
 enum MyMove {
     MM_rock = 'X',
     MM_paper = 'Y',
@@ -36,6 +42,8 @@ class RockPaperScissors {
 
         void addRound(Move myMove, Move opMove);
 
+        void addRound(GoalResult goal, Move opMove);
+
         int getMyScore();
 
     private:
@@ -48,6 +56,10 @@ class RockPaperScissors {
 Move classifyMove(MyMove myMove);
 
 Move classifyMove(OpMove opMove);
+
+Result classifyGoal(GoalResult goal);
+
+Move findMove(GoalResult goal, Move opMove);
 
 int partOne(const std::string fileName);
 
