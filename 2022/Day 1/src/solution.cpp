@@ -4,11 +4,9 @@ Elf::Elf(const std::vector<int> foodCalories) {
   foodCalories_.assign(foodCalories.begin(), foodCalories.end());
 }
 
-
 int Elf::sumCalories() {
   return std::accumulate(foodCalories_.begin(), foodCalories_.end(), 0);
 }
-
 
 void loadElves(std::vector<Elf> &elves, const std::string fileName) {
   std::ifstream File(fileName, std::fstream::in);
@@ -25,9 +23,9 @@ void loadElves(std::vector<Elf> &elves, const std::string fileName) {
       elves.push_back(elf);
     }
   }
-    Elf elf(foodCalories);
-    foodCalories.clear();
-    elves.push_back(elf);
+  Elf elf(foodCalories);
+  foodCalories.clear();
+  elves.push_back(elf);
 }
 
 int getMaxCalories(const std::vector<Elf> elves) {
