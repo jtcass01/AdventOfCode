@@ -41,13 +41,13 @@ enum Result {
 };
 
 enum MyMove {
-    rock = 'X',
-    paper = 'Y',
-    scissors = 'Z'
+    MM_rock = 'X',
+    MM_paper = 'Y',
+    MM_scissors = 'Z'
 };
 
 enum OpMove {
-    rock = 'A',
-    paper = 'B',
-    scissors = 'C'
+    OM_rock = 'A',
+    OM_paper = 'B',
+    OM_scissors = 'C'
 };

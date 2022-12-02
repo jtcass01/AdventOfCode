@@ -35,13 +35,13 @@ Move classifyMove(MyMove myMove) {
   Move move;
 
   switch(myMove) {
-    case MyMove::rock:
+    case MyMove::MM_rock:
       move = Move::rock;
       break;
-    case MyMove::paper:
+    case MyMove::MM_paper:
       move = Move::paper;
       break;
-    case MyMove::scissors:
+    case MyMove::MM_scissors:
       move = Move::scissors;
       break;
   }
@@ -53,13 +53,13 @@ Move classifyMove(OpMove opMove) {
   Move move;
 
   switch(opMove) {
-    case OpMove::rock:
+    case OpMove::OM_rock:
       move = Move::rock;
       break;
-    case OpMove::paper:
+    case OpMove::OM_paper:
       move = Move::paper;
       break;
-    case OpMove::scissors:
+    case OpMove::OM_scissors:
       move = Move::scissors;
       break;
   }
