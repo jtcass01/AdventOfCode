@@ -69,16 +69,17 @@ Move classifyMove(OpMove opMove) {
 
 int partOne(const std::string fileName) {
   std::ifstream File(fileName, std::fstream::in);
+  char *pLineChar = nullptr;
   RockPaperScissors rpsGame;
   char myMoveChar = '\0';
   char opMoveChar = '\0';
   Move myMove;
   Move opMove;
 
-  std::cout << "Starting part 1" << std::endl;
-
   for(std::string line; std::getline(File, line);) {
-    scanf("%c %c", &opMoveChar, &myMoveChar);
+    std::cout << "Starting part 1" << std::endl;
+    pLineChar = strcpy(new char[line.length() + 1], line.c_str());
+    sscanf(pLineChar, "%c %c", &opMoveChar, &myMoveChar);
     myMove = classifyMove(static_cast<MyMove>(myMoveChar));
     opMove = classifyMove(static_cast<OpMove>(opMoveChar));
     std::cout <<  "I choose " << myMove << " while this idiot chooses " << opMove << std::endl;
