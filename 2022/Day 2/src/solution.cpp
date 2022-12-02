@@ -14,9 +14,8 @@ void RockPaperScissors::addRound(Move myMove, Move opMove) {
 }
 
 void RockPaperScissors::addRound(GoalResult goal, Move opMove) {
-  Result roundResult = classifyGoal(goal);
-  Move myMove = findMove(goal, opMove);
-
+  Result roundResult = RockPaperScissors::classifyGoal(goal);
+  Move myMove = RockPaperScissors::findMove(goal, opMove);
   int movePoints = static_cast<int>(myMove);
   int resultPoints = static_cast<int>(roundResult);
 
@@ -41,7 +40,7 @@ int RockPaperScissors::getMyScore() {
   return myScore_;
 }
 
-Move classifyMove(MyMove myMove) {
+Move RockPaperScissors::classifyMove(MyMove myMove) {
   Move move;
 
   switch(myMove) {
@@ -59,7 +58,7 @@ Move classifyMove(MyMove myMove) {
   return move;
 }
 
-Move classifyMove(OpMove opMove) {
+Move RockPaperScissors::classifyMove(OpMove opMove) {
   Move move;
 
   switch(opMove) {
@@ -77,7 +76,7 @@ Move classifyMove(OpMove opMove) {
   return move;
 }
 
-Result classifyGoal(GoalResult goal) {
+Result RockPaperScissors::classifyGoal(GoalResult goal) {
   Result result;
 
   switch(goal) {
@@ -95,7 +94,7 @@ Result classifyGoal(GoalResult goal) {
   return result;
 }
 
-Move findMove(GoalResult goal, Move opMove) {
+Move RockPaperScissors::findMove(GoalResult goal, Move opMove) {
   Move myMove;
 
   switch(goal) {
@@ -145,8 +144,8 @@ int partOne(const std::string fileName) {
   for(std::string line; std::getline(File, line);) {
     pLineChar = strcpy(new char[line.length() + 1], line.c_str());
     sscanf(pLineChar, "%c %c", &opMoveChar, &myMoveChar);
-    myMove = classifyMove(static_cast<MyMove>(myMoveChar));
-    opMove = classifyMove(static_cast<OpMove>(opMoveChar));
+    myMove = RockPaperScissors::classifyMove(static_cast<MyMove>(myMoveChar));
+    opMove = RockPaperScissors::classifyMove(static_cast<OpMove>(opMoveChar));
     rpsGame.addRound(myMove, opMove);
   }
 
@@ -164,7 +163,7 @@ int partTwo(const std::string fileName) {
   for(std::string line; std::getline(File, line);) {
     pLineChar = strcpy(new char[line.length() + 1], line.c_str());
     sscanf(pLineChar, "%c %c", &opMoveChar, &goalChar);
-    opMove = classifyMove(static_cast<OpMove>(opMoveChar));
+    opMove = RockPaperScissors::classifyMove(static_cast<OpMove>(opMoveChar));
     rpsGame.addRound(static_cast<GoalResult>(goalChar), opMove);
   }
 
