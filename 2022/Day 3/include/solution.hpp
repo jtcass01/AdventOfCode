@@ -7,9 +7,7 @@
 #include <map>
 #include <algorithm>
 
-std::map<char, int>gv_PriorityMapping;
-
-gv_PriorityMapping = {{'a', 1},
+std::map<char, int>gv_PriorityMapping = {{'a', 1},
                       {'b', 2},
                       {'c', 3},
                       {'d', 4},
