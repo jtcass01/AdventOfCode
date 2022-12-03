@@ -8,15 +8,19 @@ Rucksack::Rucksack(std::string items) {
 char Rucksack::getCommon() {
   size_t compartmentOneCharCount = 0;
   size_t compartmentTwoCharCount = 0;
+  char commonChar = '\0';
 
   for(auto const & priorityMap : gv_PriorityMapping) {
     compartmentOneCharCount = std::count( compartmentOne_.begin(), compartmentOne_.end(), priorityMap.first );
     compartmentTwoCharCount = std::count( compartmentTwo_.begin(), compartmentTwo_.end(), priorityMap.first );
 
     if (compartmentOneCharCount > 0 && compartmentTwoCharCount > 0) {
-      return priorityMap.first;
+      commonChar = priorityMap.first;
+      break;
     }
   }
+
+  return commonChar;
 }
 
 int partOne(const std::string fileName) {
