@@ -33,8 +33,6 @@ char RucksackGroup::getCommon() {
   size_t rucksackThreeCharCount = 0;
   char commonChar = '\0';
 
-  std::cout << "ruckSacks_[0]: " << ruckSacks_[0] << std::endl << "ruckSacks_[1]: " << ruckSacks_[1] << std::endl<< "ruckSacks_[2]: " << ruckSacks_[2] << std::endl;
-
   for(auto const & priorityMap : gv_PriorityMapping) {
     rucksackOneCharCount = std::count( ruckSacks_[0].begin(), ruckSacks_[0].end(), priorityMap.first );
     rucksackTwoCharCount = std::count( ruckSacks_[1].begin(), ruckSacks_[1].end(), priorityMap.first );
@@ -74,7 +72,6 @@ int partTwo(const std::string fileName) {
   char commonItem = '\0';
 
   for(std::string line; std::getline(File, line);) {
-    std::cout << "Line " << line << " with ruckSacks.size() == " << ruckSacks.size() << std::endl;
     ruckSacks.push_back(line);
 
     if(ruckSacks.size() == 3) {
@@ -105,7 +102,7 @@ int main() {
 
   int partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
-  assert(0 == partTwoResult);
+  assert(2525 == partTwoResult);
 
   return 0;
 }
