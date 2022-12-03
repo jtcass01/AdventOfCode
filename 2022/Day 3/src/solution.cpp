@@ -74,6 +74,7 @@ int partTwo(const std::string fileName) {
   char commonItem = '\0';
 
   for(std::string line; std::getline(File, line);) {
+    std::cout << "Line " << line << " with ruckSacks.size() == " << ruckSacks.size() << std::endl;
     if(ruckSacks.size() < 3) {
       ruckSacks.push_back(line);
     } else {
@@ -83,10 +84,6 @@ int partTwo(const std::string fileName) {
       ruckSacks.clear();
     }
   }
-
-  RucksackGroup ruckSackGroup(ruckSacks);
-  commonItem = ruckSackGroup.getCommon();
-  prioritySum += gv_PriorityMapping[commonItem];
 
   File.close();
 
