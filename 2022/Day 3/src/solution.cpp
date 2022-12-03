@@ -75,7 +75,7 @@ int partTwo(const std::string fileName) {
 
   for(std::string line; std::getline(File, line);) {
     std::cout << "Line " << line << " with ruckSacks.size() == " << ruckSacks.size() << std::endl;
-    if(ruckSacks.size() < 3) {
+    if(ruckSacks.size() < 2) {
       ruckSacks.push_back(line);
     } else {
       RucksackGroup ruckSackGroup(ruckSacks);
