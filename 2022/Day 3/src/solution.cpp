@@ -10,9 +10,12 @@ char Rucksack::getCommon() {
   size_t compartmentTwoCharCount = 0;
   char commonChar = '\0';
 
+  std::cout << "compartmentOne: " << compartmentOne_ << std::endl << "compartmentTwo: " << compartmentTwo_ << std::endl;
+
   for(auto const & priorityMap : gv_PriorityMapping) {
     compartmentOneCharCount = std::count( compartmentOne_.begin(), compartmentOne_.end(), priorityMap.first );
     compartmentTwoCharCount = std::count( compartmentTwo_.begin(), compartmentTwo_.end(), priorityMap.first );
+    std::cout << priorityMap.first << " was found " << compartmentOneCharCount << " in the first compartment and " << compartmentTwoCharCount << " in the second compartment" << std::endl;
 
     if (compartmentOneCharCount > 0 && compartmentTwoCharCount > 0) {
       commonChar = priorityMap.first;
