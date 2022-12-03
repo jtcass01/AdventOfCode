@@ -84,6 +84,10 @@ int partTwo(const std::string fileName) {
     }
   }
 
+  RucksackGroup ruckSackGroup(ruckSacks);
+  commonItem = ruckSackGroup.getCommon();
+  prioritySum += gv_PriorityMapping[commonItem];
+
   File.close();
 
   return prioritySum;
