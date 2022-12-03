@@ -10,14 +10,37 @@ char Rucksack::getCommon() {
   size_t compartmentTwoCharCount = 0;
   char commonChar = '\0';
 
-  std::cout << "compartmentOne: " << compartmentOne_ << std::endl << "compartmentTwo: " << compartmentTwo_ << std::endl;
-
   for(auto const & priorityMap : gv_PriorityMapping) {
     compartmentOneCharCount = std::count( compartmentOne_.begin(), compartmentOne_.end(), priorityMap.first );
     compartmentTwoCharCount = std::count( compartmentTwo_.begin(), compartmentTwo_.end(), priorityMap.first );
-    std::cout << priorityMap.first << " was found " << compartmentOneCharCount << " in the first compartment and " << compartmentTwoCharCount << " in the second compartment" << std::endl;
 
     if (compartmentOneCharCount > 0 && compartmentTwoCharCount > 0) {
+      commonChar = priorityMap.first;
+      break;
+    }
+  }
+
+  return commonChar;
+}
+
+RucksackGroup::RucksackGroup(std::vector<std::string> ruckSacks) {
+  ruckSacks_.assign(ruckSacks.begin(), ruckSacks.end());
+}
+
+char RucksackGroup::getCommon() {
+  size_t rucksackOneCharCount = 0;
+  size_t rucksackTwoCharCount = 0;
+  size_t rucksackThreeCharCount = 0;
+  char commonChar = '\0';
+
+  std::cout << "rucksackOneCharCount: " << rucksackOneCharCount << std::endl << "rucksackTwoCharCount: " << rucksackTwoCharCount << std::endl<< "rucksackThreeCharCount: " << rucksackThreeCharCount << std::endl;
+
+  for(auto const & priorityMap : gv_PriorityMapping) {
+    rucksackOneCharCount = std::count( ruckSacks_[0].begin(), ruckSacks_[0].end(), priorityMap.first );
+    rucksackTwoCharCount = std::count( ruckSacks_[1].begin(), ruckSacks_[1].end(), priorityMap.first );
+    rucksackThreeCharCount = std::count( ruckSacks_[2].begin(), ruckSacks_[2].end(), priorityMap.first );
+
+    if (rucksackOneCharCount > 0 && rucksackTwoCharCount > 0 && rucksackThreeCharCount > 0) {
       commonChar = priorityMap.first;
       break;
     }
@@ -46,13 +69,19 @@ int partOne(const std::string fileName) {
 int partTwo(const std::string fileName) {
   std::cout << "Part 2: " << fileName << std::endl;
   std::ifstream File(fileName, std::fstream::in);
+  std::vector<std::string> ruckSacks;
   int prioritySum = 0;
   char commonItem = '\0';
 
   for(std::string line; std::getline(File, line);) {
-    Rucksack rucksack(line);
-    commonItem = rucksack.getCommon();
-    prioritySum += gv_PriorityMapping[commonItem];
+    if(ruckSacks.size() < 3) {
+      ruckSacks.push_back(line);
+    } else {
+      RucksackGroup ruckSackGroup(ruckSacks);
+      commonItem = ruckSackGroup.getCommon();
+      prioritySum += gv_PriorityMapping[commonItem];
+      ruckSacks.clear();
+    }
   }
 
   File.close();
@@ -67,11 +96,11 @@ int main() {
 
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
-  assert(0 == partOneResult);
+  assert(7581 == partOneResult);
 
   int examplePartTwoResult = partTwo("example.txt");
   std::cout << "Part Two Example Result: " << examplePartTwoResult << std::endl;
-  assert(0 == examplePartTwoResult);
+  assert(70 == examplePartTwoResult);
 
   int partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;

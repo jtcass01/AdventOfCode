@@ -6,6 +6,7 @@
 #include <cstring>
 #include <map>
 #include <algorithm>
+#include <vector>
 
 std::map<char, int>gv_PriorityMapping = {{'a', 1},
                       {'b', 2},
@@ -73,4 +74,14 @@ class Rucksack {
     private:
         std::string compartmentOne_;
         std::string compartmentTwo_;
+};
+
+class RucksackGroup {
+    public:
+        RucksackGroup(std::vector<std::string> ruckSacks);
+
+        char getCommon();
+
+    private:
+        std::vector<std::string> ruckSacks_;
 };
