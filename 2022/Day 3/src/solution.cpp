@@ -33,7 +33,7 @@ char RucksackGroup::getCommon() {
   size_t rucksackThreeCharCount = 0;
   char commonChar = '\0';
 
-  std::cout << "rucksackOneCharCount: " << rucksackOneCharCount << std::endl << "rucksackTwoCharCount: " << rucksackTwoCharCount << std::endl<< "rucksackThreeCharCount: " << rucksackThreeCharCount << std::endl;
+  std::cout << "ruckSacks_[0]: " << ruckSacks_[0] << std::endl << "ruckSacks_[1]: " << ruckSacks_[1] << std::endl<< "ruckSacks_[2]: " << ruckSacks_[2] << std::endl;
 
   for(auto const & priorityMap : gv_PriorityMapping) {
     rucksackOneCharCount = std::count( ruckSacks_[0].begin(), ruckSacks_[0].end(), priorityMap.first );
