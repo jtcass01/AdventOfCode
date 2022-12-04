@@ -9,7 +9,7 @@ char getCommon(std::vector<std::string> itemContainers) {
     std::cout << "itemContainers: (";
     for(std::string itemContainer : itemContainers) {
       std::cout << itemContainer << ", ";
-      itemCounts.push_back(std::count(itemContainer.begin(),
+      itemCounts.emplace_back(std::count(itemContainer.begin(),
                                       itemContainer.end(),
                                       priorityMap.first));
     }
