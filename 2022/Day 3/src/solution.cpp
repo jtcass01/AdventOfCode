@@ -7,6 +7,7 @@ char getCommon(std::vector<std::string> itemContainers) {
 
   for(auto const & priorityMap : gv_PriorityMapping) {
     for(std::string itemContainer : itemContainers) {
+      std::cout << "Item container: " << itemContainer << std::endl;
       itemCounts.push_back(std::count(itemContainer.begin(),
                                       itemContainer.end(),
                                       priorityMap.first));
