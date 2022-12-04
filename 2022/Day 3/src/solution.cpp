@@ -2,16 +2,16 @@
 
 char getCommon(std::vector<std::string> itemContainers) {
   std::vector<size_t> itemCounts;
+  size_t itemCount = 0;
   char commonChar = '\0';
   bool missingItem = false;
 
   for(auto const & priorityMap : gv_PriorityMapping) {
     std::cout << "itemContainers: (";
     for(std::string itemContainer : itemContainers) {
-      std::cout << itemContainer << ", ";
-      itemCounts.emplace_back(std::count(itemContainer.begin(),
-                                      itemContainer.end(),
-                                      priorityMap.first));
+      std::cout << itemContainer;
+      itemCount = std::count(itemContainer.begin(), itemContainer.end(), priorityMap.first);
+      std::cout << "[" << itemCount << "] " << ", ";
     }
     std::cout << ")" << std::endl;
 
