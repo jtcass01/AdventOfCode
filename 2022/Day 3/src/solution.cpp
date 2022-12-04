@@ -1,30 +1,21 @@
 #include "../include/solution.hpp"
 
 char getCommon(std::vector<std::string> itemContainers) {
-  std::vector<size_t> itemCounts;
   size_t itemCount = 0;
   char commonChar = '\0';
   bool missingItem = false;
 
   for(auto const & priorityMap : gv_PriorityMapping) {
-    std::cout << "itemContainers: (";
     for(std::string itemContainer : itemContainers) {
-      std::cout << itemContainer;
       itemCount = std::count(itemContainer.begin(), itemContainer.end(), priorityMap.first);
-      itemCounts.push_back(itemCount);
 
       if(itemCount == 0) {
         missingItem = true;
-        std::cout << ")" << std::endl;
-        std::cout << "Char not found: " << priorityMap.first << std::endl;
         break;
       }
-      std::cout << "[" << itemCount << "] " << ", ";
     }
 
     if(!missingItem) {
-      std::cout << ")" << std::endl;
-      std::cout << "Char found in both: " << priorityMap.first << std::endl;
       commonChar = priorityMap.first;
       break;
     }
