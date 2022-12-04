@@ -62,7 +62,7 @@ int partTwo(const std::string fileName) {
 int main() {
   int examplePartOneResult = partOne("example.txt");
   std::cout << "Part One Example Result: " << examplePartOneResult << std::endl;
-  assert(0 == examplePartOneResult);
+  assert(2 == examplePartOneResult);
 
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
