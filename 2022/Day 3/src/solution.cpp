@@ -20,7 +20,6 @@ char getCommon(std::vector<std::string> itemContainers) {
       std::cout << itemCount << ", ";
       if(itemCount == 0) {
         missingItem = true;
-        std::cout << priorityMap.first << std::endl;
         break;
       }
     }
