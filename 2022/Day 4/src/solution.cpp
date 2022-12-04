@@ -1,7 +1,7 @@
 #include "../include/solution.hpp"
 
 CleanUpTasks::CleanUpTasks(int sectionStart, int sectionStop) : sections_(sectionStop-sectionStart+1) {
-  std::iota(sections_.begin(), sections_.end(), sectionStart)
+  std::iota(sections_.begin(), sections_.end(), sectionStart);
 }
 
 std::vector<int> CleanUpTasks::getSections() {
