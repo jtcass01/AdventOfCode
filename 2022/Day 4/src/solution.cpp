@@ -57,8 +57,8 @@ int partOne(const std::string fileName) {
   return subsetCount;
 }
 
-int partOne(const std::string fileName) {
-  std::cout << "Part 1: " << fileName << std::endl;
+int partTwo(const std::string fileName) {
+  std::cout << "Part 2: " << fileName << std::endl;
   std::ifstream File(fileName, std::fstream::in);
   char *pLineChar = nullptr;
   int subsetCount = 0;
