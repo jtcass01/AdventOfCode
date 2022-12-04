@@ -11,17 +11,8 @@ char getCommon(std::vector<std::string> itemContainers) {
     for(std::string itemContainer : itemContainers) {
       std::cout << itemContainer;
       itemCount = std::count(itemContainer.begin(), itemContainer.end(), priorityMap.first);
+      itemCounts.push_back(itemCount);
       std::cout << "[" << itemCount << "] " << ", ";
-    }
-    std::cout << ")" << std::endl;
-
-    std::cout << "Char item counts: (";
-    for (size_t itemCount : itemCounts) {
-      std::cout << itemCount << ", ";
-      if(itemCount == 0) {
-        missingItem = true;
-        break;
-      }
     }
     std::cout << ")" << std::endl;
 
