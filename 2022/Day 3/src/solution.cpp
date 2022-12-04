@@ -12,19 +12,18 @@ char getCommon(std::vector<std::string> itemContainers) {
       std::cout << itemContainer;
       itemCount = std::count(itemContainer.begin(), itemContainer.end(), priorityMap.first);
       itemCounts.push_back(itemCount);
-      std::cout << "[" << itemCount << "] " << ", ";
-    }
-    std::cout << ")" << std::endl;
 
-    for (size_t itemCount : itemCounts) {
       if(itemCount == 0) {
         missingItem = true;
+        std::cout << ")" << std::endl;
         std::cout << "Char not found: " << priorityMap.first << std::endl;
         break;
       }
+      std::cout << "[" << itemCount << "] " << ", ";
     }
 
     if(!missingItem) {
+      std::cout << ")" << std::endl;
       std::cout << "Char found in both: " << priorityMap.first << std::endl;
       commonChar = priorityMap.first;
       break;
