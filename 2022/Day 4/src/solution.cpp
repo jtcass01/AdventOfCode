@@ -14,6 +14,21 @@ bool CleanUpTasks::contains(CleanUpTasks otherCleanUpTasks) {
                        otherSections.begin(), otherSections.end());
 }
 
+bool CleanUpTasks::containsAny(CleanUpTasks otherCleanUpTasks) {
+  std::vector<int> otherSections = otherCleanUpTasks.getSections();
+  std::vector<int>::iterator sectionsIterator = sections_.begin();
+
+  for(int section : otherSections) {
+    sectionsIterator = std::find(sections_.begin(), sections_.end(), section);
+    if(sectionsIterator == sections_.end()) {
+      sectionsIterator = sections_.begin();
+    } else {
+      return true;
+    }
+  }
+  return false;
+}
+
 
 int partOne(const std::string fileName) {
   std::cout << "Part 1: " << fileName << std::endl;
@@ -43,20 +58,32 @@ int partOne(const std::string fileName) {
   return subsetCount;
 }
 
-int partTwo(const std::string fileName) {
-  std::cout << "Part 2: " << fileName << std::endl;
+int partOne(const std::string fileName) {
+  std::cout << "Part 1: " << fileName << std::endl;
   std::ifstream File(fileName, std::fstream::in);
   char *pLineChar = nullptr;
+  int subsetCount = 0;
+  int sectionOneStart = 0;
+  int sectionOneStop = 0;
+  int sectionTwoStart = 0;
+  int sectionTwoStop = 0;
 
   for(std::string line; std::getline(File, line);) {
     std::cout << line << std::endl;
     pLineChar = strcpy(new char[line.length() + 1], line.c_str());
-    //sscanf(pLineChar, "");
+    sscanf(pLineChar, "%d-%d,%d-%d", &sectionOneStart, &sectionOneStop,
+                                     &sectionTwoStart, &sectionTwoStop);
+    CleanUpTasks sectionOne(sectionOneStart, sectionOneStop);
+    CleanUpTasks sectionTwo(sectionTwoStart, sectionTwoStop);
+
+    if(sectionOne.containsAny(sectionTwo) || sectionTwo.containsAny(sectionOne)) {
+      subsetCount += 1;
+    }
   }
 
   File.close();
 
-  return 0;
+  return subsetCount;
 }
 
 int main() {
@@ -66,11 +93,11 @@ int main() {
 
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
-  assert(0 == partOneResult);
+  assert(580 == partOneResult);
 
   int examplePartTwoResult = partTwo("example.txt");
   std::cout << "Part Two Example Result: " << examplePartTwoResult << std::endl;
-  assert(0 == examplePartTwoResult);
+  assert(4 == examplePartTwoResult);
 
   int partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;

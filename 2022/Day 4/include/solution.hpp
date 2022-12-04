@@ -18,6 +18,7 @@ class CleanUpTasks {
         CleanUpTasks(int sectionStart, int sectionStop);
 
         bool contains(CleanUpTasks otherCleanUpTasks);
+        bool containsAny(CleanUpTasks otherCleanUpTasks);
 
         std::vector<int> getSections();
 
