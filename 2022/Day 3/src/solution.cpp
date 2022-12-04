@@ -6,11 +6,25 @@ char getCommon(std::vector<std::string> itemContainers) {
   bool missingItem = false;
 
   for(auto const & priorityMap : gv_PriorityMapping) {
+    std::cout << "itemContainers: (";
     for(std::string itemContainer : itemContainers) {
+      std::cout << itemContainer << ", ";
       itemCounts.push_back(std::count(itemContainer.begin(),
                                       itemContainer.end(),
                                       priorityMap.first));
     }
+    std::cout << ")" << std::endl;
+
+    std::cout << "Char item counts: (";
+    for (size_t itemCount : itemCounts) {
+      std::cout << itemCount << ", ";
+      if(itemCount == 0) {
+        missingItem = true;
+        std::cout << priorityMap.first << std::endl;
+        break;
+      }
+    }
+    std::cout << ")" << std::endl;
 
     for (size_t itemCount : itemCounts) {
       if(itemCount == 0) {
