@@ -41,7 +41,6 @@ int partOne(const std::string fileName) {
   int sectionTwoStop = 0;
 
   for(std::string line; std::getline(File, line);) {
-    std::cout << line << std::endl;
     pLineChar = strcpy(new char[line.length() + 1], line.c_str());
     sscanf(pLineChar, "%d-%d,%d-%d", &sectionOneStart, &sectionOneStop,
                                      &sectionTwoStart, &sectionTwoStop);
