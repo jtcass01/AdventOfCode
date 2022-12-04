@@ -1,50 +1,46 @@
 #include "../include/solution.hpp"
 
-Rucksack::Rucksack(std::string items) {
-  compartmentOne_ = items.substr(0, items.length()/2);
-  compartmentTwo_ = items.substr(items.length()/2);
-}
-
-char Rucksack::getCommon() {
-  size_t compartmentOneCharCount = 0;
-  size_t compartmentTwoCharCount = 0;
+char getCommon(std::vector<std::string> itemContainers) {
+  std::vector<size_t> itemCounts;
   char commonChar = '\0';
+  bool missingItem = false;
 
   for(auto const & priorityMap : gv_PriorityMapping) {
-    compartmentOneCharCount = std::count( compartmentOne_.begin(), compartmentOne_.end(), priorityMap.first );
-    compartmentTwoCharCount = std::count( compartmentTwo_.begin(), compartmentTwo_.end(), priorityMap.first );
+    for(std::string itemContainer : itemContainers) {
+      itemCounts.push_back(std::count(itemContainer.begin(),
+                                      itemContainer.end(),
+                                      priorityMap.first));
+    }
 
-    if (compartmentOneCharCount > 0 && compartmentTwoCharCount > 0) {
+    for (size_t itemCount : itemCounts) {
+      if(itemCount == 0) {
+        missingItem = true;
+        break;
+      }
+    }
+
+    if(!missingItem) {
       commonChar = priorityMap.first;
       break;
     }
+
+    missingItem = false;
   }
 
   return commonChar;
 }
 
-RucksackGroup::RucksackGroup(std::vector<std::string> ruckSacks) {
-  ruckSacks_.assign(ruckSacks.begin(), ruckSacks.end());
+Items::Items(std::string items) {
+  compartments_.push_back(items.substr(0, items.length()/2));
+  compartments_.push_back(items.substr(items.length()/2));
 }
 
-char RucksackGroup::getCommon() {
-  size_t rucksackOneCharCount = 0;
-  size_t rucksackTwoCharCount = 0;
-  size_t rucksackThreeCharCount = 0;
-  char commonChar = '\0';
+Items::Items(std::vector<std::string> ruckSacks) {
+  compartments_.assign(ruckSacks.begin(), ruckSacks.end());
+}
 
-  for(auto const & priorityMap : gv_PriorityMapping) {
-    rucksackOneCharCount = std::count( ruckSacks_[0].begin(), ruckSacks_[0].end(), priorityMap.first );
-    rucksackTwoCharCount = std::count( ruckSacks_[1].begin(), ruckSacks_[1].end(), priorityMap.first );
-    rucksackThreeCharCount = std::count( ruckSacks_[2].begin(), ruckSacks_[2].end(), priorityMap.first );
-
-    if (rucksackOneCharCount > 0 && rucksackTwoCharCount > 0 && rucksackThreeCharCount > 0) {
-      commonChar = priorityMap.first;
-      break;
-    }
-  }
-
-  return commonChar;
+char Items::getCommonItem() {
+  return getCommon(compartments_);
 }
 
 int partOne(const std::string fileName) {
@@ -54,8 +50,8 @@ int partOne(const std::string fileName) {
   char commonItem = '\0';
 
   for(std::string line; std::getline(File, line);) {
-    Rucksack rucksack(line);
-    commonItem = rucksack.getCommon();
+    Items item(line);
+    commonItem = item.getCommonItem();
     prioritySum += gv_PriorityMapping[commonItem];
   }
 
@@ -75,8 +71,8 @@ int partTwo(const std::string fileName) {
     ruckSacks.push_back(line);
 
     if(ruckSacks.size() == 3) {
-      RucksackGroup ruckSackGroup(ruckSacks);
-      commonItem = ruckSackGroup.getCommon();
+      Items item(ruckSacks);
+      commonItem = item.getCommonItem();
       prioritySum += gv_PriorityMapping[commonItem];
       ruckSacks.clear();
     }

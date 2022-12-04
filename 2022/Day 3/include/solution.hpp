@@ -61,27 +61,19 @@ std::map<char, int>gv_PriorityMapping = {{'a', 1},
                       {'Y', 51},
                       {'Z', 52}};
 
+char getCommon(std::vector<std::string>);
+
+class Items {
+    public:
+        Items(std::string items);
+        Items(std::vector<std::string> ruckSacks);
+
+        char getCommonItem();
+
+    private:
+        std::vector<std::string> compartments_;
+};
+
 int partOne(const std::string fileName);
 
 int partTwo(const std::string fileName);
-
-class Rucksack {
-    public:
-        Rucksack(std::string items);
-
-        char getCommon();
-
-    private:
-        std::string compartmentOne_;
-        std::string compartmentTwo_;
-};
-
-class RucksackGroup {
-    public:
-        RucksackGroup(std::vector<std::string> ruckSacks);
-
-        char getCommon();
-
-    private:
-        std::vector<std::string> ruckSacks_;
-};
