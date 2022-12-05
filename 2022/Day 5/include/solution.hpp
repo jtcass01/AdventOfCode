@@ -22,6 +22,8 @@ class SupplyStacks {
 
         void printCrateStacks();
 
+        void move(int crateCount, int createSource, int createDestination);
+
         void performRearrangementProcedure();
 
         std::string getTallestCrates();

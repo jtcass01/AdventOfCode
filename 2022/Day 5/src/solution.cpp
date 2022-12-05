@@ -59,8 +59,6 @@ void SupplyStacks::initializeStacks(int stackCount) {
     }
   }
 
-  printCrateStacks();
-
   File.close();
 }
 
@@ -72,8 +70,33 @@ int SupplyStacks::convertStringIndexToStackIndex(int stringIndex) {
   return ((stringIndex-1)/4)+1;
 }
 
-void SupplyStacks::performRearrangementProcedure() {
+void SupplyStacks::move(int crateCount, int crateSource, int createDestination) {
+  char crateToMove = '\0';
 
+  for(int crateIndex = 0; crateIndex < crateCount; crateIndex++) {
+    crateToMove = crateStacks_[crateSource].at(0);
+    crateStacks_[crateSource].erase(crateStacks_[crateSource].begin());
+    crateStacks_[createDestination].insert(crateStacks_[createDestination].begin(), crateToMove);
+  }
+}
+
+void SupplyStacks::performRearrangementProcedure() {
+  std::ifstream File(fileName_, std::fstream::in);
+  char *pLineChar = nullptr;
+  int crateCount = 0;
+  int crateSource = 0;
+  int crateDestination = 0;
+
+  for(std::string line; std::getline(File, line);) {
+    if(line.find("move") != std::string::npos) {
+      pLineChar = strcpy(new char[line.length() + 1], line.c_str());
+      // stack def linek
+      sscanf(pLineChar, "move %i from %i to %i", &crateCount, &crateSource, &crateDestination);
+      move(crateCount, crateSource, crateDestination);
+    }
+  }
+
+  File.close();
 }
 
 std::string SupplyStacks::getTallestCrates() {
@@ -96,6 +119,7 @@ std::string partOne(const std::string fileName) {
   std::cout << "Part 1: " << fileName << std::endl;
   SupplyStacks supplyStacks(fileName);
   supplyStacks.performRearrangementProcedure();
+  supplyStacks.printCrateStacks();
   return supplyStacks.getTallestCrates();
 }
 
