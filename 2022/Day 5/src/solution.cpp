@@ -156,9 +156,9 @@ int main() {
   std::cout << "Part One Example Result: " << examplePartOneResult << std::endl;
   assert(examplePartOneResult.compare("CMZ") == 0);
 
-  // std::string partOneResult = partOne("input.txt");
-  // std::cout << "Part One Input Result: " << partOneResult << std::endl;
-  // assert(partOneResult.compare("") == 0);
+  std::string partOneResult = partOne("input.txt");
+  std::cout << "Part One Input Result: " << partOneResult << std::endl;
+  assert(partOneResult.compare("") == 0);
 
   int examplePartTwoResult = partTwo("example.txt");
   std::cout << "Part Two Example Result: " << examplePartTwoResult << std::endl;
