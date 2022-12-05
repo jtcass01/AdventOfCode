@@ -84,7 +84,7 @@ std::string SupplyStacks::getTallestCrates() {
 void SupplyStacks::printCrateStacks() {
   // Loop through the mapping and print the keys and values
   for (auto it = crateStacks_.begin(); it != crateStacks_.end(); ++it) {
-    std::cout << it->first << ": ";
+    std::cout << it->first << "(" << it->second.size() << "): ";
     for (const auto &val : it->second) {
       std::cout << val << " ";
     }
