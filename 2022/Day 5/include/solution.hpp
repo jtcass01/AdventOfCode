@@ -19,7 +19,7 @@ std::string partTwo(const std::string fileName);
 enum CRATE_MOVER_MODEL {
     CM_9000 = 0,
     CM_9001 = 1
-}
+};
 
 class SupplyStacks {
     public:
