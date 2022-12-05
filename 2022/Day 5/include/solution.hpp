@@ -14,11 +14,16 @@ void printVector(std::vector<int> vec);
 
 std::string partOne(const std::string fileName);
 
-int partTwo(const std::string fileName);
+std::string partTwo(const std::string fileName);
+
+enum CRATE_MOVER_MODEL {
+    CM_9000 = 0,
+    CM_9001 = 1
+}
 
 class SupplyStacks {
     public:
-        SupplyStacks(const std::string fileName);
+        SupplyStacks(const std::string fileName, CRATE_MOVER_MODEL crateMoverModel);
 
         void printCrateStacks();
 
@@ -37,4 +42,5 @@ class SupplyStacks {
 
         const std::string fileName_;
         std::unordered_map<int, std::vector<char>> crateStacks_;
+        CRATE_MOVER_MODEL crateMoverModel_;
 };
