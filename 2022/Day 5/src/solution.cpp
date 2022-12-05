@@ -8,14 +8,13 @@ SupplyStacks::SupplyStacks(const std::string fileName) : fileName_(fileName) {
 
 int SupplyStacks::determineStackCount() {
   std::ifstream File(fileName_, std::fstream::in);
-  std::istream_iterator<std::string> fileIterator(File);
   char *pLineChar = nullptr;
   size_t stackCountStart = 0;
   int stackIndex = 0;
   std::stringstream countStream;
   std::string nextCount = " 1 ";
 
-  for(std::string line; fileIterator != std::istream_iterator<std::string>() && std::getline(fileIterator, line);) {
+  for(std::string line; std::getline(File, line);) {
     stackCountStart = line.find(nextCount);
 
     while(stackCountStart != std::string::npos) {
@@ -23,6 +22,10 @@ int SupplyStacks::determineStackCount() {
       countStream << " " << stackIndex << " ";
       stackCountStart = line.find(countStream.str());
       countStream.str("");
+    }
+
+    if(stackIndex > 0) {
+      break;
     }
   }
 

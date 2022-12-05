@@ -8,7 +8,6 @@
 #include <cstring>
 #include <vector>
 #include <unordered_map>
-#include <iterator>
 
 // Function to print the elements of a vector; Written entirely by ChatGPT.
 void printVector(std::vector<int> vec);
