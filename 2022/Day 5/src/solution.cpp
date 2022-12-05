@@ -52,6 +52,7 @@ void SupplyStacks::initializeStacks(int stackCount) {
       break;
     } else {
       for(int lineIndex = 0; lineIndex < line.size(); lineIndex++) {
+        std::cout << lineIndex << ": " << line[lineIndex] << std::endl;
         if(isalpha(line[lineIndex])) {
           std::cout << "alpha found: " << line[lineIndex] << std::endl;
           stackIndex = convertStringIndexToStackIndex(lineIndex);
