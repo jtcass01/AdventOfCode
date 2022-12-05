@@ -87,6 +87,7 @@ void SupplyStacks::performRearrangementProcedure() {
   int crateSource = 0;
   int crateDestination = 0;
 
+  printCrateStacks();
   for(std::string line; std::getline(File, line);) {
     if(line.find("move") != std::string::npos) {
       pLineChar = strcpy(new char[line.length() + 1], line.c_str());
