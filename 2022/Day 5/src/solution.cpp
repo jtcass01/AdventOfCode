@@ -3,7 +3,6 @@
 SupplyStacks::SupplyStacks(const std::string fileName, CRATE_MOVER_MODEL crateMoverModel) : fileName_(fileName) {
   crateMoverModel_ = crateMoverModel;
   int stackCount = determineStackCount();
-  std::cout << "stackCount: " << stackCount << std::endl;
   initializeStacks(stackCount);
 }
 
@@ -99,7 +98,6 @@ void SupplyStacks::performRearrangementProcedure() {
   int crateSource = 0;
   int crateDestination = 0;
 
-  printCrateStacks();
   for(std::string line; std::getline(File, line);) {
     if(line.find("move") != std::string::npos) {
       pLineChar = strcpy(new char[line.length() + 1], line.c_str());
