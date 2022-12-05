@@ -36,10 +36,10 @@ int SupplyStacks::determineStackCount() {
 
 void SupplyStacks::initializeStacks(int stackCount) {
   std::ifstream File(fileName_, std::fstream::in);
-  int stackIndex = 0;
+  int stackIndex = 1;
 
   // Initialize empty crate stacks
-  for(; stackIndex < stackCount; stackIndex++) {
+  for(; stackIndex <= stackCount; stackIndex++) {
     crateStacks_.insert(std::make_pair(stackIndex, std::vector<char>{'\0'}));
   }
 
@@ -52,6 +52,7 @@ void SupplyStacks::initializeStacks(int stackCount) {
     } else {
       for(int lineIndex = 0; lineIndex < line.size(); lineIndex++) {
         if(isalpha(line[lineIndex])) {
+          std::cout << "alpha found: " << line[lineIndex] << std::endl;
           stackIndex = convertStringIndexToStackIndex(lineIndex);
           crateStacks_[stackIndex].push_back(line[lineIndex]); 
         }
