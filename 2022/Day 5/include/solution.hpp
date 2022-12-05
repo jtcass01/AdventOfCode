@@ -20,6 +20,8 @@ class SupplyStacks {
     public:
         SupplyStacks(const std::string fileName);
 
+        void printCrateStacks();
+
         void performRearrangementProcedure();
 
         std::string getTallestCrates();
@@ -28,6 +30,8 @@ class SupplyStacks {
         int determineStackCount();
 
         void initializeStacks(int stackCount);
+
+        int convertStringIndexToStackIndex(int stringIndex);
 
         const std::string fileName_;
         std::unordered_map<int, std::vector<char>> crateStacks_;
