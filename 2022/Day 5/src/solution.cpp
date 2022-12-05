@@ -46,16 +46,12 @@ void SupplyStacks::initializeStacks(int stackCount) {
   stackIndex = 0;
   // Parse file filling in initial positions of crate stacks
   for(std::string line; std::getline(File, line);) {
-    std::cout << "line: " << line << std::endl;
     if(line.find(" 1 ") != std::string::npos) {
-      std::cout << "Initial positions done parsing" << std::endl;
       // stack def line
       break;
     } else {
       for(int lineIndex = 0; lineIndex < line.size(); lineIndex++) {
-        std::cout << lineIndex << ": " << line[lineIndex] << std::endl;
         if(isalpha(line[lineIndex])) {
-          std::cout << "alpha found: " << line[lineIndex] << std::endl;
           stackIndex = convertStringIndexToStackIndex(lineIndex);
           crateStacks_[stackIndex].push_back(line[lineIndex]); 
         }
