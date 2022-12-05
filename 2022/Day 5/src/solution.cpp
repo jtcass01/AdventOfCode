@@ -39,9 +39,9 @@ void SupplyStacks::initializeStacks(int stackCount) {
   int stackIndex = 1;
 
   // Initialize empty crate stacks
-  for(; stackIndex <= stackCount; stackIndex++) {
-    crateStacks_.insert(std::make_pair(stackIndex, std::vector<char>{'\0'}));
-  }
+  // for(; stackIndex <= stackCount; stackIndex++) {
+  //   crateStacks_.insert(std::make_pair(stackIndex, std::vector<char>{'\0'}));
+  // }
 
   stackIndex = 0;
   // Parse file filling in initial positions of crate stacks
@@ -53,7 +53,12 @@ void SupplyStacks::initializeStacks(int stackCount) {
       for(int lineIndex = 0; lineIndex < line.size(); lineIndex++) {
         if(isalpha(line[lineIndex])) {
           stackIndex = convertStringIndexToStackIndex(lineIndex);
-          crateStacks_[stackIndex].push_back(line[lineIndex]); 
+
+          if(crateStacks_.count(stackIndex) == 0) {
+            crateStacks_.insert(std::make_pair(stackIndex, std::vector<char>{line[lineIndex]}));
+          } else {
+            crateStacks_[stackIndex].push_back(line[lineIndex]); 
+          }
         }
       }
     }
