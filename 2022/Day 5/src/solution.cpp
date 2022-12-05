@@ -46,6 +46,7 @@ void SupplyStacks::initializeStacks(int stackCount) {
   stackIndex = 0;
   // Parse file filling in initial positions of crate stacks
   for(std::string line; std::getline(File, line);) {
+    std::cout << "line: " << line << std::endl;
     if(line.find(" 1 ") == std::string::npos) {
       // stack def line
       break;
