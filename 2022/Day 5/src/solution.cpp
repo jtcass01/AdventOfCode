@@ -83,7 +83,7 @@ void SupplyStacks::move(int crateCount, int crateSource, int createDestination) 
       }
       break;
     case CRATE_MOVER_MODEL::CM_9001:
-      for(int crateIndex = crateStacks_[crateSource].size()-crateCount; crateIndex < crateStacks_[crateSource].size(); crateIndex++) {
+      for(int crateIndex = crateCount-1; crateIndex > 0; crateIndex--) {
         crateToMove = crateStacks_[crateSource].at(crateIndex);
         crateStacks_[crateSource].erase(crateStacks_[crateSource].begin()+crateIndex);
         crateStacks_[createDestination].insert(crateStacks_[createDestination].begin(), crateToMove);
