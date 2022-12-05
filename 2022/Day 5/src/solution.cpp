@@ -106,12 +106,12 @@ void SupplyStacks::performRearrangementProcedure() {
 std::string SupplyStacks::getTallestCrates() {
   std::stringstream tallestCrates;
 
-  for (auto it = crateStacks_.begin(); it != crateStacks_.end(); ++it) {
-    if(it->second.size() != 0) {
-      tallestCrates << it->second.at(0);
+  for (int stackIndex = 1; stackIndex <= crateStacks_.size(); stackIndex++) {
+    if(crateStacks_[stackIndex].size() != 0) {
+      tallestCrates << crateStacks_[stackIndex].at(0);
     }
   }
-  
+
   return tallestCrates.str();
 }
 
