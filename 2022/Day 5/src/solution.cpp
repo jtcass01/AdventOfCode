@@ -37,9 +37,8 @@ int SupplyStacks::determineStackCount() {
 
 void SupplyStacks::initializeStacks(int stackCount) {
   std::ifstream File(fileName_, std::fstream::in);
-  int stackIndex = 1;
+  int stackIndex = 0;
 
-  stackIndex = 0;
   // Parse file filling in initial positions of crate stacks
   for(std::string line; std::getline(File, line);) {
     if(line.find(" 1 ") != std::string::npos) {
@@ -84,9 +83,7 @@ void SupplyStacks::move(int crateCount, int crateSource, int createDestination) 
       break;
     case CRATE_MOVER_MODEL::CM_9001:
       for(int crateIndex = crateCount-1; crateIndex >= 0; crateIndex--) {
-        std::cout << "crateIndex = " << crateIndex;
         crateToMove = crateStacks_[crateSource].at(crateIndex);
-        std::cout << "\tcrateToMove = " << crateToMove << std::endl;
         crateStacks_[crateSource].erase(crateStacks_[crateSource].begin()+crateIndex);
         crateStacks_[createDestination].insert(crateStacks_[createDestination].begin(), crateToMove);
       }
@@ -108,9 +105,6 @@ void SupplyStacks::performRearrangementProcedure() {
       pLineChar = strcpy(new char[line.length() + 1], line.c_str());
       sscanf(pLineChar, "move %i from %i to %i", &crateCount, &crateSource, &crateDestination);
       move(crateCount, crateSource, crateDestination);
-
-      std::cout << "Line: " << line << std::endl;
-      printCrateStacks();
     }
   }
 
@@ -145,7 +139,6 @@ std::string partOne(const std::string fileName) {
   std::cout << "Part 1: " << fileName << std::endl;
   SupplyStacks supplyStacks(fileName, CRATE_MOVER_MODEL::CM_9000);
   supplyStacks.performRearrangementProcedure();
-  supplyStacks.printCrateStacks();
   return supplyStacks.getTallestCrates();
 }
 
@@ -153,7 +146,6 @@ std::string partTwo(const std::string fileName) {
   std::cout << "Part 2: " << fileName << std::endl;
   SupplyStacks supplyStacks(fileName, CRATE_MOVER_MODEL::CM_9001);
   supplyStacks.performRearrangementProcedure();
-  supplyStacks.printCrateStacks();
   return supplyStacks.getTallestCrates();
 }
 
@@ -172,7 +164,7 @@ int main() {
 
   std::string partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
-  assert(partTwoResult.compare("") == 0);
+  assert(partTwoResult.compare("DCVTCVPCL") == 0);
 
   return 0;
 }
