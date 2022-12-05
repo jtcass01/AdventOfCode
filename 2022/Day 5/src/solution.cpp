@@ -48,6 +48,7 @@ void SupplyStacks::initializeStacks(int stackCount) {
   for(std::string line; std::getline(File, line);) {
     std::cout << "line: " << line << std::endl;
     if(line.find(" 1 ") == std::string::npos) {
+      std::cout << "Initial positions done parsing" << std::endl;
       // stack def line
       break;
     } else {
