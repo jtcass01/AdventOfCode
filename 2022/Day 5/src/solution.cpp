@@ -91,8 +91,11 @@ void SupplyStacks::performRearrangementProcedure() {
     if(line.find("move") != std::string::npos) {
       pLineChar = strcpy(new char[line.length() + 1], line.c_str());
       // stack def linek
+      std::cout << "Line: " << line << std::endl;
       sscanf(pLineChar, "move %i from %i to %i", &crateCount, &crateSource, &crateDestination);
       move(crateCount, crateSource, crateDestination);
+
+      printCrateStacks();
     }
   }
 
