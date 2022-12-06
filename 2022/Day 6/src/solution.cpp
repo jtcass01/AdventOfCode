@@ -12,10 +12,7 @@ int CommunicationDevice::findStartMarkerIndex(int markerSize) {
   int lineIndex = 0;
 
   for(; lineIndex < line.size(); lineIndex++) {
-    std::cout << "Character: " << line[lineIndex] << std::endl;
     if(std::find(marker.begin(), marker.end(), line[lineIndex]) != marker.end()) {
-      std::cout << "Found inside marker vector: " << line[lineIndex];
-      printVector(marker);
       while(std::find(marker.begin(), marker.end(), line[lineIndex]) != marker.end()) {
         marker.erase(marker.begin());
       }
@@ -24,13 +21,9 @@ int CommunicationDevice::findStartMarkerIndex(int markerSize) {
       marker.push_back(line[lineIndex]);
 
       if(marker.size() == markerSize) {
-        std::cout << "Full marker:";
-        printVector(marker);
         break;
       }
     }
-    std::cout << "For loop end vector: ";
-    printVector(marker);
   }
 
   File.close();
@@ -110,7 +103,7 @@ int main() {
 
   int partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
-  assert(0 == partTwoResult);
+  assert(3037 == partTwoResult);
 
   return 0;
 }
