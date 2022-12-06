@@ -12,10 +12,14 @@ int CommunicationDevice::findStartMarkerIndex() {
   int lineIndex = 0;
 
   for(; lineIndex < line.size(); lineIndex++) {
+    std::cout << "Character: " << line[lineIndex] << std::endl;
     if(std::find(marker.begin(), marker.end(), line[lineIndex]) != marker.end()) {
+      std::cout << "Found inside marker vector: " << line[lineIndex];
+      printVector(marker);
       while(std::find(marker.begin(), marker.end(), line[lineIndex]) != marker.end()) {
         marker.erase(marker.begin());
       }
+      marker.push_back(line[lineIndex]);
     } else {
       marker.push_back(line[lineIndex]);
 
@@ -23,9 +27,9 @@ int CommunicationDevice::findStartMarkerIndex() {
         break;
       }
     }
+    std::cout << "Output vector: ";
+    printVector(marker);
   }
-
-  printVector(marker);
 
   File.close();
   return lineIndex;
