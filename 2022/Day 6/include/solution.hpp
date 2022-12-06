@@ -9,7 +9,8 @@
 #include <algorithm>
 
 // Function to print the elements of a vector; Written entirely by ChatGPT.
-void printVector(std::vector<int> vec);
+template <typename T>
+void printVector(std::vector<T> vec);
 
 int partOne(const std::string fileName);
 
