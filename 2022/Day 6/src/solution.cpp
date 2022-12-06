@@ -11,7 +11,7 @@ int CommunicationDevice::findStartMarkerIndex() {
   std::vector<char> marker;
   int lineIndex = 0;
 
-  for(; lineIndex < line.size(); lineIndex++) {
+  for(; lineIndex < line.size(); ++lineIndex) {
     std::cout << "Character: " << line[lineIndex] << std::endl;
     if(std::find(marker.begin(), marker.end(), line[lineIndex]) != marker.end()) {
       std::cout << "Found inside marker vector: " << line[lineIndex];
