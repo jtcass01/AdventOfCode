@@ -24,10 +24,12 @@ int CommunicationDevice::findStartMarkerIndex() {
       marker.push_back(line[lineIndex]);
 
       if(marker.size() == 4) {
+        std::cout << "Full marker:";
+        printVector(marker);
         break;
       }
     }
-    std::cout << "Output vector: ";
+    std::cout << "For loop end vector: ";
     printVector(marker);
   }
 
