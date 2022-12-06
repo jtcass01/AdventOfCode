@@ -20,7 +20,7 @@ class CommunicationDevice {
     public:
         CommunicationDevice(const std::string fileName);
 
-        int findStartMarkerIndex();
+        int findStartMarkerIndex(int markerSize);
 
     private:
         std::string fileName_;

@@ -4,7 +4,7 @@ CommunicationDevice::CommunicationDevice(const std::string fileName) {
   fileName_ = fileName;
 }
 
-int CommunicationDevice::findStartMarkerIndex() {
+int CommunicationDevice::findStartMarkerIndex(int markerSize) {
   std::ifstream File(fileName_, std::fstream::in);
   std::string line;
   std::getline(File, line);
@@ -23,7 +23,7 @@ int CommunicationDevice::findStartMarkerIndex() {
     } else {
       marker.push_back(line[lineIndex]);
 
-      if(marker.size() == 4) {
+      if(marker.size() == markerSize) {
         std::cout << "Full marker:";
         printVector(marker);
         break;
@@ -55,23 +55,12 @@ void printVector(std::vector<T> vec) {
 
 int partOne(const std::string fileName) {
   CommunicationDevice device(fileName);
-  return device.findStartMarkerIndex();
+  return device.findStartMarkerIndex(4);
 }
 
 int partTwo(const std::string fileName) {
-  std::cout << "Part 2: " << fileName << std::endl;
-  std::ifstream File(fileName, std::fstream::in);
-  char *pLineChar = nullptr;
-
-  for(std::string line; std::getline(File, line);) {
-    std::cout << line << std::endl;
-    pLineChar = strcpy(new char[line.length() + 1], line.c_str());
-    //sscanf(pLineChar, "");
-  }
-
-  File.close();
-
-  return 0;
+  CommunicationDevice device(fileName);
+  return device.findStartMarkerIndex(14);
 }
 
 int main() {
@@ -97,11 +86,27 @@ int main() {
 
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
-  assert(0 == partOneResult);
+  assert(1238 == partOneResult);
 
   int examplePartTwoResult = partTwo("example.txt");
   std::cout << "Part Two Example Result: " << examplePartTwoResult << std::endl;
-  assert(0 == examplePartTwoResult);
+  assert(19 == examplePartTwoResult);
+
+  int example0PartTwoResult = partTwo("example0.txt");
+  std::cout << "Part Two Example Result: " << example0PartTwoResult << std::endl;
+  assert(23 == example0PartTwoResult);
+
+  int example1PartTwoResult = partTwo("example1.txt");
+  std::cout << "Part Two Example Result: " << example1PartTwoResult << std::endl;
+  assert(23 == example1PartTwoResult);
+
+  int example2PartTwoResult = partTwo("example2.txt");
+  std::cout << "Part Two Example Result: " << example2PartTwoResult << std::endl;
+  assert(29 == example2PartTwoResult);
+
+  int example3PartTwoResult = partTwo("example3.txt");
+  std::cout << "Part Two Example Result: " << example3PartTwoResult << std::endl;
+  assert(26 == example3PartTwoResult);
 
   int partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
