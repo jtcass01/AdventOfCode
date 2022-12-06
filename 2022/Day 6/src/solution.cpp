@@ -13,7 +13,9 @@ int CommunicationDevice::findStartMarkerIndex() {
 
   for(; lineIndex < line.size(); lineIndex++) {
     if(std::find(marker.begin(), marker.end(), line[lineIndex]) != marker.end()) {
-      marker.clear();
+      while(std::find(marker.begin(), marker.end(), line[lineIndex]) != marker.end()) {
+        marker.erase(marker.begin());
+      }
     } else {
       marker.push_back(line[lineIndex]);
 
