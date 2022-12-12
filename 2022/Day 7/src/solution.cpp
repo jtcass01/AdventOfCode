@@ -27,6 +27,8 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
       } else {
         std::cout << "Command found: " << commandToString(command) << std::endl;
       }
+
+      lastDirectory.assign(readCommand(lastDirectory, command, line));
     } else {
       sscanf(pLineChar, "%d %s", &directoryFileSize, &directoryFile);
       addFile(lastDirectory + "/" + directoryFile, directoryFileSize);
@@ -47,19 +49,19 @@ std::string DeviceSystem::readCommand(std::string lastDirectory, COMMAND command
       if(foundInString(terminalLine, homeChar)) {
         break;
       } else if (foundInString(terminalLine, upDirectory)) {
-        lastDirectoryIndex = lastDirectory.find_last_of('/');
+        lastDirectoryIndex = lastDirectory.find_last_of(homeChar);
 
         if(lastDirectoryIndex != 0) {
           newDirectory.assign(lastDirectory.substr(0, lastDirectoryIndex));
         }
+
         break;
       } else {
         pLineChar = strcpy(new char[terminalLine.length() + 1], terminalLine.c_str());
         sscanf(pLineChar, "cd %s", &dirCommand);
         newDirectory.assign(lastDirectory + "/" + dirCommand);
+        break;
       }
-
-      break;
     case COMMAND::LIST:
       break;
   }
@@ -77,11 +79,20 @@ int DeviceSystem::sumDirectoriesLargerThan100KB() {
 
 
 std::string commandToString(COMMAND command) {
-  if(command == COMMAND::CHANGE_DIRECTORY) {
-    return "cd";
-  } else if (command == COMMAND::LIST) {
-    return "ls";
+  std::string stringRepresentation = "\0";
+
+  switch(command) {
+    case COMMAND::CHANGE_DIRECTORY:
+      stringRepresentation.assign("cd");
+      break;
+    case COMMAND::LIST:
+      stringRepresentation.assign("ls");
+      break;
+    default:
+      stringRepresentation.assign("Error parsing command.");
   }
+
+  return stringRepresentation
 }
 
 bool DeviceSystem::isCommand(std::string text) {
