@@ -159,8 +159,9 @@ bool foundInString(std::string target, T substring) {
   return findIndex != std::string::npos;
 }
 
-bool foundInVector(std::vector<std::string> vector, std::string element) {
-  auto findIndex = std::find(vector.begin(), vector.end(), element);
+template <typename T>
+bool foundInVector(std::vector<T> vector, T element) {
+  std::vector<T>::iterator findIndex = std::find(vector.begin(), vector.end(), element);
 
   return findIndex != vector.end();
 }
