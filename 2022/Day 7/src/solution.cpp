@@ -70,34 +70,6 @@ bool DeviceSystem::withinDirectory(std::string directory, std::string filePath) 
   return filePath.find(directory) == 0;
 }
 
-std::unordered_map<std::string, int> DeviceSystem::calculateDirectorySizes() {
-  std::unordered_map<std::string, int> directorySizes;
-  std::string directory;
-  std::string filePath;
-  int fileSize;
-
-  for (int directoryIndex = 0; directoryIndex < directories_.size(); directoryIndex++) {
-    directory = directories_[directoryIndex];
-
-    for (std::unordered_map<std::string, int>::iterator fileIt = files_.begin();
-         fileIt != files_.end();
-         fileIt++) {
-      filePath = fileIt->first;
-      fileSize = fileIt->second;
-
-      if(withinDirectory(directory, filePath)) {
-        if(directorySizes.count(directory)) {
-          directorySizes[directory] += fileSize;
-        } else {
-          directorySizes[directory] = fileSize;
-        }
-      }
-    }
-  }
-
-  return directorySizes;
-}
-
 int DeviceSystem::sumDirectoriesSmallerThan100KB() {
   int sum = 0;
   std::unordered_map<std::string, int> directorySizes = calculateDirectorySizes();
@@ -117,17 +89,19 @@ int DeviceSystem::suggestDirectoryToDelete() {
   int minimumDirectoryReductionSize = 0;
   int fileSystemSize = 0;
   int directorySize = 0;
+  int unusedSpace = 0;
   std::unordered_map<std::string, int> directorySizes = calculateDirectorySizes();
   fileSystemSize = directorySizes["/"];
+  unusedSpace = totalDiskSpace_ - fileSystemSize;
   minimumDirectoryReductionSize = fileSystemSize;
 
-  if(fileSystemSize > totalDiskSpace_ - requiredUpdateSpace_) {
+  if(requiredUpdateSpace_ > unusedSpace) {
     for (std::unordered_map<std::string, int>::iterator it = directorySizes.begin();
-        it != directorySizes.end();
-        it++) {
+         it != directorySizes.end();
+         it++) {
       directorySize = it->second;
 
-      if((fileSystemSize-directorySize <= requiredUpdateSpace_)
+      if((directorySize >= requiredUpdateSpace_-unusedSpace)
        && (minimumDirectoryReductionSize > directorySize)) {
         minimumDirectoryReductionSize = directorySize;
       }
@@ -170,6 +144,34 @@ COMMAND DeviceSystem::getCommand(std::string text) {
   }
 
   return command;
+}
+
+std::unordered_map<std::string, int> DeviceSystem::calculateDirectorySizes() {
+  std::unordered_map<std::string, int> directorySizes;
+  std::string directory;
+  std::string filePath;
+  int fileSize;
+
+  for (int directoryIndex = 0; directoryIndex < directories_.size(); directoryIndex++) {
+    directory = directories_[directoryIndex];
+
+    for (std::unordered_map<std::string, int>::iterator fileIt = files_.begin();
+         fileIt != files_.end();
+         fileIt++) {
+      filePath = fileIt->first;
+      fileSize = fileIt->second;
+
+      if(withinDirectory(directory, filePath)) {
+        if(directorySizes.count(directory)) {
+          directorySizes[directory] += fileSize;
+        } else {
+          directorySizes[directory] = fileSize;
+        }
+      }
+    }
+  }
+
+  return directorySizes;
 }
 
 void DeviceSystem::addFile(std::string fileName, int fileSize) {
