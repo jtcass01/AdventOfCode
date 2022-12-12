@@ -18,6 +18,7 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
   size_t findIndex = 0;
 
   for(std::string line; std::getline(File, line);) {
+    std::cout << "Current Directory:" << lastDirectory << std::endl;
     std::cout << line << std::endl;
 
     command = getCommand(line);
@@ -29,7 +30,7 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
         directoryFileSize = std::stoi(line.substr(0, findIndex));
         directoryFile.assign(line.substr(findIndex+1));
         std::cout << "Adding file " << directoryFile << " with size " << directoryFileSize << std::endl;
-        addFile(lastDirectory + "/" + directoryFile, directoryFileSize);
+        addFile(lastDirectory + directoryFile, directoryFileSize);
       }
     } else {
       std::cout << "Command found: " << commandToString(command) << std::endl;
@@ -62,7 +63,7 @@ std::string DeviceSystem::readCommand(std::string lastDirectory, COMMAND command
       } else {
         findIndex = terminalLine.find_last_of(' ');
         directoryCommand.assign(terminalLine.substr(findIndex + 1));
-        newDirectory.assign(lastDirectory + "/" + directoryCommand);
+        newDirectory.assign(lastDirectory + directoryCommand + "/");
         break;
       }
     case COMMAND::LIST:
