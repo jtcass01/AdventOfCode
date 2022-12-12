@@ -69,6 +69,7 @@ std::string DeviceSystem::readCommand(std::string lastDirectory, COMMAND command
         break;
       }
     case COMMAND::LIST:
+      newDirectory.assign(lastDirectory);
       break;
   }
 
