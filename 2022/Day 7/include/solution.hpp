@@ -15,8 +15,7 @@ void printVector(std::string vectorName, std::vector<T> vec);
 template <typename T>
 bool foundInString(std::string target, T substring);
 
-template <typename T>
-bool foundInVector(std::vector<T> vector, T element);
+bool foundInVector(std::vector<std::string> vector, std::string element);
 
 int partOne(const std::string fileName);
 
