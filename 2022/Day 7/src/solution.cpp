@@ -227,6 +227,14 @@ int main() {
   std::cout << "Part One Example Result: " << example0PartOneResult << std::endl;
   assert(99999 == example0PartOneResult);
 
+  int example1PartOneResult = partOne("example1.txt");
+  std::cout << "Part One Example Result: " << example1PartOneResult << std::endl;
+  assert(99999 == example1PartOneResult);
+
+  int example2PartOneResult = partOne("example2.txt");
+  std::cout << "Part One Example Result: " << example2PartOneResult << std::endl;
+  assert(99999 == example2PartOneResult);
+
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
   assert(0 == partOneResult);
