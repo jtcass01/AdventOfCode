@@ -155,7 +155,7 @@ COMMAND DeviceSystem::getCommand(std::string text) {
 }
 
 void DeviceSystem::addFile(std::string directoryName, std::string fileName, int fileSize) {
-  files_.insert(std::make_pair(fileName, fileSize));
+  files_.insert(std::make_pair(directoryName + fileName, fileSize));
 
   // Add directory to directories vector if it hasn't already been included
   if(!foundInVector(directories_, directoryName)) {
