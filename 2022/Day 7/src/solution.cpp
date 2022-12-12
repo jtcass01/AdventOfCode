@@ -144,7 +144,7 @@ void printVector(std::vector<T> vec) {
 
 template <typename T>
 bool foundInString(std::string target, T substring) {
-  size_t targetIndex = text.find(substring);
+  size_t targetIndex = target.find(substring);
 
   return targetIndex != std::string::npos;
 }
