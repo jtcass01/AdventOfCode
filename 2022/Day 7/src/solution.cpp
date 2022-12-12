@@ -100,6 +100,8 @@ std::unordered_map<std::string, int> DeviceSystem::calculateDirectorySizes() {
         }
       }
     }
+
+    std::cout << " size of directory " << directory << " is " << directorySizes[directory] << std::endl;
   }
 
   return directorySizes;
