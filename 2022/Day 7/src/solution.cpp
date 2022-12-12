@@ -4,6 +4,8 @@ DeviceSystem::DeviceSystem() {
   commandChar_ = '$';
   homeChar_ = '/';
   upDirectory_ = "..";
+
+  directories_.push_back("/");
 }
 
 void DeviceSystem::loadTerminalOutput(std::string fileName) {
