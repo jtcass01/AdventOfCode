@@ -113,17 +113,20 @@ std::unordered_map<std::string, int> DeviceSystem::calculateDirectorySizes() {
   return directorySizes;
 }
 
-int DeviceSystem::sumDirectoriesLargerThan100KB() {
+int DeviceSystem::sumDirectoriesSmallerThan100KB() {
+  int sum = 0;
   std::unordered_map<std::string, int> directorySizes = calculateDirectorySizes();
 
   std::cout << "directorySizes:" << std::endl;
   for (std::unordered_map<std::string, int>::iterator it = directorySizes.begin();
        it != directorySizes.end();
        ++it) {
-    std::cout << "\t" << it->first << ":" << it->second << std::endl;
+    if (it->second <= 100000) {
+      sum += it->second;
+    }
   }
 
-  return 0;
+  return sum;
 }
 
 
@@ -221,7 +224,7 @@ int partOne(const std::string fileName) {
   DeviceSystem deviceSystem;
   deviceSystem.loadTerminalOutput(fileName);
   deviceSystem.printFiles();
-  return deviceSystem.sumDirectoriesLargerThan100KB();
+  return deviceSystem.sumDirectoriesSmallerThan100KB();
 }
 
 int partTwo(const std::string fileName) {

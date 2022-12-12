@@ -37,7 +37,7 @@ class DeviceSystem {
 
         void loadTerminalOutput(std::string fileName);
 
-        int sumDirectoriesLargerThan100KB();
+        int sumDirectoriesSmallerThan100KB();
 
         void printFiles();
 
