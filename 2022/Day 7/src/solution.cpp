@@ -25,13 +25,11 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
         lastDirectory.assign(readCommand(lastDirectory, command, line));
       }
     }  else {
-      if(foundInString(line, "dir")) {
-      } else {
+      if(!foundInString(line, "dir")) {
         findIndex = line.find_last_of(' ');
         directoryFileSize = std::stoi(line.substr(0, findIndex));
         directoryFile.assign(line.substr(findIndex+1));
-        directoryFile.assign(lastDirectory + directoryFile);
-        addFile(directoryFile, directoryFileSize);
+        addFile(lastDirectory, directoryFile, directoryFileSize);
       }
     }
   }
@@ -100,8 +98,6 @@ std::unordered_map<std::string, int> DeviceSystem::calculateDirectorySizes() {
         }
       }
     }
-
-    std::cout << " size of directory " << directory << " is " << directorySizes[directory] << std::endl;
   }
 
   return directorySizes;
@@ -111,7 +107,6 @@ int DeviceSystem::sumDirectoriesSmallerThan100KB() {
   int sum = 0;
   std::unordered_map<std::string, int> directorySizes = calculateDirectorySizes();
 
-  std::cout << "directorySizes:" << std::endl;
   for (std::unordered_map<std::string, int>::iterator it = directorySizes.begin();
        it != directorySizes.end();
        ++it) {
@@ -159,9 +154,8 @@ COMMAND DeviceSystem::getCommand(std::string text) {
   return command;
 }
 
-void DeviceSystem::addFile(std::string fileName, int fileSize) {
+void DeviceSystem::addFile(std::string directoryName, std::string fileName, int fileSize) {
   files_.insert(std::make_pair(fileName, fileSize));
-  std::string directoryName = fileName.substr(0, fileName.find_last_of('/')+1);
 
   // Add directory to directories vector if it hasn't already been included
   if(!foundInVector(directories_, directoryName)) {
