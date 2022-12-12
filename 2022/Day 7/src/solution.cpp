@@ -55,7 +55,7 @@ std::string DeviceSystem::readCommand(std::string lastDirectory, COMMAND command
       if(foundInString(terminalLine, homeChar)) {
         break;
       } else if (foundInString(terminalLine, upDirectory)) {
-        findIndex = lastDirectory.find_last_of(homeChar);
+        findIndex = lastDirectory.substr(0, lastDirectory.size()-1).find_last_of(homeChar);
 
         if(findIndex != 0) {
           newDirectory.assign(lastDirectory.substr(0, findIndex));
