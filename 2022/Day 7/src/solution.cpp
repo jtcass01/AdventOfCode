@@ -25,6 +25,7 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
     command = getCommand(line);
 
     if(command == COMMAND::NONE) {
+      std::cout << "No Command found." << std::endl;
       sscanf(pLineChar, "%d %s", &directoryFileSize, &directoryFileBuffer);
       directoryFile.assign(directoryFileBuffer);
       addFile(lastDirectory + "/" + directoryFile, directoryFileSize);
