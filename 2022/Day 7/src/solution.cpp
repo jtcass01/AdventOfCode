@@ -79,16 +79,24 @@ bool DeviceSystem::withinDirectory(std::string directory, std::string filePath) 
 
 std::unordered_map<std::string, int> DeviceSystem::calculateDirectorySizes() {
   std::unordered_map<std::string, int> directorySizes;
+  std::string directory;
+  std::string filePath;
+  int fileSize;
 
   for (int directoryIndex = 0; directoryIndex < directories_.size(); directoryIndex++) {
+    directory = directories_[directoryIndex];
+
     for (std::unordered_map<std::string, int>::iterator fileIt = files_.begin();
          fileIt != files_.end();
          ++fileIt) {
-      if(withinDirectory(directories_[directoryIndex], fileIt->first)) {
-        if(directorySizes.count(directories_[directoryIndex])) {
-          directorySizes[directories_[directoryIndex]] += fileIt->second;
+      filePath = fileIt->first;
+      fileSize = fileIt->second;
+
+      if(withinDirectory(directory, filePath)) {
+        if(directorySizes.count(directory)) {
+          directorySizes[directory] += fileSize;
         } else {
-          directorySizes[directories_[directoryIndex]] = fileIt->second;
+          directorySizes[directory] = fileSize;
         }
       }
     }
