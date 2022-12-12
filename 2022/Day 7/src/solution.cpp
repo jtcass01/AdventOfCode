@@ -37,7 +37,6 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
         directoryFileSize = std::stoi(line.substr(0, findIndex));
         directoryFile.assign(line.substr(findIndex+1));
         directoryFile.assign(lastDirectory + directoryFile);
-        std::cout << "Attempting to add file " << directoryFile << " of size " << directoryFileSize << " to file system." << std::endl;
         addFile(directoryFile, directoryFileSize);
       }
     }
@@ -125,10 +124,7 @@ COMMAND DeviceSystem::getCommand(std::string text) {
 }
 
 void DeviceSystem::addFile(std::string fileName, int fileSize) {
-  std::cout << "Adding file " << fileName << " with size " << fileSize << std::endl;
   fileSystem_.insert(std::make_pair(fileName, fileSize));
-
-  printFileSystem();
 }
 
 void DeviceSystem::printFileSystem() {
