@@ -124,6 +124,8 @@ COMMAND DeviceSystem::getCommand(std::string text) {
 void DeviceSystem::addFile(std::string fileName, int fileSize) {
   std::cout << "Adding file " << fileName << " with size " << fileSize << std::endl;
   fileSystem_.insert(std::make_pair(fileName, fileSize));
+
+  printFileSystem();
 }
 
 void DeviceSystem::printFileSystem() {
