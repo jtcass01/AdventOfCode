@@ -18,19 +18,13 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
   size_t findIndex = 0;
 
   for(std::string line; std::getline(File, line);) {
-    std::cout << "Current Directory:" << lastDirectory << std::endl;
-    std::cout << line << std::endl;
-
     if(isCommand(line)) {
       command = getCommand(line);
 
       if(command != COMMAND::NONE) {
-        std::cout << "Command found: " << commandToString(command) << std::endl;
-
         lastDirectory.assign(readCommand(lastDirectory, command, line));
       }
     }  else {
-      std::cout << "No Command found." << std::endl;
       if(foundInString(line, "dir")) {
       } else {
         findIndex = line.find_last_of(' ');
