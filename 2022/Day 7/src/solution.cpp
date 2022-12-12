@@ -18,6 +18,8 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
   size_t findIndex = 0;
 
   for(std::string line; std::getline(File, line);) {
+    std::cout << "Line: " << line << std::endl;
+
     if(isCommand(line)) {
       command = getCommand(line);
 
@@ -36,6 +38,8 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
         addFile(lastDirectory, directoryFile, directoryFileSize);
       }
     }
+
+    std::cout << std::endl;
   }
 
   File.close();
@@ -53,6 +57,8 @@ std::string DeviceSystem::changeDirectory(std::string lastDirectory, std::string
     findIndex = terminalLine.find_last_of(' ');
     newDirectory.assign(lastDirectory + terminalLine.substr(findIndex + 1) + "/");
   }
+
+  std::cout << "Directory changed from " << lastDirectory << " to " << newDirectory << "." << std::endl;
 
   return newDirectory;
 }
@@ -144,6 +150,8 @@ COMMAND DeviceSystem::getCommand(std::string text) {
 
 void DeviceSystem::addFile(std::string directoryName, std::string fileName, int fileSize) {
   files_.insert(std::make_pair(directoryName + fileName, fileSize));
+
+  std::cout << "File: " << directoryName + fileName << " has been added to files_." << std::endl;
 
   // Add directory to directories vector if it hasn't already been included
   if(!foundInVector(directories_, directoryName)) {
