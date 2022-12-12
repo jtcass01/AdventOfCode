@@ -116,22 +116,30 @@ COMMAND DeviceSystem::getCommand(std::string text) {
 }
 
 void DeviceSystem::addFile(std::string fileName, int fileSize) {
-  fileSystem_.insert(std::make_pair(fileName, fileSize));
+  files_.insert(std::make_pair(fileName, fileSize));
+  std::string directoryName = fileName.substr(0, fileName.find_last_of('/'));
+
+  // Add directory to directories vector if it hasn't already been included
+  if(!foundInVector(directories_, fileName)) {
+    directories_.push_back(directoryName);
+  }
 }
 
-void DeviceSystem::printFileSystem() {
+void DeviceSystem::printFiles() {
   std::cout << "DeviceSystem printing FileSystem..." << std::endl;
 
   // Loop through the mapping and print the keys and values
-  for (auto it = fileSystem_.begin(); it != fileSystem_.end(); ++it) {
+  for (auto it = files_.begin(); it != files_.end(); ++it) {
     std::cout << "\t" << it->first << ":" << it->second << std::endl;
   }
+
+  printVector("directories_", directories_);
 }
 
 // Function to print the elements of a vector; Written entirely by ChatGPT.
 template <typename T>
-void printVector(std::vector<T> vec) {
-    std::cout << "Vector: [";
+void printVector(std::string vectorName, std::vector<T> vec) {
+    std::cout << vectorName << ": [";
     // Loop through the vector and print each element
     for (int vector_i = 0; vector_i < vec.size(); vector_i++) {
         std::cout << vec[vector_i];
@@ -146,9 +154,16 @@ void printVector(std::vector<T> vec) {
 
 template <typename T>
 bool foundInString(std::string target, T substring) {
-  size_t targetIndex = target.find(substring);
+  size_t findIndex = target.find(substring);
 
-  return targetIndex != std::string::npos;
+  return findIndex != std::string::npos;
+}
+
+template <typename T>
+bool foundInVector(std::vector<T> vector, T element) {
+  auto findIndex = std::find(vector.being(), vector.end(), element);
+
+  return findIndex != vector.end();
 }
 
 int partOne(const std::string fileName) {
@@ -156,7 +171,7 @@ int partOne(const std::string fileName) {
 
   DeviceSystem deviceSystem;
   deviceSystem.loadTerminalOutput(fileName);
-  deviceSystem.printFileSystem();
+  deviceSystem.printFiles();
   return deviceSystem.sumDirectoriesLargerThan100KB();
 }
 

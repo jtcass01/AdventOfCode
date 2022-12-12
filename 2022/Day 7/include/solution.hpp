@@ -10,11 +10,13 @@
 
 // Function to print the elements of a vector; Written entirely by ChatGPT.
 template <typename T>
-void printVector(std::vector<T> vec);
+void printVector(std::string vectorName, std::vector<T> vec);
 
 template <typename T>
 bool foundInString(std::string target, T substring);
 
+template <typename T>
+bool foundInVector(std::vector<T> vector, T element);
 
 int partOne(const std::string fileName);
 
@@ -36,7 +38,7 @@ class DeviceSystem {
 
         int sumDirectoriesLargerThan100KB();
 
-        void printFileSystem();
+        void printFiles();
 
     private:
         bool isCommand(std::string text);
@@ -45,7 +47,9 @@ class DeviceSystem {
         void addFile(std::string fileName, int fileSize);
         int calculateSizeOfDirectory(std::string directory);
 
-        std::unordered_map<std::string, int> fileSystem_;
+        std::unordered_map<std::string, int> files_;
+        std::vector<std::string> directories_;
+
         char commandChar_;
         char homeChar_;
         std::string upDirectory_;
