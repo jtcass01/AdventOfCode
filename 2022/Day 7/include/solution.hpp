@@ -44,7 +44,7 @@ class DeviceSystem {
     private:
         bool isCommand(std::string text);
         COMMAND getCommand(std::string text);
-        std::string readCommand(std::string lastDirectory, COMMAND command, std::string terminalLine);
+        std::string changeDirectory(std::string lastDirectory, std::string terminalLine);
         void addFile(std::string directoryName, std::string fileName, int fileSize);
         std::unordered_map<std::string, int> calculateDirectorySizes();
         bool withinDirectory(std::string directory, std::string filePath);

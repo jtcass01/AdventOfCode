@@ -21,8 +21,12 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
     if(isCommand(line)) {
       command = getCommand(line);
 
-      if(command != COMMAND::NONE) {
-        lastDirectory.assign(readCommand(lastDirectory, command, line));
+      switch(command) {
+        case COMMAND::CHANGE_DIRECTORY:
+          lastDirectory.assign(changeDirectory(lastDirectory, line));
+          break;
+        default:
+          break;
       }
     }  else {
       if(!foundInString(line, "dir")) {
@@ -37,42 +41,24 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
   File.close();
 }
 
-std::string DeviceSystem::readCommand(std::string lastDirectory, COMMAND command, std::string terminalLine) {
+std::string DeviceSystem::changeDirectory(std::string lastDirectory, std::string terminalLine) {
   char *pLineChar = nullptr;
   std::string newDirectory = "/";
-  std::string directoryCommand = "\0";
   size_t findIndex = 0;
 
-  switch(command) {
-    case COMMAND::CHANGE_DIRECTORY:
-      if(foundInString(terminalLine, homeChar_)) {
-        break;
-      } else if (foundInString(terminalLine, upDirectory_)) {
-        findIndex = lastDirectory.substr(0, lastDirectory.size()-1).find_last_of(homeChar_);
-
-        if(findIndex != 0) {
-          newDirectory.assign(lastDirectory.substr(0, findIndex + 1));
-        }
-
-        break;
-      } else {
-        findIndex = terminalLine.find_last_of(' ');
-        directoryCommand.assign(terminalLine.substr(findIndex + 1));
-        newDirectory.assign(lastDirectory + directoryCommand + "/");
-        break;
-      }
-    case COMMAND::LIST:
-      newDirectory.assign(lastDirectory);
-      break;
+  if(foundInString(terminalLine, upDirectory_)) {
+    findIndex = lastDirectory.substr(0, lastDirectory.size()-1).find_last_of(homeChar_);
+    newDirectory.assign(lastDirectory.substr(0, findIndex + 1));
+  } else if (!foundInString(terminalLine, homeChar_)) {
+    findIndex = terminalLine.find_last_of(' ');
+    newDirectory.assign(lastDirectory + terminalLine.substr(findIndex + 1) + "/");
   }
 
   return newDirectory;
 }
 
 bool DeviceSystem::withinDirectory(std::string directory, std::string filePath) {
-  size_t directorySubstringPosition = filePath.find(directory);
-
-  return directorySubstringPosition == 0;
+  return filePath.find(directory) == 0;
 }
 
 std::unordered_map<std::string, int> DeviceSystem::calculateDirectorySizes() {
