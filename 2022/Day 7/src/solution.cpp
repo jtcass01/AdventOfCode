@@ -12,12 +12,10 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
   COMMAND lastCommand = COMMAND::NONE;
   std::unordered_map<std::string, int> files;
   char *pLineChar = nullptr;
-  char directoryFileBuffer[512];
   std::string directoryFile = "\0";
   std::string lastDirectory = "\0";
-  unsigned double directoryFileSize = 0;
-
-  std::memset(directoryFileBuffer, 0, sizeof(directoryFileBuffer));
+  int directoryFileSize = 0;
+  size_t findIndex = 0;
 
   for(std::string line; std::getline(File, line);) {
     std::cout << line << std::endl;
@@ -27,9 +25,10 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
     if(command == COMMAND::NONE) {
       std::cout << "No Command found." << std::endl;
       if(!foundInString(line, "dir")) {
-        sscanf(pLineChar, "%d %s", &directoryFileSize, &directoryFileBuffer);
-        std::cout << "Adding file " << directoryFileBuffer << " with size " << directoryFileSize << std::endl;
-        directoryFile.assign(directoryFileBuffer);
+        findIndex = line.find_last_of(' ');
+        directoryFileSize = std::stoi(line.substr(0, findIndex));
+        directoryFile.assign(line.substr(findIndex+1));
+        std::cout << "Adding file " << directoryFile << " with size " << directoryFileSize << std::endl;
         addFile(lastDirectory + "/" + directoryFile, directoryFileSize);
       }
     } else {
@@ -45,28 +44,24 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
 std::string DeviceSystem::readCommand(std::string lastDirectory, COMMAND command, std::string terminalLine) {
   char *pLineChar = nullptr;
   std::string newDirectory = "/";
-  char directoryCommandBuffer[512];
   std::string directoryCommand = "\0";
-  size_t lastDirectoryIndex = 0;
-
-  std::memset(directoryCommandBuffer, 0, sizeof(directoryCommandBuffer));
+  size_t findIndex = 0;
 
   switch(command) {
     case COMMAND::CHANGE_DIRECTORY:
       if(foundInString(terminalLine, homeChar)) {
         break;
       } else if (foundInString(terminalLine, upDirectory)) {
-        lastDirectoryIndex = lastDirectory.find_last_of(homeChar);
+        findIndex = lastDirectory.find_last_of(homeChar);
 
-        if(lastDirectoryIndex != 0) {
-          newDirectory.assign(lastDirectory.substr(0, lastDirectoryIndex));
+        if(findIndex != 0) {
+          newDirectory.assign(lastDirectory.substr(0, findIndex));
         }
 
         break;
       } else {
-        pLineChar = strcpy(new char[terminalLine.length() + 1], terminalLine.c_str());
-        sscanf(pLineChar, "cd %s", &directoryCommandBuffer);
-        directoryCommand.assign(directoryCommandBuffer);
+        findIndex = terminalLine.find_last_of(' ');
+        directoryCommand.assign(terminalLine.substr(findIndex + 1));
         newDirectory.assign(lastDirectory + "/" + directoryCommand);
         break;
       }
