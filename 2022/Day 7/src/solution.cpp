@@ -26,9 +26,11 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
 
     if(command == COMMAND::NONE) {
       std::cout << "No Command found." << std::endl;
-      sscanf(pLineChar, "%d %s", &directoryFileSize, &directoryFileBuffer);
-      directoryFile.assign(directoryFileBuffer);
-      addFile(lastDirectory + "/" + directoryFile, directoryFileSize);
+      if(!foundInString(line, "dir")) {
+        sscanf(pLineChar, "%d %s", &directoryFileSize, &directoryFileBuffer);
+        directoryFile.assign(directoryFileBuffer);
+        addFile(lastDirectory + "/" + directoryFile, directoryFileSize);
+      }
     } else {
       std::cout << "Command found: " << commandToString(command) << std::endl;
 
