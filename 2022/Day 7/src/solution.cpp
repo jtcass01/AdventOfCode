@@ -45,8 +45,6 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
         addFile(lastDirectory + directoryFile, directoryFileSize);
       }
     }
-
-    std::cout << std::endl;
   }
 
   File.close();
@@ -176,8 +174,6 @@ COMMAND DeviceSystem::getCommand(std::string text) {
 
 void DeviceSystem::addFile(std::string fileName, int fileSize) {
   files_.insert(std::make_pair(fileName, fileSize));
-
-  std::cout << "File: " << fileName << " has been added to files_." << std::endl;
 }
 
 void DeviceSystem::addDirectory(std::string directoryName) {
