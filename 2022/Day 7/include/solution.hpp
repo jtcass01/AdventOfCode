@@ -36,6 +36,8 @@ class DeviceSystem {
 
         int sumDirectoriesLargerThan100KB();
 
+        void printFileSystem();
+
     private:
         bool isCommand(std::string text);
         COMMAND getCommand(std::string text);
@@ -43,8 +45,8 @@ class DeviceSystem {
         void addFile(std::string fileName, int fileSize);
         int calculateSizeOfDirectory(std::string directory);
 
-        std::unordered_map<std::string, int> fileSystem;
-        char commandChar;
-        char homeChar;
-        std::string upDirectory;
+        std::unordered_map<std::string, int> fileSystem_;
+        char commandChar_;
+        char homeChar_;
+        std::string upDirectory_;
 };
