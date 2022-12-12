@@ -15,7 +15,7 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
   char directoryFileBuffer[512];
   std::string directoryFile = "\0";
   std::string lastDirectory = "\0";
-  int directoryFileSize = 0;
+  unsigned double directoryFileSize = 0;
 
   std::memset(directoryFileBuffer, 0, sizeof(directoryFileBuffer));
 
