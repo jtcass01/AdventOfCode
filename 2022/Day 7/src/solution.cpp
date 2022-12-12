@@ -79,6 +79,7 @@ bool DeviceSystem::withinDirectory(std::string directory, std::string filePath) 
   std::cout << "\t filePath: " << filePath << std::endl;
   std::cout << "\t directorySubstringPosition: " << directorySubstringPosition << std::endl;
   std::cout << "\t directory.size(): " << directory.size() << std::endl;
+  std::cout << "\t evaluation: " << directorySubstringPosition+1 == directory.size() << std::endl;
 
   return directorySubstringPosition+1 == directory.size();
 }
