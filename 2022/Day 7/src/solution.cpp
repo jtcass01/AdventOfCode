@@ -128,7 +128,7 @@ int DeviceSystem::suggestDirectoryToDelete() {
       directorySize = it->second;
 
       if((fileSystemSize-directorySize <= requiredUpdateSpace_)
-       && minimumDirectoryReductionSize < directorySize) {
+       && (minimumDirectoryReductionSize > directorySize)) {
         minimumDirectoryReductionSize = directorySize;
       }
     }
