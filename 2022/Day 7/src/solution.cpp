@@ -42,8 +42,6 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
     }
   }
 
-  printFileSystem();
-
   File.close();
 }
 
@@ -164,7 +162,7 @@ int partOne(const std::string fileName) {
 
   DeviceSystem deviceSystem;
   deviceSystem.loadTerminalOutput(fileName);
-
+  deviceSystem.printFileSystem();
   return deviceSystem.sumDirectoriesLargerThan100KB();
 }
 
