@@ -74,12 +74,6 @@ std::string DeviceSystem::readCommand(std::string lastDirectory, COMMAND command
 bool DeviceSystem::withinDirectory(std::string directory, std::string filePath) {
   size_t directorySubstringPosition = filePath.find(directory);
 
-  std::cout << "withinDirectory: " << std::endl;
-  std::cout << "\t directory: " << directory << std::endl;
-  std::cout << "\t filePath: " << filePath << std::endl;
-  std::cout << "\t directorySubstringPosition: " << directorySubstringPosition << std::endl;
-  std::cout << "\t evaluation: " << (directorySubstringPosition == 0) << std::endl;
-
   return directorySubstringPosition == 0;
 }
 
