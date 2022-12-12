@@ -7,6 +7,7 @@
 #include <cstring>
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 
 // Function to print the elements of a vector; Written entirely by ChatGPT.
 template <typename T>
