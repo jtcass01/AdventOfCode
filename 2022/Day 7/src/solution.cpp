@@ -14,6 +14,7 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
   char *pLineChar = nullptr;
   std::string directoryFile = "\0";
   std::string lastDirectory = "\0";
+  std::string newDirectory = "\0";
   int directoryFileSize = 0;
   size_t findIndex = 0;
 
@@ -31,11 +32,15 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
           break;
       }
     }  else {
-      if(!foundInString(line, "dir")) {
+      if(foundInString(line, "dir")) {
+        findIndex = line.find_last_of(' ');
+        newDirectory.assign(line.substr(findIndex+1));
+        addDirectory(lastDirectory + newDirectory + "/");
+      } else {
         findIndex = line.find_last_of(' ');
         directoryFileSize = std::stoi(line.substr(0, findIndex));
         directoryFile.assign(line.substr(findIndex+1));
-        addFile(lastDirectory, directoryFile, directoryFileSize);
+        addFile(lastDirectory + directoryFile, directoryFileSize);
       }
     }
 
@@ -148,11 +153,13 @@ COMMAND DeviceSystem::getCommand(std::string text) {
   return command;
 }
 
-void DeviceSystem::addFile(std::string directoryName, std::string fileName, int fileSize) {
-  files_.insert(std::make_pair(directoryName + fileName, fileSize));
+void DeviceSystem::addFile(std::string fileName, int fileSize) {
+  files_.insert(std::make_pair(fileName, fileSize));
 
-  std::cout << "File: " << directoryName + fileName << " has been added to files_." << std::endl;
+  std::cout << "File: " << fileName << " has been added to files_." << std::endl;
+}
 
+void DeviceSystem::addDirectory(std::string directoryName) {
   // Add directory to directories vector if it hasn't already been included
   if(!foundInVector(directories_, directoryName)) {
     directories_.push_back(directoryName);
