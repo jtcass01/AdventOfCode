@@ -223,9 +223,9 @@ int main() {
   std::cout << "Part One Example Result: " << examplePartOneResult << std::endl;
   assert(95437 == examplePartOneResult);
 
-  int examplePartOneResult = partOne("example0.txt");
-  std::cout << "Part One Example Result: " << examplePartOneResult << std::endl;
-  assert(99999 == examplePartOneResult);
+  int example0PartOneResult = partOne("example0.txt");
+  std::cout << "Part One Example Result: " << example0PartOneResult << std::endl;
+  assert(99999 == example0PartOneResult);
 
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
