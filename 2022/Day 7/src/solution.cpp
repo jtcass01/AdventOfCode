@@ -100,7 +100,7 @@ std::string commandToString(COMMAND command) {
       stringRepresentation.assign("Error parsing command.");
   }
 
-  return stringRepresentation
+  return stringRepresentation;
 }
 
 bool DeviceSystem::isCommand(std::string text) {
