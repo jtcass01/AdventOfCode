@@ -22,20 +22,16 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
   for(std::string line; std::getline(File, line);) {
     std::cout << line << std::endl;
 
-    if(isCommand(line)) {
-      command = getCommand(line);
+    command = getCommand(line);
 
-      if (command == COMMAND::NONE) {
-        std::cout << "Error on line: " << line << " -- unable to parse command." << std::endl;
-      } else {
-        std::cout << "Command found: " << commandToString(command) << std::endl;
-      }
-
-      lastDirectory.assign(readCommand(lastDirectory, command, line));
-    } else {
+    if(command == COMMAND::NONE) {
       sscanf(pLineChar, "%d %s", &directoryFileSize, &directoryFileBuffer);
       directoryFile.assign(directoryFileBuffer);
       addFile(lastDirectory + "/" + directoryFile, directoryFileSize);
+    } else {
+      std::cout << "Command found: " << commandToString(command) << std::endl;
+
+      lastDirectory.assign(readCommand(lastDirectory, command, line));
     }
   }
 
