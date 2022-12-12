@@ -12,9 +12,12 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
   COMMAND lastCommand = COMMAND::NONE;
   std::unordered_map<std::string, int> files;
   char *pLineChar = nullptr;
+  char directoryFileBuffer[512];
   std::string directoryFile = "\0";
   std::string lastDirectory = "\0";
   int directoryFileSize = 0;
+
+  std::memset(directoryFileBuffer, 0, sizeof(directoryFileBuffer));
 
   for(std::string line; std::getline(File, line);) {
     std::cout << line << std::endl;
@@ -30,7 +33,8 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
 
       lastDirectory.assign(readCommand(lastDirectory, command, line));
     } else {
-      sscanf(pLineChar, "%d %s", &directoryFileSize, &directoryFile);
+      sscanf(pLineChar, "%d %s", &directoryFileSize, &directoryFileBuffer);
+      directoryFile.assign(directoryFileBuffer);
       addFile(lastDirectory + "/" + directoryFile, directoryFileSize);
     }
   }
@@ -41,8 +45,11 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
 std::string DeviceSystem::readCommand(std::string lastDirectory, COMMAND command, std::string terminalLine) {
   char *pLineChar = nullptr;
   std::string newDirectory = "/";
-  std::string dirCommand = "\0";
+  char directoryCommandBuffer[512];
+  std::string directoryCommand = "\0";
   size_t lastDirectoryIndex = 0;
+
+  std::memset(directoryCommandBuffer, 0, sizeof(directoryCommandBuffer));
 
   switch(command) {
     case COMMAND::CHANGE_DIRECTORY:
@@ -58,8 +65,9 @@ std::string DeviceSystem::readCommand(std::string lastDirectory, COMMAND command
         break;
       } else {
         pLineChar = strcpy(new char[terminalLine.length() + 1], terminalLine.c_str());
-        sscanf(pLineChar, "cd %s", &dirCommand);
-        newDirectory.assign(lastDirectory + "/" + dirCommand);
+        sscanf(pLineChar, "cd %s", &directoryCommandBuffer);
+        directoryCommand.assign(directoryCommandBuffer);
+        newDirectory.assign(lastDirectory + "/" + directoryCommand);
         break;
       }
     case COMMAND::LIST:
@@ -70,11 +78,11 @@ std::string DeviceSystem::readCommand(std::string lastDirectory, COMMAND command
 }
 
 int DeviceSystem::calculateSizeOfDirectory(std::string directory) {
-
+  return 0;
 }
 
 int DeviceSystem::sumDirectoriesLargerThan100KB() {
-
+  return 0;
 }
 
 
