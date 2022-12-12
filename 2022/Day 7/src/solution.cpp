@@ -102,7 +102,7 @@ int DeviceSystem::sumDirectoriesSmallerThan100KB() {
   std::cout << "directorySizes: " << std::endl;
   for (std::unordered_map<std::string, int>::iterator it = directorySizes.begin();
        it != directorySizes.end();
-       ++it) {
+       it++) {
     std::cout << "\t" << it->first << ": " << it->second << std::endl;
     if (it->second <= 100000) {
       sum += it->second;
