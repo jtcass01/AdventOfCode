@@ -103,8 +103,8 @@ std::unordered_map<std::string, int> DeviceSystem::calculateDirectorySizes() {
   return directorySizes;
 }
 
-int DeviceSystem::sumDirectoriesSmallerThan100KB() {
-  int sum = 0;
+double DeviceSystem::sumDirectoriesSmallerThan100KB() {
+  double sum = 0;
   std::unordered_map<std::string, int> directorySizes = calculateDirectorySizes();
 
   for (std::unordered_map<std::string, int>::iterator it = directorySizes.begin();
@@ -206,7 +206,7 @@ bool foundInVector(const std::vector<T> &vector, const T &element) {
   return findIndex != vector.end();
 }
 
-int partOne(const std::string fileName) {
+double partOne(const std::string fileName) {
   std::cout << "Part 1: " << fileName << std::endl;
 
   DeviceSystem deviceSystem;
@@ -215,7 +215,7 @@ int partOne(const std::string fileName) {
   return deviceSystem.sumDirectoriesSmallerThan100KB();
 }
 
-int partTwo(const std::string fileName) {
+double partTwo(const std::string fileName) {
   std::cout << "Part 2: " << fileName << std::endl;
 
   DeviceSystem deviceSystem;
@@ -225,19 +225,19 @@ int partTwo(const std::string fileName) {
 }
 
 int main() {
-  int examplePartOneResult = partOne("example.txt");
+  double examplePartOneResult = partOne("example.txt");
   std::cout << "Part One Example Result: " << examplePartOneResult << std::endl;
   assert(95437 == examplePartOneResult);
 
-  int partOneResult = partOne("input.txt");
+  double partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
   assert(0 == partOneResult);
 
-  int examplePartTwoResult = partTwo("example.txt");
+  double examplePartTwoResult = partTwo("example.txt");
   std::cout << "Part Two Example Result: " << examplePartTwoResult << std::endl;
   assert(0 == examplePartTwoResult);
 
-  int partTwoResult = partTwo("input.txt");
+  double partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
   assert(0 == partTwoResult);
 
