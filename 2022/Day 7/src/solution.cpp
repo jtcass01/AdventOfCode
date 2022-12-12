@@ -30,11 +30,14 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
         lastDirectory.assign(readCommand(lastDirectory, command, line));
       } else {
         std::cout << "No Command found." << std::endl;
-        if(!foundInString(line, "dir")) {
+        if(foundInString(line, "dir")) {
+        } else {
           findIndex = line.find_last_of(' ');
           directoryFileSize = std::stoi(line.substr(0, findIndex));
           directoryFile.assign(line.substr(findIndex+1));
-          addFile(lastDirectory + directoryFile, directoryFileSize);
+          directoryFile.assign(lastDirectory + directoryFile);
+          std::cout << "Attempting to add file " << directoryFile << " of size " << directoryFileSize << " to file system." << std::endl;
+          addFile(directoryFile, directoryFileSize);
         }
       }
     }
