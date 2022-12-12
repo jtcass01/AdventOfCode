@@ -71,11 +71,42 @@ std::string DeviceSystem::readCommand(std::string lastDirectory, COMMAND command
   return newDirectory;
 }
 
-int DeviceSystem::calculateSizeOfDirectory(std::string directory) {
-  return 0;
+bool DeviceSystem::withinDirectory(std::string directory, std::string filePath) {
+  size_t directorySubstringPosition = filePath.find(directory);
+
+  return directorySubstringPosition+1 == directory.size();
+}
+
+std::unordered_map<std::string, int> DeviceSystem::calculateDirectorySizes() {
+  std::unordered_map<std::string, int> directorySizes;
+
+  for (int directoryIndex = 0; directoryIndex < directories_.size(); directoryIndex++) {
+    for (std::unordered_map<std::string, int>::iterator fileIt = files_.begin();
+         fileIt != files_.end();
+         ++fileIt) {
+      if(withinDirectory(directories_[directoryIndex], fileIt->first)) {
+        if(directorySizes.count(directories_[directoryIndex])) {
+          directorySizes[directories_[directoryIndex]] += fileIt->second;
+        } else {
+          directorySizes[directories_[directoryIndex]] = fileIt->second;
+        }
+      }
+    }
+  }
+
+  return directorySizes;
 }
 
 int DeviceSystem::sumDirectoriesLargerThan100KB() {
+  std::unordered_map<std::string, int> directorySizes = calculateDirectorySizes();
+
+  std::cout << "directorySizes:" << std::endl;
+  for (std::unordered_map<std::string, int>::iterator it = directorySizes.begin();
+       it != directorySizes.end();
+       ++it) {
+    std::cout << "\t" << it->first << ":" << it->second << std::endl;
+  }
+
   return 0;
 }
 
@@ -129,7 +160,9 @@ void DeviceSystem::printFiles() {
   std::cout << "DeviceSystem printing FileSystem..." << std::endl;
 
   // Loop through the mapping and print the keys and values
-  for (auto it = files_.begin(); it != files_.end(); ++it) {
+  for (std::unordered_map<std::string, int>::iterator it = files_.begin();
+       it != files_.end();
+       ++it) {
     std::cout << "\t" << it->first << ":" << it->second << std::endl;
   }
 
