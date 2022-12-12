@@ -21,22 +21,24 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
     std::cout << "Current Directory:" << lastDirectory << std::endl;
     std::cout << line << std::endl;
 
-    command = getCommand(line);
+    if(isCommand(line)) {
+      command = getCommand(line);
 
-    if(command == COMMAND::NONE) {
-      std::cout << "No Command found." << std::endl;
-      if(!foundInString(line, "dir")) {
-        findIndex = line.find_last_of(' ');
-        directoryFileSize = std::stoi(line.substr(0, findIndex));
-        directoryFile.assign(line.substr(findIndex+1));
-        std::cout << "Adding file " << directoryFile << " with size " << directoryFileSize << std::endl;
-        addFile(lastDirectory + directoryFile, directoryFileSize);
+      if(command != COMMAND::NONE) {
+        std::cout << "Command found: " << commandToString(command) << std::endl;
+
+        lastDirectory.assign(readCommand(lastDirectory, command, line));
+      } else {
+        std::cout << "No Command found." << std::endl;
+        if(!foundInString(line, "dir")) {
+          findIndex = line.find_last_of(' ');
+          directoryFileSize = std::stoi(line.substr(0, findIndex));
+          directoryFile.assign(line.substr(findIndex+1));
+          addFile(lastDirectory + directoryFile, directoryFileSize);
+        }
       }
-    } else {
-      std::cout << "Command found: " << commandToString(command) << std::endl;
-
-      lastDirectory.assign(readCommand(lastDirectory, command, line));
     }
+
   }
 
   File.close();
@@ -100,7 +102,7 @@ std::string commandToString(COMMAND command) {
 }
 
 bool DeviceSystem::isCommand(std::string text) {
-  foundInString(text, commandChar);
+  return foundInString(text, commandChar);
 }
 
 COMMAND DeviceSystem::getCommand(std::string text) {
