@@ -78,7 +78,7 @@ std::unordered_map<std::string, int> DeviceSystem::calculateDirectorySizes() {
 
     for (std::unordered_map<std::string, int>::iterator fileIt = files_.begin();
          fileIt != files_.end();
-         ++fileIt) {
+         fileIt++) {
       filePath = fileIt->first;
       fileSize = fileIt->second;
 
