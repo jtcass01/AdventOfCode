@@ -4,6 +4,8 @@ DeviceSystem::DeviceSystem() {
   commandChar_ = '$';
   homeChar_ = '/';
   upDirectory_ = "..";
+  totalDiskSpace_ = 70000000;
+  requiredUpdateSpace_ = 30000000;
 
   directories_.push_back("/");
 }
@@ -21,8 +23,6 @@ void DeviceSystem::loadTerminalOutput(std::string fileName) {
   size_t findIndex = 0;
 
   for(std::string line; std::getline(File, line);) {
-    std::cout << "Line: " << line << std::endl;
-
     if(isCommand(line)) {
       command = getCommand(line);
 
@@ -65,8 +65,6 @@ std::string DeviceSystem::changeDirectory(std::string lastDirectory, std::string
     newDirectory.assign(lastDirectory + terminalLine.substr(findIndex + 1) + "/");
   }
 
-  std::cout << "Directory changed from " << lastDirectory << " to " << newDirectory << "." << std::endl;
-
   return newDirectory;
 }
 
@@ -106,19 +104,40 @@ int DeviceSystem::sumDirectoriesSmallerThan100KB() {
   int sum = 0;
   std::unordered_map<std::string, int> directorySizes = calculateDirectorySizes();
 
-  std::cout << "directorySizes: " << std::endl;
   for (std::unordered_map<std::string, int>::iterator it = directorySizes.begin();
        it != directorySizes.end();
        it++) {
     if (it->second <= 100000) {
       sum += it->second;
-      std::cout << "\t" << it->first << ": " << it->second << std::endl;
     }
   }
 
   return sum;
 }
 
+int DeviceSystem::suggestDirectoryToDelete() {
+  int minimumDirectoryReductionSize = 0;
+  int fileSystemSize = 0;
+  int directorySize = 0;
+  std::unordered_map<std::string, int> directorySizes = calculateDirectorySizes();
+  fileSystemSize = directorySizes["/"];
+  minimumDirectoryReductionSize = fileSystemSize;
+
+  if(fileSystemSize > totalDiskSpace_ - requiredUpdateSpace_) {
+    for (std::unordered_map<std::string, int>::iterator it = directorySizes.begin();
+        it != directorySizes.end();
+        it++) {
+      directorySize = it->second;
+
+      if((fileSystemSize-directorySize <= requiredUpdateSpace_)
+       && minimumDirectoryReductionSize < directorySize) {
+        minimumDirectoryReductionSize = directorySize;
+      }
+    }
+  }
+
+  return minimumDirectoryReductionSize;
+}
 
 std::string commandToString(COMMAND command) {
   std::string stringRepresentation = "\0";
@@ -214,7 +233,6 @@ int partOne(const std::string fileName) {
 
   DeviceSystem deviceSystem;
   deviceSystem.loadTerminalOutput(fileName);
-  deviceSystem.printFiles();
   return deviceSystem.sumDirectoriesSmallerThan100KB();
 }
 
@@ -223,7 +241,6 @@ int partTwo(const std::string fileName) {
 
   DeviceSystem deviceSystem;
   deviceSystem.loadTerminalOutput(fileName);
-
   return 0;
 }
 
@@ -246,11 +263,11 @@ int main() {
 
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
-  assert(0 == partOneResult);
+  assert(1432936 == partOneResult);
 
   int examplePartTwoResult = partTwo("example.txt");
   std::cout << "Part Two Example Result: " << examplePartTwoResult << std::endl;
-  assert(0 == examplePartTwoResult);
+  assert(24933642 == examplePartTwoResult);
 
   int partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;

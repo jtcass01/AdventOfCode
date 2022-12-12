@@ -39,6 +39,8 @@ class DeviceSystem {
 
         int sumDirectoriesSmallerThan100KB();
 
+        int suggestDirectoryToDelete();
+
         void printFiles();
 
     private:
@@ -56,4 +58,6 @@ class DeviceSystem {
         char commandChar_;
         char homeChar_;
         std::string upDirectory_;
+        int totalDiskSpace_;
+        int requiredUpdateSpace_;
 };
