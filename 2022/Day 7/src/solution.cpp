@@ -229,11 +229,11 @@ int main() {
 
   int example1PartOneResult = partOne("example1.txt");
   std::cout << "Part One Example Result: " << example1PartOneResult << std::endl;
-  assert(99999 == example1PartOneResult);
+  assert(5 == example1PartOneResult);
 
   int example2PartOneResult = partOne("example2.txt");
   std::cout << "Part One Example Result: " << example2PartOneResult << std::endl;
-  assert(99999 == example2PartOneResult);
+  assert(7 == example2PartOneResult);
 
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
