@@ -160,8 +160,8 @@ bool foundInString(std::string target, T substring) {
 }
 
 template <typename T>
-bool foundInVector(std::vector<T> vector, T element) {
-  std::vector<T>::iterator findIndex = std::find(vector.begin(), vector.end(), element);
+bool foundInVector(const std::vector<T> &vector, const T &element) {
+  auto findIndex = std::find(vector.begin(), vector.end(), element);
 
   return findIndex != vector.end();
 }

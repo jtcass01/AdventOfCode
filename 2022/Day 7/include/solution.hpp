@@ -16,7 +16,7 @@ template <typename T>
 bool foundInString(std::string target, T substring);
 
 template <typename T>
-bool foundInVector(std::vector<T> vector, T element);
+bool foundInVector(const std::vector<T> &vector, const T &element)
 
 int partOne(const std::string fileName);
 
