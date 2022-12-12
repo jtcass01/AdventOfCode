@@ -19,9 +19,9 @@ bool foundInString(std::string target, T substring);
 template <typename T>
 bool foundInVector(const std::vector<T> &vector, const T &element);
 
-double partOne(const std::string fileName);
+int partOne(const std::string fileName);
 
-double partTwo(const std::string fileName);
+int partTwo(const std::string fileName);
 
 enum class COMMAND {
     CHANGE_DIRECTORY,
@@ -37,7 +37,7 @@ class DeviceSystem {
 
         void loadTerminalOutput(std::string fileName);
 
-        double sumDirectoriesSmallerThan100KB();
+        int sumDirectoriesSmallerThan100KB();
 
         void printFiles();
 

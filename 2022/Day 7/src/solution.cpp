@@ -103,13 +103,15 @@ std::unordered_map<std::string, int> DeviceSystem::calculateDirectorySizes() {
   return directorySizes;
 }
 
-double DeviceSystem::sumDirectoriesSmallerThan100KB() {
-  double sum = 0;
+int DeviceSystem::sumDirectoriesSmallerThan100KB() {
+  int sum = 0;
   std::unordered_map<std::string, int> directorySizes = calculateDirectorySizes();
 
+  std::cout << "directorySizes: " << std::endl;
   for (std::unordered_map<std::string, int>::iterator it = directorySizes.begin();
        it != directorySizes.end();
        ++it) {
+    std::cout << "\t" << it->first << ": " << it->second << std::endl;
     if (it->second <= 100000) {
       sum += it->second;
     }
@@ -172,8 +174,6 @@ void DeviceSystem::printFiles() {
        ++it) {
     std::cout << "\t" << it->first << ":" << it->second << std::endl;
   }
-
-  printVector("directories_", directories_);
 }
 
 // Function to print the elements of a vector; Written entirely by ChatGPT.
@@ -206,7 +206,7 @@ bool foundInVector(const std::vector<T> &vector, const T &element) {
   return findIndex != vector.end();
 }
 
-double partOne(const std::string fileName) {
+int partOne(const std::string fileName) {
   std::cout << "Part 1: " << fileName << std::endl;
 
   DeviceSystem deviceSystem;
@@ -215,7 +215,7 @@ double partOne(const std::string fileName) {
   return deviceSystem.sumDirectoriesSmallerThan100KB();
 }
 
-double partTwo(const std::string fileName) {
+int partTwo(const std::string fileName) {
   std::cout << "Part 2: " << fileName << std::endl;
 
   DeviceSystem deviceSystem;
@@ -225,19 +225,19 @@ double partTwo(const std::string fileName) {
 }
 
 int main() {
-  double examplePartOneResult = partOne("example.txt");
+  int examplePartOneResult = partOne("example.txt");
   std::cout << "Part One Example Result: " << examplePartOneResult << std::endl;
   assert(95437 == examplePartOneResult);
 
-  double partOneResult = partOne("input.txt");
+  int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
   assert(0 == partOneResult);
 
-  double examplePartTwoResult = partTwo("example.txt");
+  int examplePartTwoResult = partTwo("example.txt");
   std::cout << "Part Two Example Result: " << examplePartTwoResult << std::endl;
   assert(0 == examplePartTwoResult);
 
-  double partTwoResult = partTwo("input.txt");
+  int partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
   assert(0 == partTwoResult);
 
