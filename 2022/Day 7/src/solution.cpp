@@ -241,7 +241,7 @@ int partTwo(const std::string fileName) {
 
   DeviceSystem deviceSystem;
   deviceSystem.loadTerminalOutput(fileName);
-  return 0;
+  return deviceSystem.suggestDirectoryToDelete();
 }
 
 int main() {
