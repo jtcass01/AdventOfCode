@@ -161,7 +161,7 @@ bool foundInString(std::string target, T substring) {
 
 template <typename T>
 bool foundInVector(std::vector<T> vector, T element) {
-  auto findIndex = std::find(vector.being(), vector.end(), element);
+  auto findIndex = std::find(vector.begin(), vector.end(), element);
 
   return findIndex != vector.end();
 }
