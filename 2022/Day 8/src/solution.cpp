@@ -8,7 +8,7 @@ Forest::Forest(std::string heightMapFileName) {
   for(std::string line; std::getline(File, line);) {
     for(size_t lineIndex = 0; lineIndex < line.size(); lineIndex++) {
       std::cout << line[lineIndex] << std::endl;
-      heightRow.push_back(atoi(&line[lineIndex]));
+      heightRow.push_back(stoi(line.substr(lineIndex, 1)));
     }
 
     heightMap_.push_back(heightRow);
