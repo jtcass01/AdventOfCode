@@ -30,6 +30,10 @@ void Computer::startUp(void) {
     std::vector<int> instruction(instructionStart, instructionEnd);
 
     printVector(instruction);
+
+    if (instruction[0] == OPCODE::FINISHED) {
+      break;
+    }
   }
 }
 
@@ -63,9 +67,12 @@ int partOne(const std::string fileName) {
 
   Computer computer(fileName);
 
+  computer.write(1, 12);
+  computer.write(2, 2);
+
   computer.startUp();
 
-  return 0;
+  return computer.read(0);
 }
 
 int partTwo(const std::string fileName) {
@@ -77,9 +84,9 @@ int partTwo(const std::string fileName) {
 }
 
 int main() {
-  /*int examplePartOneResult = partOne("example.txt");
+  int examplePartOneResult = partOne("example.txt");
   std::cout << "Part One Example Result: " << examplePartOneResult << std::endl;
-  assert(0 == examplePartOneResult);*/
+  assert(0 == examplePartOneResult);
 
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
