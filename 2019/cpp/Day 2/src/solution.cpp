@@ -3,10 +3,15 @@
 Intcode::Intcode(const std::string programFileName) {
   std::string programText;
   std::ifstream programFile;
+  std::stringstream programStream;
+  std::string programValue;
 
   programFile.open(programFileName, std::fstream::in);
   std::getline(programFile, programText);
-  std::cout << programText << std::endl;
+  programStream << programText;
+  while(std::getline(programStream, programValue, ',')) {
+    program.push_back(atoi(programValue));
+  }
 
   programFile.close();
 
