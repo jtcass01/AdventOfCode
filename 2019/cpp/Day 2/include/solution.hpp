@@ -33,6 +33,8 @@ class Computer {
 
         void write(const int registerNumber, const int registerValue);
 
+        void printRegisters();
+
     private:
         std::vector<int> registers;
 

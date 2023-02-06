@@ -65,6 +65,9 @@ void Computer::write(const int registerNumber, const int registerValue) {
   registers[registerNumber] = registerValue;
 }
 
+void Computer::printRegisters() {
+  printVector(registers);
+}
 
 // Function to print the elements of a vector; Written entirely by ChatGPT.
 template <typename T>
@@ -91,6 +94,8 @@ int partOne(const std::string fileName) {
   computer.write(2, 2);
 
   computer.startUp();
+
+
 
   return computer.read(0);
 }
