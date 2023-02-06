@@ -10,7 +10,7 @@ Intcode::Intcode(const std::string programFileName) {
   std::getline(programFile, programText);
   programStream << programText;
   while(std::getline(programStream, programValue, ',')) {
-    program.push_back(atoi(programValue));
+    program.push_back(stoi(programValue));
   }
 
   programFile.close();
