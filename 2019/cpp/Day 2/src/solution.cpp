@@ -19,12 +19,17 @@ Computer::Computer(const std::string programFileName) {
 }
 
 void Computer::startUp(void) {
+  OPCODE opCode = OPCODE::ERROR;
+
   for(std::vector<int>::iterator instructionStart = registers.begin();
       instructionStart < registers.end(); instructionStart += 4) {
     std::vector<int>::iterator instructionEnd = instructionStart + 4;
     std::vector<int> instruction(instructionStart, instructionEnd);
+    opCode = injestIntcode(instruction);
 
-    if (injestIntcode(instruction) == OPCODE::FINISHED) {
+    printRegisters();
+
+    if (opCode == OPCODE::FINISHED) {
       break;
     }
   }
@@ -94,8 +99,6 @@ int partOne(const std::string fileName) {
   computer.write(2, 2);
 
   computer.startUp();
-
-  computer.printRegisters();
 
   return computer.read(0);
 }
