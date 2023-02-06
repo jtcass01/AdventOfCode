@@ -1,14 +1,11 @@
 #include "../include/solution.hpp"
 
 Intcode::Intcode(const std::string programFileName) {
-  std::ifstream programFile(programFileName, std::fstream::in);
-  char *pLineChar = nullptr;
+  std::string programText;
 
-  for(std::string line; std::getline(programFile, line);) {
-    std::cout << line << std::endl;
-    pLineChar = strcpy(new char[line.length() + 1], line.c_str());
-    program.push_back(atoi(pLineChar));
-  }
+  std::ifstream programFile(programFileName, std::fstream::in);
+  std::getline(programFile, programText);
+  std::cout << programFile << std::endl;
 
   programFile.close();
 
