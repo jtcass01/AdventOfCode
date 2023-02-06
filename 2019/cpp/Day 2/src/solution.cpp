@@ -97,8 +97,8 @@ int partOne(const std::string fileName) {
 
   Computer computer(fileName);
 
-  //computer.write(1, 12);
-  //computer.write(2, 2);
+  computer.write(1, 12);
+  computer.write(2, 2);
 
   computer.startUp();
 
@@ -116,7 +116,7 @@ int partTwo(const std::string fileName) {
 int main() {
   int examplePartOneResult = partOne("example.txt");
   std::cout << "Part One Example Result: " << examplePartOneResult << std::endl;
-  assert(3500 == examplePartOneResult);
+  assert(100 == examplePartOneResult);
 
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
