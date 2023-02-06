@@ -26,7 +26,7 @@ Computer::Computer(const std::string programFileName) {
 void Computer::startUp(void) {
   for(std::vector<int>::iterator instructionStart = registers.begin();
       instructionStart < registers.end(); instructionStart += 4) {
-    std::vector<int>::iterator instructionEnd = instructionStart + 3;
+    std::vector<int>::iterator instructionEnd = instructionStart + 4;
     std::vector<int> instruction(instructionStart, instructionEnd);
 
     printVector(instruction);
