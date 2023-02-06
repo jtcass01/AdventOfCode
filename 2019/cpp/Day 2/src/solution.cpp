@@ -34,21 +34,20 @@ OPCODE Computer::injestIntcode(const std::vector<int> instruction) {
   assert(instruction.size() == 4);
 
   OPCODE opcode = static_cast<OPCODE>(instruction[0]);
-
-    int registerOneValue = 0;
-    int registerTwoValue = 0;
+  int registerOneValue = 0;
+  int registerTwoValue = 0;
 
   switch(opcode) {
     case OPCODE::FINISHED:
       break;
     case OPCODE::ADD:
-      int registerOneValue = read(instruction[1]);
-      int registerTwoValue = read(instruction[2]);
+      registerOneValue = read(instruction[1]);
+      registerTwoValue = read(instruction[2]);
       write(instruction[3], registerOneValue + registerTwoValue);
       break;
     case OPCODE::MULTIPLY:
-      int registerOneValue = read(instruction[1]);
-      int registerTwoValue = read(instruction[2]);
+      registerOneValue = read(instruction[1]);
+      registerTwoValue = read(instruction[2]);
       write(instruction[3], registerOneValue * registerTwoValue);
       break;
     default:
