@@ -27,6 +27,8 @@ void Computer::startUp(void) {
     std::vector<int> instruction(instructionStart, instructionEnd);
     opCode = injestIntcode(instruction);
 
+    std::cout << "Registers after instruction: ";
+    printVector(instruction);
     printRegisters();
 
     if (opCode == OPCODE::FINISHED) {
