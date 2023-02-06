@@ -24,12 +24,38 @@ void Computer::startUp(void) {
     std::vector<int>::iterator instructionEnd = instructionStart + 4;
     std::vector<int> instruction(instructionStart, instructionEnd);
 
-    printVector(instruction);
-
-    if (instruction[0] == OPCODE::FINISHED) {
+    if (injestIntcode(instruction) == OPCODE::FINISHED) {
       break;
     }
   }
+}
+
+OPCODE Computer::injestIntcode(const std::vector<int> instruction) {
+  assert(instruction.size() == 4);
+
+  OPCODE opcode = static_cast<OPCODE>(instruction[0]);
+
+    int registerOneValue = 0;
+    int registerTwoValue = 0;
+
+  switch(opcode) {
+    case OPCODE::FINISHED:
+      break;
+    case OPCODE::ADD:
+      int registerOneValue = read(instruction[1]);
+      int registerTwoValue = read(instruction[2]);
+      write(instruction[3], registerOneValue + registerTwoValue);
+      break;
+    case OPCODE::MULTIPLY:
+      int registerOneValue = read(instruction[1]);
+      int registerTwoValue = read(instruction[2]);
+      write(instruction[3], registerOneValue * registerTwoValue);
+      break;
+    default:
+      break;
+  }
+
+  return opcode;
 }
 
 int Computer::read(const int registerNumber) {
@@ -81,7 +107,7 @@ int partTwo(const std::string fileName) {
 int main() {
   int examplePartOneResult = partOne("example.txt");
   std::cout << "Part One Example Result: " << examplePartOneResult << std::endl;
-  assert(0 == examplePartOneResult);
+  assert(3500 == examplePartOneResult);
 
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;

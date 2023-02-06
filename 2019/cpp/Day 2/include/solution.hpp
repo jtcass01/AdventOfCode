@@ -27,12 +27,14 @@ class Computer {
     public:
         Computer(const std::string programFile);
 
-        void startUp(void);
-
         int read(const int registerNumber);
 
         void write(const int registerNumber, const int registerValue);
 
     private:
         std::vector<int> registers;
+
+        void startUp(void);
+
+        OPCODE injestIntcode(const std::vector<int> instruction);
 };
