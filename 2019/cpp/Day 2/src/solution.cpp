@@ -97,8 +97,8 @@ int partOne(const std::string fileName) {
 
   Computer computer(fileName);
 
-  computer.write(1, 12);
-  computer.write(2, 2);
+  //computer.write(1, 12);
+  //computer.write(2, 2);
 
   computer.startUp();
 
