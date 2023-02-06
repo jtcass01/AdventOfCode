@@ -21,10 +21,10 @@ Computer::Computer(const std::string programFileName) {
 void Computer::startUp(void) {
   OPCODE opCode = OPCODE::ERROR;
 
-  for(std::vector<int>::iterator instructionStart = registers.begin();
+  for(std::vector<double>::iterator instructionStart = registers.begin();
       instructionStart < registers.end(); instructionStart += 4) {
-    std::vector<int>::iterator instructionEnd = instructionStart + 4;
-    std::vector<int> instruction(instructionStart, instructionEnd);
+    std::vector<double>::iterator instructionEnd = instructionStart + 4;
+    std::vector<double> instruction(instructionStart, instructionEnd);
     opCode = injestIntcode(instruction);
 
     std::cout << "Registers after instruction: ";
@@ -37,12 +37,12 @@ void Computer::startUp(void) {
   }
 }
 
-OPCODE Computer::injestIntcode(const std::vector<int> instruction) {
+OPCODE Computer::injestIntcode(const std::vector<double> instruction) {
   assert(instruction.size() == 4);
 
   OPCODE opcode = static_cast<OPCODE>(instruction[0]);
-  int registerOneValue = 0;
-  int registerTwoValue = 0;
+  double registerOneValue = 0;
+  double registerTwoValue = 0;
 
   switch(opcode) {
     case OPCODE::FINISHED:
@@ -64,11 +64,11 @@ OPCODE Computer::injestIntcode(const std::vector<int> instruction) {
   return opcode;
 }
 
-int Computer::read(const int registerNumber) {
+double Computer::read(const int registerNumber) {
   return registers[registerNumber];
 }
 
-void Computer::write(const int registerNumber, const int registerValue) {
+void Computer::write(const int registerNumber, const double registerValue) {
   registers[registerNumber] = registerValue;
 }
 

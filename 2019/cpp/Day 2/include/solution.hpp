@@ -29,14 +29,14 @@ class Computer {
 
         void startUp(void);
 
-        int read(const int registerNumber);
+        double read(const int registerNumber);
 
-        void write(const int registerNumber, const int registerValue);
+        void write(const int registerNumber, const double registerValue);
 
         void printRegisters();
 
     private:
-        std::vector<int> registers;
+        std::vector<double> registers;
 
-        OPCODE injestIntcode(const std::vector<int> instruction);
+        OPCODE injestIntcode(const std::vector<double> instruction);
 };
