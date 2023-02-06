@@ -109,7 +109,7 @@ int partTwo(const std::string fileName) {
       computer.write(1, noun);
       computer.write(2, verb);
 
-      computer.printRegisters();
+      computer.startUp();
 
       if(computer.read(0) == 19690720) {
         result = 100 * noun + verb;
