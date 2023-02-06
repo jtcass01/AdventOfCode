@@ -7,11 +7,11 @@
 #include <cstring>
 #include <vector>
 
-// Function to print the elements of a vector; Written entirely by ChatGPT.
-template <typename T>
-void printVector(std::vector<T> vec);
+int calculateFuel(int mass);
 
-int calculateFuel(std::vector<int> masses);
+int calculateMassFuel(std::vector<int> masses);
+
+int calculateTotalFuel(std::vector<int> masses);
 
 int partOne(const std::string fileName);
 

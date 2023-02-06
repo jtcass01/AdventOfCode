@@ -42,7 +42,6 @@ int partOne(const std::string fileName) {
   std::vector<int> masses;
 
   for(std::string line; std::getline(File, line);) {
-    std::cout << line << std::endl;
     pLineChar = strcpy(new char[line.length() + 1], line.c_str());
     masses.push_back(atoi(pLineChar));
   }
@@ -59,7 +58,6 @@ int partTwo(const std::string fileName) {
   std::vector<int> masses;
 
   for(std::string line; std::getline(File, line);) {
-    std::cout << line << std::endl;
     pLineChar = strcpy(new char[line.length() + 1], line.c_str());
     masses.push_back(atoi(pLineChar));
   }
