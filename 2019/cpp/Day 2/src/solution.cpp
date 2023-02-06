@@ -107,10 +107,24 @@ int partOne(const std::string fileName) {
 
 int partTwo(const std::string fileName) {
   std::cout << "Part 2: " << fileName << std::endl;
+  int result = 0;
 
-  Computer computer(fileName);
+  for (int noun = 0; noun < 100; noun++) {
+    for(int verb = 0; verb < 100; verb++) {
+      Computer computer(fileName);
+      computer.write(1, noun);
+      computer.write(2, verb);
+      if(computer.read(0) == 19690720) {
+        result = 100 * noun + verb;
+        break;
+      }
+    }
+    if(result != 0) {
+      break;
+    }
+  }
 
-  return 0;
+  return result;
 }
 
 int main() {
