@@ -63,6 +63,8 @@ int partOne(const std::string fileName) {
 
   Computer computer(fileName);
 
+  computer.startUp();
+
   return 0;
 }
 
