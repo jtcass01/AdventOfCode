@@ -14,8 +14,6 @@ Computer::Computer(const std::string programFileName) {
   }
 
   programFile.close();
-
-  printVector(registers);
 }
 
 void Computer::startUp(void) {
@@ -26,8 +24,6 @@ void Computer::startUp(void) {
     std::vector<double>::iterator instructionEnd = instructionStart + 4;
     std::vector<double> instruction(instructionStart, instructionEnd);
     opCode = injestIntcode(instruction);
-
-    printRegisters();
 
     if (opCode == OPCODE::FINISHED) {
       break;
