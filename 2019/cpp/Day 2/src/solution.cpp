@@ -95,7 +95,7 @@ int partOne(const std::string fileName) {
 
   computer.startUp();
 
-
+  computer.printRegisters()
 
   return computer.read(0);
 }
