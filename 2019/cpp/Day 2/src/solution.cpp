@@ -108,6 +108,7 @@ int partTwo(const std::string fileName) {
       Computer computer(fileName);
       computer.write(1, noun);
       computer.write(2, verb);
+      computer.printRegisters()
       if(computer.read(0) == 19690720) {
         result = 100 * noun + verb;
         break;
@@ -129,10 +130,6 @@ int main() {
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
   assert(3790689 == partOneResult);
-
-  /*int examplePartTwoResult = partTwo("example.txt");
-  std::cout << "Part Two Example Result: " << examplePartTwoResult << std::endl;
-  assert(0 == examplePartTwoResult);*/
 
   int partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
