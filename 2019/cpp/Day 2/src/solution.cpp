@@ -2,10 +2,11 @@
 
 Intcode::Intcode(const std::string programFileName) {
   std::string programText;
+  std::ifstream programFile;
 
-  std::ifstream programFile(programFileName, std::fstream::in);
+  programFile.open(programFileName, std::fstream::in);
   std::getline(programFile, programText);
-  std::cout << programFile << std::endl;
+  std::cout << programText << std::endl;
 
   programFile.close();
 
