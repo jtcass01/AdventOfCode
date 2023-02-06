@@ -13,11 +13,6 @@ Computer::Computer(const std::string programFileName) {
     registers.push_back(stoi(programValue));
   }
 
-  std::vector<int> opValues;
-    if(opValues.size() == 4) {
-
-    }
-
   programFile.close();
 
   printVector(registers);
