@@ -23,10 +23,16 @@ enum OPCODE {
     ERROR = 0
 };
 
-class Intcode {
+class Computer {
     public:
-        Intcode(const std::string programFile);
+        Computer(const std::string programFile);
+
+        void startUp(void);
+
+        int read(const int registerNumber);
+
+        void write(const int registerNumber, const int registerValue);
 
     private:
-        std::vector<int> program;
+        std::vector<int> registers;
 };

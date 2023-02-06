@@ -1,6 +1,6 @@
 #include "../include/solution.hpp"
 
-Intcode::Intcode(const std::string programFileName) {
+Computer::Computer(const std::string programFileName) {
   std::string programText;
   std::ifstream programFile;
   std::stringstream programStream;
@@ -10,14 +10,37 @@ Intcode::Intcode(const std::string programFileName) {
   std::getline(programFile, programText);
   programStream << programText;
   while(std::getline(programStream, programValue, ',')) {
-    program.push_back(stoi(programValue));
+    registers.push_back(stoi(programValue));
   }
+
+  std::vector<int> opValues;
+    if(opValues.size() == 4) {
+
+    }
 
   programFile.close();
 
-  printVector(program);
-
+  printVector(registers);
 }
+
+void Computer::startUp(void) {
+  for(std::vector<int>::iterator instructionStart = registers.begin();
+      instructionStart < registers.end(); instructionStart += 4) {
+    std::vector<int>::iterator instructionEnd = instructionStart + 3;
+    std::vector<int> instruction(instructionStart, instructionEnd);
+
+    printVector(instruction);
+  }
+}
+
+int Computer::read(const int registerNumber) {
+  return registers[registerNumber];
+}
+
+void Computer::write(const int registerNumber, const int registerValue) {
+  registers[registerNumber] = registerValue;
+}
+
 
 // Function to print the elements of a vector; Written entirely by ChatGPT.
 template <typename T>
@@ -38,7 +61,7 @@ void printVector(std::vector<T> vec) {
 int partOne(const std::string fileName) {
   std::cout << "Part 1: " << fileName << std::endl;
 
-  Intcode intcode(fileName);
+  Computer computer(fileName);
 
   return 0;
 }
@@ -46,7 +69,7 @@ int partOne(const std::string fileName) {
 int partTwo(const std::string fileName) {
   std::cout << "Part 2: " << fileName << std::endl;
 
-  Intcode intcode(fileName);
+  Computer computer(fileName);
 
   return 0;
 }
