@@ -57,7 +57,8 @@ int partOne(const std::string fileName) {
 
   File.close();
 
-  return 0;
+  return calculateManhattanDistance(relativeCoordinates[0],
+                                    relativeCoordinates[1]);
 }
 
 int partTwo(const std::string fileName) {
