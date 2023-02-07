@@ -37,14 +37,19 @@ int partOne(const std::string fileName) {
     std::vector<int> y;
 
     while(std::getline(lineStream, directionString, ',')) {
+      int distance = parseDirection(directionString);
+      std::cout << "Adding " << std::to_string(distance);
+
       if(directionString.find('R') != std::string::npos
       || directionString.find('L') != std::string::npos) {
-        x.push_back(parseDirection(directionString));
+        x.push_back(distance);
+        std::cout << " to x." << std::endl;
       }
 
       if(directionString.find('U') != std::string::npos
       || directionString.find('D') != std::string::npos) {
-        y.push_back(parseDirection(directionString));
+        y.push_back(distance);
+        std::cout << " to y." << std::endl;
       }
     }
 
