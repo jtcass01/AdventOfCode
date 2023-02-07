@@ -23,12 +23,12 @@ void printVector(std::string vectorName, std::vector<T> vec) {
 int partOne(const std::string fileName) {
   std::cout << "Part 1: " << fileName << std::endl;
   std::ifstream File(fileName, std::fstream::in);
-  std::stringstream lineStream;
-  std::string directionString;
 
   std::vector<std::vector<std::vector<int>>> relativeCoordinates;
 
   for(std::string line; std::getline(File, line);) {
+    std::stringstream lineStream;
+    std::string directionString;
     std::cout << line << std::endl;
     lineStream << line;
     std::vector<std::vector<int>> relativeCoordinateLine;
