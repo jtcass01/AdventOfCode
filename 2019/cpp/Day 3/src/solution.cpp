@@ -61,9 +61,7 @@ int partOne(const std::string fileName) {
       yVector.push_back(y);
     }
 
-    printVector("xVector", xVector);
     relativeCoordinateLine.push_back(xVector);
-    printVector("yVector", yVector);
     relativeCoordinateLine.push_back(yVector);
     relativeCoordinates.push_back(relativeCoordinateLine);
   }
@@ -94,6 +92,10 @@ int partTwo(const std::string fileName) {
 double calculateManhattanDistance(std::vector<std::vector<int>> coordinatesP,
                                   std::vector<std::vector<int>> coordinatesQ) {
   assert(coordinatesP.size() == coordinatesQ.size());
+  printVector("coordinatesP[x]", coordinatesP[0]);
+  printVector("coordinatesP[y]", coordinatesP[1]);
+  printVector("coordinatesQ[x]", coordinatesQ[0]);
+  printVector("coordinatesQ[y]", coordinatesQ[1]);
 
   double distance = 0;
 
