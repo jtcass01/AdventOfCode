@@ -16,8 +16,6 @@ int partOne(const std::string fileName);
 
 int partTwo(const std::string fileName);
 
-int parseDirection(const std::string directionString);
-
 double calculateManhattanDistance(std::vector<std::vector<int>> coordinatesP,
                                   std::vector<std::vector<int>> coordinatesQ);
 

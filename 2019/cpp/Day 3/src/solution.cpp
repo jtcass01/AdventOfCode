@@ -90,25 +90,6 @@ int partTwo(const std::string fileName) {
   return 0;
 }
 
-int parseDirection(const std::string directionString) {
-  char *pDirectionString = nullptr;
-  char direction = '\0';
-  int distance = 0;
-
-  sscanf(directionString.c_str(), "%c%d", &direction, &distance);
-
-  switch(direction) {
-    case 'U':
-    case 'R':
-      break;
-    case 'D':
-    case 'L':
-      distance *= -1;
-      break;
-  }
-
-  return distance;
-}
 
 double calculateManhattanDistance(std::vector<std::vector<int>> coordinatesP,
                                   std::vector<std::vector<int>> coordinatesQ) {
@@ -142,13 +123,12 @@ int main() {
   int example0PartOneResult = partOne("example0.txt");
   std::cout << "Part One Example0 Result: " << example0PartOneResult << std::endl;
   assert(6 == example0PartOneResult);
-
-  /*int example1PartOneResult = partOne("example1.txt");
+  int example1PartOneResult = partOne("example1.txt");
   std::cout << "Part One Example1 Result: " << example1PartOneResult << std::endl;
   assert(159 == example1PartOneResult);
   int example2PartOneResult = partOne("example2.txt");
   std::cout << "Part One Example2 Result: " << example2PartOneResult << std::endl;
-  assert(135 == example2PartOneResult);*/
+  assert(135 == example2PartOneResult);
 
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
