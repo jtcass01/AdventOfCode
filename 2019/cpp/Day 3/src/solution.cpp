@@ -39,7 +39,6 @@ int partOne(const std::string fileName) {
     std::vector<int> yVector;
 
     while(std::getline(lineStream, directionString, ',')) {
-
       char direction = '\0';
       int distance = 0;
 
@@ -50,15 +49,16 @@ int partOne(const std::string fileName) {
           distance *= -1;
         case 'U':
           y += distance;
-          yVector.push_back(y);
           break;
         case 'L':
           distance *= -1;
         case 'R':
           x += distance;
-          xVector.push_back(x);
           break;
       }
+
+      xVector.push_back(x);
+      yVector.push_back(y);
     }
 
     printVector("xVector", xVector);
