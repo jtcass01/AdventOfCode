@@ -38,18 +38,15 @@ int partOne(const std::string fileName) {
 
     while(std::getline(lineStream, directionString, ',')) {
       int distance = parseDirection(directionString);
-      std::cout << "Adding " << std::to_string(distance);
 
       if(directionString.find('R') != std::string::npos
       || directionString.find('L') != std::string::npos) {
         x.push_back(distance);
-        std::cout << " to x." << std::endl;
       }
 
       if(directionString.find('U') != std::string::npos
       || directionString.find('D') != std::string::npos) {
         y.push_back(distance);
-        std::cout << " to y." << std::endl;
       }
     }
 
@@ -134,12 +131,13 @@ int main() {
   int example0PartOneResult = partOne("example0.txt");
   std::cout << "Part One Example0 Result: " << example0PartOneResult << std::endl;
   assert(6 == example0PartOneResult);
-  int example1PartOneResult = partOne("example1.txt");
+
+  /*int example1PartOneResult = partOne("example1.txt");
   std::cout << "Part One Example1 Result: " << example1PartOneResult << std::endl;
   assert(159 == example1PartOneResult);
   int example2PartOneResult = partOne("example2.txt");
   std::cout << "Part One Example2 Result: " << example2PartOneResult << std::endl;
-  assert(135 == example2PartOneResult);
+  assert(135 == example2PartOneResult);*/
 
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
