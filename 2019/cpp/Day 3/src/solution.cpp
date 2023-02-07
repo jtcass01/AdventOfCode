@@ -33,27 +33,38 @@ int partOne(const std::string fileName) {
     lineStream << line;
     std::vector<std::vector<int>> relativeCoordinateLine;
 
-    std::vector<int> x;
-    std::vector<int> y;
+    int x = 0;
+    std::vector<int> xVector;
+    int y = 0;
+    std::vector<int> yVector;
 
     while(std::getline(lineStream, directionString, ',')) {
-      int distance = parseDirection(directionString);
 
-      if(directionString.find('R') != std::string::npos
-      || directionString.find('L') != std::string::npos) {
-        x.push_back(distance);
-      }
+      char direction = '\0';
+      int distance = 0;
 
-      if(directionString.find('U') != std::string::npos
-      || directionString.find('D') != std::string::npos) {
-        y.push_back(distance);
+      sscanf(directionString.c_str(), "%c%d", &direction, &distance);
+
+      switch(direction) {
+        case 'D':
+          distance *= -1;
+        case 'U':
+          y += distance;
+          yVector.push_back(y);
+          break;
+        case 'L':
+          distance *= -1;
+        case 'R':
+          x += distance;
+          xVector.push_back(x);
+          break;
       }
     }
 
-    printVector("x", x);
-    relativeCoordinateLine.push_back(x);
-    printVector("y", y);
-    relativeCoordinateLine.push_back(y);
+    printVector("xVector", xVector);
+    relativeCoordinateLine.push_back(xVector);
+    printVector("yVector", yVector);
+    relativeCoordinateLine.push_back(yVector);
     relativeCoordinates.push_back(relativeCoordinateLine);
   }
 
