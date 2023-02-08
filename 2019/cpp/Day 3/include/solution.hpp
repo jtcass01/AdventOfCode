@@ -10,14 +10,6 @@
 #include <unordered_map>
 #include <algorithm>
 
-// Function to print the elements of a vector; Written entirely by ChatGPT.
-template <typename T>
-void printVector(std::string vectorName, std::vector<T> vec);
-
-int partOne(const std::string fileName);
-
-int partTwo(const std::string fileName);
-
 enum DIRECTION : char {
     UP = 'U',
     RIGHT = 'R',
@@ -58,7 +50,14 @@ namespace std {
     template<>
     struct hash<Point> {
         std::size_t operator()(const Point &point) const {
-            return std::hash<int>()(point.x) ^ std::hash<int>()(point.y);
+            std::size_t xHash = std::hash<int>{}(point.x);
+            std::size_t yHash = std::hash<int>{}(point.y);
+
+            if (xHash != yHash) {
+                return xHash ^ yHash;
+            }
+
+            return xHash;
         }
     };
 }
@@ -77,8 +76,16 @@ class WireSet {
     public:
         WireSet(std::vector<Wire> wires);
 
-        long getManhatanDistanceToClosestCross();
+        double getManhatanDistanceToClosestCross();
 
     private:
         std::unordered_map<Point, int> wireMap;
 };
+
+// Function to print the elements of a vector; Written entirely by ChatGPT.
+template <typename T>
+void printVector(std::string vectorName, std::vector<T> vec);
+
+int partOne(const std::string fileName);
+
+int partTwo(const std::string fileName);
