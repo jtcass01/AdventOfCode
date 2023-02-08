@@ -68,6 +68,9 @@ Wire::Wire(std::vector<Instruction> instructions) : points() {
         break;
       case DIRECTION::UP:
         for(int y_index = y; y_index <= y + instruction.magnitude; ++y_index) {
+          std::cout << "{" << "y_index: " << std::to_string(y_index);
+          std::cout << "y + instruction.magnitude: " << std::to_string(y + instruction.magnitude);
+          std::cout << "}" << std::endl;
           Point point = {x, y_index};
           addPoint(point);
         }
