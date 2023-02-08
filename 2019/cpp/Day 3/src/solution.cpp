@@ -47,7 +47,7 @@ std::vector<Instruction> parseInstructions(const std::string instructionString) 
   return instructions;
 }
 
-Wire::Wire(std::vector<Instruction> instructions) {
+Wire::Wire(std::vector<Instruction> instructions) : points() {
   std::cout << "Instructions for wire:" << instructions << std::endl;
 
   int x = 0;
