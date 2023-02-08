@@ -82,9 +82,23 @@ class WireSet {
 
         long getManhatanDistanceToClosestCross();
 
+        std::unordered_map<Point, int> getMap() const;
+
     private:
         std::unordered_map<Point, int> wireMap;
 };
+
+std::ostream &operator<<(std::ostream &os, const WireSet &wireSet) {
+    const std::unordered_map<Point, int> wireMap = wireSet.getMap();
+
+    os << "WireSet: " << std::endl;
+
+    for (const std::pair<Point, int> &pointEntry : wireMap) {
+        os << "\t" << pointEntry.first << ": " << pointEntry.second << std::endl;
+    }
+
+    return os;
+}
 
 // Function to print the elements of a vector; Written entirely by ChatGPT.
 template <typename T>

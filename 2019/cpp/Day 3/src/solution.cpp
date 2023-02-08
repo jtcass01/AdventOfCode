@@ -120,8 +120,6 @@ WireSet::WireSet(std::vector<Wire> wires) {
   for(const Wire &wire : wires) {
     const std::vector<Point> wirePoints = wire.getPoints();
 
-    std::cout << "Wire Points: " << wirePoints << std::endl;
-
     for(const Point &wirePoint : wirePoints) {
       if(wireMap.count(wirePoint) > 0) {
         wireMap[wirePoint] += 1;
@@ -148,6 +146,10 @@ long WireSet::getManhatanDistanceToClosestCross() {
   return minimum_manhattan_distance;
 }
 
+std::unordered_map<Point, int> WireSet::getMap() const {
+  return wireMap;
+}
+
 long partOne(const std::string fileName) {
   std::cout << "Part 1: " << fileName << std::endl;
   std::ifstream File(fileName, std::fstream::in);
@@ -163,6 +165,8 @@ long partOne(const std::string fileName) {
   File.close();
 
   WireSet wireSet(wires);
+
+  std::cout << wireSet;
 
   return wireSet.getManhatanDistanceToClosestCross();
 }
