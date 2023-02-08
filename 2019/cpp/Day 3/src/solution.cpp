@@ -4,14 +4,18 @@ DIRECTION charToDirection(char directionChar) {
     DIRECTION direction;
 
     switch(directionChar) {
-        case 'U':
-            direction = DIRECTION::UP;
-        case 'R':
-            direction = DIRECTION::RIGHT;
-        case 'L':
-            direction = DIRECTION::LEFT;
-        case 'D':
-            direction = DIRECTION::DOWN;
+      case 'U':
+        direction = DIRECTION::UP;
+        break;
+      case 'R':
+        direction = DIRECTION::RIGHT;
+        break;
+      case 'L':
+        direction = DIRECTION::LEFT;
+        break;
+      case 'D':
+        direction = DIRECTION::DOWN;
+        break;
     }
 
     return direction;
