@@ -29,8 +29,6 @@ std::ostream &operator<<(std::ostream &os, const Instruction &instruction) {
   return os;
 }
 
-void printInstruction(const Instruction instruction);
-
 std::vector<Instruction> parseInstructions(const std::string instructionString);
 
 struct Point {
@@ -74,8 +72,11 @@ class Wire {
 
         int findPoint(const Point targetPoint);
 
+        unsigned long countSteps(const Point targetPoint) const;
+
     private:
-        std::vector<Point> points;
+        std::vector<Point> points_;
+        std::vector<Instruction> instructions_;
 };
 
 class WireSet {
@@ -84,11 +85,9 @@ class WireSet {
 
         long getManhatanDistanceToClosestCross();
 
-        long getMinimumSignalDelay();
+        unsigned long getMinimumSignalDelay();
 
         std::unordered_map<Point, int> getMap() const;
-
-        std::vector<Wire> getWires() const;
 
     private:
         std::unordered_map<Point, int> wireMap_;
@@ -127,4 +126,4 @@ std::ostream &operator<<(std::ostream &os, const std::vector<T> vec) {
 
 long partOne(const std::string fileName);
 
-int partTwo(const std::string fileName);
+unsigned long partTwo(const std::string fileName);

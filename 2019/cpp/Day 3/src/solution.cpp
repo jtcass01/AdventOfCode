@@ -21,6 +21,7 @@ DIRECTION charToDirection(char directionChar) {
     return direction;
 }
 
+
 std::vector<Instruction> parseInstructions(const std::string instructionString) {
   std::stringstream lineStream;
   std::string directionString;
@@ -47,14 +48,14 @@ std::vector<Instruction> parseInstructions(const std::string instructionString) 
   return instructions;
 }
 
-Wire::Wire(std::vector<Instruction> instructions) : points() {
-  std::cout << "Instructions for wire:" << instructions << std::endl;
+Wire::Wire(std::vector<Instruction> instructions) : points_(), instructions_(instructions) {
+  std::cout << "Instructions for wire:" << instructions_ << std::endl;
 
   int x = 0;
   int y = 0;
   int distance = 0;
 
-  for(const Instruction &instruction : instructions) {
+  for(const Instruction &instruction : instructions_) {
     std::cout << "Current Location (" << x << ", " << y << ")" << std::endl;
     std::cout << "\tNew instruction: " << instruction << std::endl;
 
@@ -92,29 +93,89 @@ Wire::Wire(std::vector<Instruction> instructions) : points() {
 }
 
 void Wire::addPoint(const Point point) {
-  if (points.empty() || findPoint(point) == -1) {
-    points.push_back(point);
+  if (findPoint(point) == -1) {
+    points_.push_back(point);
   }
 }
 
 int Wire::findPoint(const Point targetPoint) {
   int pointIndex = -1;
 
-  std::vector<Point>::iterator pointIterator = std::find_if(points.begin(),
-                                                            points.end(),
+  std::vector<Point>::iterator pointIterator = std::find_if(points_.begin(),
+                                                            points_.end(),
                                                             [&](const Point &point) {
     return point == targetPoint;
   });
 
-  if (pointIterator != points.end()) {
-    pointIndex = std::distance(points.begin(), pointIterator);
+  if (pointIterator != points_.end()) {
+    pointIndex = std::distance(points_.begin(), pointIterator);
   }
 
   return pointIndex;
 }
 
 std::vector<Point> Wire::getPoints() const {
-  return points;
+  return points_;
+}
+
+unsigned long Wire::countSteps(const Point targetPoint) const {
+  int x = 0;
+  int y = 0;
+  unsigned int stepCount = 0;
+
+  for(const Instruction &instruction : instructions_) {
+    std::cout << "Current Location (" << x << ", " << y << ")" << std::endl;
+    std::cout << "\tNew instruction: " << instruction << std::endl;
+
+    switch(instruction.direction) {
+      case DIRECTION::DOWN:
+        for(int y_index = y; y_index >= y - instruction.magnitude; --y_index) {
+          Point point = {x, y_index};
+          stepCount++;
+
+          if(point == targetPoint) {
+            return stepCount;
+          }
+        }
+        y -= instruction.magnitude;
+        break;
+      case DIRECTION::UP:
+        for(int y_index = y; y_index <= y + instruction.magnitude; ++y_index) {
+          Point point = {x, y_index};
+          stepCount++;
+
+          if(point == targetPoint) {
+            return stepCount;
+          }
+        }
+        y += instruction.magnitude;
+        break;
+      case DIRECTION::LEFT:
+        for(int x_index = x; x_index >= x - instruction.magnitude; --x_index) {
+          Point point = {x_index, y};
+          stepCount++;
+
+          if(point == targetPoint) {
+            return stepCount;
+          }
+        }
+        x -= instruction.magnitude;
+        break;
+      case DIRECTION::RIGHT:
+        for(int x_index = x; x_index <= x + instruction.magnitude; ++x_index) {
+          Point point = {x_index, y};
+          stepCount++;
+
+          if(point == targetPoint) {
+            return stepCount;
+          }
+        }
+        x += instruction.magnitude;
+        break;
+    }
+  }
+
+  return 0;
 }
 
 WireSet::WireSet(std::vector<Wire> wires) : wires_(wires) {
@@ -148,21 +209,21 @@ long WireSet::getManhatanDistanceToClosestCross() {
   return minimum_manhattan_distance;
 }
 
-long WireSet::getMinimumSignalDelay() {
-  int minimum_signal_delay = 0;
+unsigned long WireSet::getMinimumSignalDelay() {
+  unsigned long minimum_signal_delay = 0;
 
   for (const std::pair<Point, int> &pointEntry : wireMap_) {
     if(pointEntry.second > 1) {
       Point entryPoint = pointEntry.first;
-      int signal_delay = 0;
+      unsigned long signal_delay = 0;
 
       for(Wire &wire : wires_) {
-        signal_delay += wire.findPoint(entryPoint);
+        signal_delay += wire.countSteps(entryPoint);
       }
 
       std::cout << "signal_delay: " << std::to_string(signal_delay) << std::endl;
       for(Wire &wire : wires_) {
-        std::cout << "\tpointLocation: " << wire.findPoint(entryPoint) << std::endl;
+        std::cout << "\tpointLocation: " << wire.countSteps(entryPoint) << std::endl;
       }
 
       if((minimum_signal_delay == 0 ||
@@ -178,10 +239,6 @@ long WireSet::getMinimumSignalDelay() {
 
 std::unordered_map<Point, int> WireSet::getMap() const {
   return wireMap_;
-}
-
-std::vector<Wire> WireSet::getWires() const {
-  return wires_;
 }
 
 long partOne(const std::string fileName) {
@@ -201,7 +258,7 @@ long partOne(const std::string fileName) {
   return wireSet.getManhatanDistanceToClosestCross();
 }
 
-int partTwo(const std::string fileName) {
+unsigned long partTwo(const std::string fileName) {
   std::ifstream File(fileName, std::fstream::in);
   std::vector<Wire> wires;
 
@@ -234,17 +291,16 @@ int main() {
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
   assert(1195 == partOneResult);*/
 
-  long example0PartTwoResult = partTwo("example0.txt");
+  unsigned long example0PartTwoResult = partTwo("example0.txt");
   std::cout << "Part Two Example0 Result: " << example0PartTwoResult << std::endl;
   assert(30 == example0PartTwoResult);
-  long example1PartTwoResult = partTwo("example1.txt");
+  unsigned long example1PartTwoResult = partTwo("example1.txt");
   std::cout << "Part Two Example1 Result: " << example1PartTwoResult << std::endl;
   assert(610 == example1PartTwoResult);
-  long example2PartTwoResult = partTwo("example2.txt");
+  unsigned long example2PartTwoResult = partTwo("example2.txt");
   std::cout << "Part Two Example2 Result: " << example2PartTwoResult << std::endl;
   assert(410 == example2PartTwoResult);
-
-  long partTwoResult = partTwo("input.txt");
+  unsigned long partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
   assert(0 == partTwoResult);
 
