@@ -123,6 +123,7 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
   int y = 0;
   bool pointFound = false;
   unsigned long stepCount = 0;
+  std::cout << "Counting steps to:" << targetPoint << std::endl;
 
   for(const Instruction &instruction : instructions_) {
     switch(instruction.direction) {
