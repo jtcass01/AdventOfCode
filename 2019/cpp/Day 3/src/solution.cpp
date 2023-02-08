@@ -35,18 +35,11 @@ std::vector<Instruction> parseInstructions(const std::string instructionString) 
   while(std::getline(lineStream, directionString, ',')) {
     char directionChar = '\0';
     int magnitude = 0;
-    Instruction instruction = {};
-
-    std::cout << directionString << std::endl;
 
     sscanf(directionString.c_str(), "%c%d", &directionChar, &magnitude);
 
-    std::cout << directionChar << magnitude << std::endl;
-
-    instruction.direction = charToDirection(directionChar);
-    instruction.magnitude = magnitude;
-
-    std::cout << "\t" << instruction << std::endl;
+    Instruction instruction = {charToDirection(directionChar),
+                               magnitude};
 
     instructions.push_back(instruction);
   }
