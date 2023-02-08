@@ -48,15 +48,15 @@ std::vector<Instruction> parseInstructions(const std::string instructionString) 
 }
 
 Wire::Wire(std::vector<Instruction> instructions) : points() {
-  // std::cout << "Instructions for wire:" << instructions << std::endl;
+  std::cout << "Instructions for wire:" << instructions << std::endl;
 
   int x = 0;
   int y = 0;
   int distance = 0;
 
   for(const Instruction &instruction : instructions) {
-    // std::cout << "Current Location (" << x << ", " << y << ")" << std::endl;
-    // std::cout << "\tNew instruction: " << instruction << std::endl;
+    std::cout << "Current Location (" << x << ", " << y << ")" << std::endl;
+    std::cout << "\tNew instruction: " << instruction << std::endl;
 
     switch(instruction.direction) {
       case DIRECTION::DOWN:
@@ -136,13 +136,13 @@ long WireSet::getManhatanDistanceToClosestCross() {
     if(pointEntry.second > 1) {
       Point entryPoint = pointEntry.first;
       int manhattan_distance = std::abs(entryPoint.x) + std::abs(entryPoint.y);
-      // std::cout << "manhattan_distance: " << manhattan_distance << std::endl;
+      std::cout << "manhattan_distance: " << manhattan_distance << std::endl;
 
       if((minimum_manhattan_distance == 0 ||
           manhattan_distance < minimum_manhattan_distance)
           && manhattan_distance != 0) {
         minimum_manhattan_distance = manhattan_distance;
-        // std::cout << "new minimum_manhattan_distance: " << minimum_manhattan_distance << std::endl;
+        std::cout << "new minimum_manhattan_distance: " << minimum_manhattan_distance << std::endl;
       }
     }
   }
@@ -168,8 +168,7 @@ long partOne(const std::string fileName) {
   File.close();
 
   WireSet wireSet(wires);
-
-  // std::cout << wireSet;
+  std::cout << wireSet;
 
   return wireSet.getManhatanDistanceToClosestCross();
 }
