@@ -125,14 +125,12 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
   unsigned long stepCount = 0;
 
   for(const Instruction &instruction : instructions_) {
-    std::cout << "Current Location (" << x << ", " << y << ")" << std::endl;
-    std::cout << "\tNew instruction: " << instruction << std::endl;
-
     switch(instruction.direction) {
       case DIRECTION::DOWN:
         for(int y_index = y; y_index >= y - instruction.magnitude; --y_index) {
           Point point = {x, y_index};
           stepCount++;
+          std::cout << "Current Location (" << x << ", " << y_index << ") at step: " << std::to_string(stepCount) << std::endl;
 
           if(point == targetPoint) {
             pointFound = true;
@@ -145,6 +143,7 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
         for(int y_index = y; y_index <= y + instruction.magnitude; ++y_index) {
           Point point = {x, y_index};
           stepCount++;
+          std::cout << "Current Location (" << x << ", " << y_index << ") at step: " << std::to_string(stepCount) << std::endl;
 
           if(point == targetPoint) {
             pointFound = true;
@@ -157,6 +156,7 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
         for(int x_index = x; x_index >= x - instruction.magnitude; --x_index) {
           Point point = {x_index, y};
           stepCount++;
+          std::cout << "Current Location (" << x_index << ", " << y << ") at step: " << std::to_string(stepCount) << std::endl;
 
           if(point == targetPoint) {
             pointFound = true;
@@ -169,6 +169,7 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
         for(int x_index = x; x_index <= x + instruction.magnitude; ++x_index) {
           Point point = {x_index, y};
           stepCount++;
+          std::cout << "Current Location (" << x_index << ", " << y << ") at step: " << std::to_string(stepCount) << std::endl;
 
           if(point == targetPoint) {
             pointFound = true;
