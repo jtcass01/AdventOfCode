@@ -38,6 +38,8 @@ std::vector<Instruction> parseInstructions(const std::string instructionString) 
     instruction.direction = charToDirection(directionChar);
     instruction.magnitude = magnitude;
 
+    std::cout << "\t" << instruction << std::endl;
+
     instructions.push_back(instruction);
   }
 
