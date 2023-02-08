@@ -126,12 +126,14 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
   std::cout << "Counting steps to:" << targetPoint << std::endl;
 
   for(const Instruction &instruction : instructions_) {
+    std::cout << "Instruction: " << instruction << std::endl;
+
     switch(instruction.direction) {
       case DIRECTION::DOWN:
         for(int y_index = y+1; y_index >= y - instruction.magnitude; --y_index) {
           Point point = {x, y_index};
           stepCount++;
-          std::cout << "Current Location (" << x << ", " << y_index << ") at step: " << std::to_string(stepCount) << std::endl;
+          std::cout << "\tCurrent Location (" << x << ", " << y_index << ") at step: " << std::to_string(stepCount) << std::endl;
 
           if(point == targetPoint) {
             pointFound = true;
