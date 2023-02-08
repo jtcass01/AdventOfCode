@@ -318,10 +318,10 @@ int main() {
   unsigned long example1PartTwoResult = partTwo("example1.txt");
   std::cout << "Part Two Example1 Result: " << example1PartTwoResult << std::endl;
   assert(610 == example1PartTwoResult);
-  unsigned long example2PartTwoResult = partTwo("example2.txt");
+  // unsigned long example2PartTwoResult = partTwo("example2.txt");
   // std::cout << "Part Two Example2 Result: " << example2PartTwoResult << std::endl;
   // assert(410 == example2PartTwoResult);
-  // unsigned long partTwoResult = partTwo("input.txt");
+  unsigned long partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
   assert(0 == partTwoResult);
 
