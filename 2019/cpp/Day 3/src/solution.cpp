@@ -121,7 +121,8 @@ std::vector<Point> Wire::getPoints() const {
 unsigned long Wire::countSteps(const Point targetPoint) const {
   int x = 0;
   int y = 0;
-  unsigned int stepCount = 0;
+  bool pointFound = false;
+  unsigned long stepCount = 0;
 
   for(const Instruction &instruction : instructions_) {
     std::cout << "Current Location (" << x << ", " << y << ")" << std::endl;
@@ -134,7 +135,8 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
           stepCount++;
 
           if(point == targetPoint) {
-            return stepCount;
+            pointFound = true;
+            break;
           }
         }
         y -= instruction.magnitude;
@@ -145,7 +147,8 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
           stepCount++;
 
           if(point == targetPoint) {
-            return stepCount;
+            pointFound = true;
+            break;
           }
         }
         y += instruction.magnitude;
@@ -156,7 +159,8 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
           stepCount++;
 
           if(point == targetPoint) {
-            return stepCount;
+            pointFound = true;
+            break;
           }
         }
         x -= instruction.magnitude;
@@ -167,12 +171,21 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
           stepCount++;
 
           if(point == targetPoint) {
-            return stepCount;
+            pointFound = true;
+            break;
           }
         }
         x += instruction.magnitude;
         break;
     }
+
+    if(pointFound) {
+      break;
+    }
+  }
+
+  if(pointFound) {
+    return stepCount;
   }
 
   return 0;
@@ -216,6 +229,10 @@ unsigned long WireSet::getMinimumSignalDelay() {
     if(pointEntry.second > 1) {
       Point entryPoint = pointEntry.first;
       unsigned long signal_delay = 0;
+
+      if(entryPoint.x == 0 && entryPoint.y == 0) {
+        break;
+      }
 
       for(Wire &wire : wires_) {
         signal_delay += wire.countSteps(entryPoint);
