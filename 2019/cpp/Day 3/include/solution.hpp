@@ -7,6 +7,8 @@
 #include <cstring>
 #include <vector>
 #include <sstream>
+#include <unordered_map>
+#include <algorithm>
 
 // Function to print the elements of a vector; Written entirely by ChatGPT.
 template <typename T>
@@ -16,12 +18,67 @@ int partOne(const std::string fileName);
 
 int partTwo(const std::string fileName);
 
-double calculateManhattanDistance(std::vector<std::vector<int>> coordinatesP,
-                                  std::vector<std::vector<int>> coordinatesQ);
+enum DIRECTION : char {
+    UP = 'U',
+    RIGHT = 'R',
+    LEFT = 'L',
+    DOWN = 'D'
+};
 
-class Puzzle {
+DIRECTION charToDirection(char directionChar) {
+    DIRECTION direction;
+
+    switch(directionChar) {
+        case 'U':
+            direction = DIRECTION::UP;
+        case 'R':
+            direction = DIRECTION::RIGHT;
+        case 'L':
+            direction = DIRECTION::LEFT;
+        case 'D':
+            direction = DIRECTION::DOWN;
+    }
+
+    return direction;
+}
+
+struct Instruction {
+    DIRECTION direction;
+    int magnitude;
+};
+
+std::vector<Instruction> parseInstructions(const std::string instructionString);
+
+struct Point {
+    int x;
+    int y;
+};
+
+namespace std {
+    template<>
+    struct hash<Point> {
+        std::size_t operator()(const Point &point) const {
+            return std::hash<int>()(point.x) ^ std::hash<int>()(point.y);
+        }
+    };
+}
+
+class Wire {
     public:
-        Puzzle();
+        Wire(std::vector<Instruction> instructions);
 
-    //private:
+        std::vector<Point> getPoints() const;
+
+    private:
+        std::vector<Point> points;
+};
+
+class WireSet {
+    public:
+        WireSet(std::vector<Wire> wires);
+
+        double getManhatanDistanceToClosestCross();
+
+    private:
+        std::unordered_map<Point, int> wireMap;
 };

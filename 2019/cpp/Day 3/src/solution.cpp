@@ -1,7 +1,105 @@
 #include "../include/solution.hpp"
 
-Puzzle::Puzzle() {
+std::vector<Instruction> parseInstructions(const std::string instructionString) {
+  std::stringstream lineStream;
+  std::string directionString;
+  std::vector<Instruction> instructions;
+  lineStream.str(instructionString);
 
+  int x = 0;
+  std::vector<int> xVector;
+  int y = 0;
+  std::vector<int> yVector;
+
+  while(std::getline(lineStream, directionString, ',')) {
+    char directionChar = '\0';
+    int magnitude = 0;
+
+    sscanf(directionString.c_str(), "%c%d", &directionChar, &magnitude);
+
+    Instruction instruction = {charToDirection(directionChar), magnitude};
+
+    instructions.push_back(instruction);
+  }
+
+  return instructions;
+}
+
+Wire::Wire(std::vector<Instruction> instructions) {
+  int x = 0;
+  int y = 0;
+  int distance = 0;
+
+  for(const Instruction &instruction : instructions) {
+    Point point = {};
+
+    switch(instruction.direction) {
+      case DIRECTION::DOWN:
+        for(int y_index = y; y_index >= y - instruction.magnitude; --y) {
+          point = {x, y_index};
+        }
+        y -= instruction.magnitude;
+        break;
+      case DIRECTION::UP:
+        for(int y_index = y; y <= y + instruction.magnitude; ++y) {
+          point = {x, y_index};
+        }
+        y += instruction.magnitude;
+        break;
+      case DIRECTION::LEFT:
+        for(int x_index = x; x_index >= x - instruction.magnitude; --x) {
+          point = {x_index, y};
+        }
+        x -= instruction.magnitude;
+        break;
+      case DIRECTION::RIGHT:
+        for(int x_index = x; x_index >= x + instruction.magnitude; ++x) {
+          point = {x_index, y};
+        }
+        x += instruction.magnitude;
+        break;
+    }
+
+    bool pointInMap = std::binary_search(points.begin(), points.end(), point);
+
+    if(!pointInMap) {
+      points.push_back(point);
+    }
+  }
+}
+
+std::vector<Point> Wire::getPoints() const {
+  return points;
+}
+
+WireSet::WireSet(std::vector<Wire> wires) {
+  for(const Wire &wire : wires) {
+    const std::vector<Point> wirePoints = wire.getPoints();
+
+    for(const Point &wirePoint : wirePoints) {
+      if(wireMap.count(wirePoint) > 0) {
+        wireMap[wirePoint] += 1;
+      } else {
+        wireMap[wirePoint] = 1;
+      }
+    }
+  }
+}
+
+long WireSet::getManhatanDistanceToClosestCross() {
+  int minimum_manhattan_distance = 0;
+  for (const std::pair<Point, int> &pointEntry : wireMap) {
+    if(pointEntry.second > 1) {
+      Point entryPoint = pointEntry.first;
+      int manhattan_distance = std::abs(entryPoint.x + entryPoint.y);
+
+      if(minimum_manhattan_distance = 0 ||
+         manhattan_distance < minimum_manhattan_distance) {
+        minimum_manhattan_distance = manhattan_distance;
+      }
+    }
+  }
+  return minimum_manhattan_distance;
 }
 
 // Function to print the elements of a vector; Written entirely by ChatGPT.
@@ -20,56 +118,22 @@ void printVector(std::string vectorName, std::vector<T> vec) {
     std::cout << "]" << std::endl;
 }
 
-int partOne(const std::string fileName) {
+long partOne(const std::string fileName) {
   std::cout << "Part 1: " << fileName << std::endl;
   std::ifstream File(fileName, std::fstream::in);
-
-  std::vector<std::vector<std::vector<int>>> relativeCoordinates;
+  std::vector<Wire> wires;
 
   for(std::string line; std::getline(File, line);) {
-    std::stringstream lineStream;
-    std::string directionString;
-    std::cout << line << std::endl;
-    lineStream << line;
-    std::vector<std::vector<int>> relativeCoordinateLine;
-
-    int x = 0;
-    std::vector<int> xVector;
-    int y = 0;
-    std::vector<int> yVector;
-
-    while(std::getline(lineStream, directionString, ',')) {
-      char direction = '\0';
-      int distance = 0;
-
-      sscanf(directionString.c_str(), "%c%d", &direction, &distance);
-
-      switch(direction) {
-        case 'D':
-          distance *= -1;
-        case 'U':
-          y += distance;
-          break;
-        case 'L':
-          distance *= -1;
-        case 'R':
-          x += distance;
-          break;
-      }
-
-      xVector.push_back(x);
-      yVector.push_back(y);
-    }
-
-    relativeCoordinateLine.push_back(xVector);
-    relativeCoordinateLine.push_back(yVector);
-    relativeCoordinates.push_back(relativeCoordinateLine);
+    std::vector<Instruction> wireInstructions = parseInstructions(line);
+    Wire wire(wireInstructions);
+    wires.push_back(wire);
   }
 
   File.close();
 
-  return calculateManhattanDistance(relativeCoordinates[0],
-                                    relativeCoordinates[1]);
+  WireSet wireSet(wires);
+
+  return wireSet.getManhatanDistanceToClosestCross();
 }
 
 int partTwo(const std::string fileName) {
@@ -89,50 +153,18 @@ int partTwo(const std::string fileName) {
 }
 
 
-double calculateManhattanDistance(std::vector<std::vector<int>> coordinatesP,
-                                  std::vector<std::vector<int>> coordinatesQ) {
-  assert(coordinatesP.size() == coordinatesQ.size());
-  printVector("coordinatesP[x]", coordinatesP[0]);
-  printVector("coordinatesP[y]", coordinatesP[1]);
-  printVector("coordinatesQ[x]", coordinatesQ[0]);
-  printVector("coordinatesQ[y]", coordinatesQ[1]);
-
-  double distance = 0;
-
-  for (std::vector<std::vector<int>>::size_type row_index = 0;
-       row_index < coordinatesP.size();
-       ++row_index) {
-
-    if(coordinatesP[row_index].size() != coordinatesQ[row_index].size()) {
-      std::cerr << "Vectors have difference sizes(p = " << std::to_string(coordinatesP[row_index].size())
-                << ", q =" << std::to_string(coordinatesQ[row_index].size()) << ") at row "
-                << row_index << " out of " << std::to_string(coordinatesP.size()) << std::endl;
-      return distance;
-    }
-
-    for (std::vector<std::vector<int>>::size_type column_index = 0;
-         column_index < coordinatesP[row_index].size();
-         ++column_index) {
-      distance += std::abs(coordinatesP[row_index][column_index] - coordinatesQ[row_index][column_index]);
-    }
-  }
-
-  return distance;
-}
-
-
 int main() {
-  int example0PartOneResult = partOne("example0.txt");
+  long example0PartOneResult = partOne("example0.txt");
   std::cout << "Part One Example0 Result: " << example0PartOneResult << std::endl;
   assert(6 == example0PartOneResult);
-  int example1PartOneResult = partOne("example1.txt");
+  long example1PartOneResult = partOne("example1.txt");
   std::cout << "Part One Example1 Result: " << example1PartOneResult << std::endl;
   assert(159 == example1PartOneResult);
-  int example2PartOneResult = partOne("example2.txt");
+  long example2PartOneResult = partOne("example2.txt");
   std::cout << "Part One Example2 Result: " << example2PartOneResult << std::endl;
   assert(135 == example2PartOneResult);
 
-  int partOneResult = partOne("input.txt");
+  long partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
   assert(0 == partOneResult);
 
