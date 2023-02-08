@@ -55,7 +55,9 @@ Wire::Wire(std::vector<Instruction> instructions) : points() {
   int distance = 0;
 
   for(const Instruction &instruction : instructions) {
+    std::cout << "Current Location (" << x << ", " << y << ")" << std::endl;
     std::cout << "\tNew instruction: " << instruction << std::endl;
+
     switch(instruction.direction) {
       case DIRECTION::DOWN:
         for(int y_index = y; y_index >= y - instruction.magnitude; --y_index) {
