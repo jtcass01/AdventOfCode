@@ -220,13 +220,9 @@ unsigned long WireSet::getMinimumSignalDelay() {
   unsigned long minimum_signal_delay = 0;
 
   for (const std::pair<Point, int> &pointEntry : wireMap_) {
-    if(pointEntry.second > 1) {
+    if(pointEntry.second > 1 && !(pointEntry.first.x == 0 && pointEntry.first.y == 0)) {
       Point entryPoint = pointEntry.first;
       unsigned long signal_delay = 0;
-
-      if(entryPoint.x == 0 && entryPoint.y == 0) {
-        break;
-      }
 
       for(Wire &wire : wires_) {
         signal_delay += wire.countSteps(entryPoint);
