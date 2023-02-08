@@ -232,11 +232,6 @@ unsigned long WireSet::getMinimumSignalDelay() {
         signal_delay += wire.countSteps(entryPoint);
       }
 
-      std::cout << "signal_delay: " << std::to_string(signal_delay) << std::endl;
-      for(Wire &wire : wires_) {
-        std::cout << "\tpointLocation: " << wire.countSteps(entryPoint) << std::endl;
-      }
-
       if((minimum_signal_delay == 0 ||
           signal_delay < minimum_signal_delay)
           && signal_delay != 0) {
