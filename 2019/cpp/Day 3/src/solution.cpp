@@ -100,8 +100,6 @@ void Wire::addPoint(const Point point) {
 int Wire::findPoint(const Point targetPoint) {
   int pointIndex = -1;
 
-  std::cout << "searching for " << targetPoint << " in " << points << std::endl;
-
   std::vector<Point>::iterator pointIterator = std::find_if(points.begin(),
                                                             points.end(),
                                                             [&](const Point &point) {
@@ -122,7 +120,6 @@ std::vector<Point> Wire::getPoints() const {
 WireSet::WireSet(std::vector<Wire> wires) : wires_(wires) {
   for(const Wire &wire : wires) {
     const std::vector<Point> wirePoints = wire.getPoints();
-    std::cout << "wire points: " << wirePoints << std::endl;
 
     for(const Point &wirePoint : wirePoints) {
       if(wireMap_.count(wirePoint) > 0) {
