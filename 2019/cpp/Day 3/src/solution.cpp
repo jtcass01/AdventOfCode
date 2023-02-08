@@ -37,6 +37,8 @@ std::vector<Instruction> parseInstructions(const std::string instructionString) 
 
     sscanf(directionString.c_str(), "%c%d", &directionChar, &magnitude);
 
+    std::cout << directionChar << magnitude << std::endl;
+
     instruction.direction = charToDirection(directionChar);
     instruction.magnitude = magnitude;
 
