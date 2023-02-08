@@ -48,15 +48,15 @@ std::vector<Instruction> parseInstructions(const std::string instructionString) 
 }
 
 Wire::Wire(std::vector<Instruction> instructions) : points() {
-  std::cout << "Instructions for wire:" << instructions << std::endl;
+  // std::cout << "Instructions for wire:" << instructions << std::endl;
 
   int x = 0;
   int y = 0;
   int distance = 0;
 
   for(const Instruction &instruction : instructions) {
-    std::cout << "Current Location (" << x << ", " << y << ")" << std::endl;
-    std::cout << "\tNew instruction: " << instruction << std::endl;
+    // std::cout << "Current Location (" << x << ", " << y << ")" << std::endl;
+    // std::cout << "\tNew instruction: " << instruction << std::endl;
 
     switch(instruction.direction) {
       case DIRECTION::DOWN:
@@ -94,7 +94,7 @@ Wire::Wire(std::vector<Instruction> instructions) : points() {
 void Wire::addPoint(const Point point) {
   if (points.empty()) {
     points.push_back(point);
-    std::cout << "\t\tNew Point: " << point << std::endl;
+    // std::cout << "\t\tNew Point: " << point << std::endl;
   } else {
     bool pointInMap = false;
 
@@ -107,7 +107,7 @@ void Wire::addPoint(const Point point) {
 
     if(!pointInMap) {
       points.push_back(point);
-      std::cout << "\t\tNew Point: " << point << std::endl;
+      // std::cout << "\t\tNew Point: " << point << std::endl;
     }
   }
 }
@@ -136,13 +136,13 @@ long WireSet::getManhatanDistanceToClosestCross() {
     if(pointEntry.second > 1) {
       Point entryPoint = pointEntry.first;
       int manhattan_distance = std::abs(entryPoint.x) + std::abs(entryPoint.y);
-      std::cout << "manhattan_distance: " << manhattan_distance << std::endl;
+      // std::cout << "manhattan_distance: " << manhattan_distance << std::endl;
 
       if((minimum_manhattan_distance == 0 ||
           manhattan_distance < minimum_manhattan_distance)
           && manhattan_distance != 0) {
         minimum_manhattan_distance = manhattan_distance;
-        std::cout << "new minimum_manhattan_distance: " << minimum_manhattan_distance << std::endl;
+        // std::cout << "new minimum_manhattan_distance: " << minimum_manhattan_distance << std::endl;
       }
     }
   }
@@ -154,12 +154,12 @@ std::unordered_map<Point, int> WireSet::getMap() const {
 }
 
 long partOne(const std::string fileName) {
-  std::cout << "Part 1: " << fileName << std::endl;
+  // std::cout << "Part 1: " << fileName << std::endl;
   std::ifstream File(fileName, std::fstream::in);
   std::vector<Wire> wires;
 
   for(std::string line; std::getline(File, line);) {
-    std::cout << "line: " << line << std::endl;
+    // std::cout << "line: " << line << std::endl;
     std::vector<Instruction> wireInstructions = parseInstructions(line);
     Wire wire(wireInstructions);
     wires.push_back(wire);
@@ -169,7 +169,7 @@ long partOne(const std::string fileName) {
 
   WireSet wireSet(wires);
 
-  std::cout << wireSet;
+  // std::cout << wireSet;
 
   return wireSet.getManhatanDistanceToClosestCross();
 }
