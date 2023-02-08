@@ -106,7 +106,6 @@ std::ostream &operator<<(std::ostream &os, const WireSet &wireSet) {
     return os;
 }
 
-// Function to print the elements of a vector; Written entirely by ChatGPT.
 template <typename T>
 std::ostream &operator<<(std::ostream &os, const std::vector<T> vec) {
     os << "[";
