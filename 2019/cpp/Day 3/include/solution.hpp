@@ -38,6 +38,11 @@ struct Point {
     int y;
 };
 
+std::ostream &operator<<(std::ostream &os, const Point &point) {
+  os << "(" << std::to_string(point.x) << ", " << std::to_string(point.y)  << ")";
+  return os;
+}
+
 bool operator==(const Point &point1, const Point &point2) {
     return point1.x == point2.x && point1.y == point2.y;
 }

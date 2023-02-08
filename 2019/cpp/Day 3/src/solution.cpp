@@ -84,6 +84,8 @@ Wire::Wire(std::vector<Instruction> instructions) {
         break;
     }
 
+    std::cout << "New Point: " << point << std::endl;
+
     bool pointInMap = false;
 
     for(const Point &existingPoint : points) {
