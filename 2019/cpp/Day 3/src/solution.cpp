@@ -49,15 +49,15 @@ std::vector<Instruction> parseInstructions(const std::string instructionString) 
 }
 
 Wire::Wire(std::vector<Instruction> instructions) : points_(), instructions_(instructions) {
-  std::cout << "Instructions for wire:" << instructions_ << std::endl;
+  // std::cout << "Instructions for wire:" << instructions_ << std::endl;
 
   int x = 0;
   int y = 0;
   int distance = 0;
 
   for(const Instruction &instruction : instructions_) {
-    std::cout << "Current Location (" << x << ", " << y << ")" << std::endl;
-    std::cout << "\tNew instruction: " << instruction << std::endl;
+    // std::cout << "Current Location (" << x << ", " << y << ")" << std::endl;
+    // std::cout << "\tNew instruction: " << instruction << std::endl;
 
     switch(instruction.direction) {
       case DIRECTION::DOWN:
