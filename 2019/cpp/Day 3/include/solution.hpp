@@ -77,7 +77,7 @@ class WireSet {
     public:
         WireSet(std::vector<Wire> wires);
 
-        double getManhatanDistanceToClosestCross();
+        long getManhatanDistanceToClosestCross();
 
     private:
         std::unordered_map<Point, int> wireMap;
