@@ -127,7 +127,7 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
   for(const Instruction &instruction : instructions_) {
     switch(instruction.direction) {
       case DIRECTION::DOWN:
-        for(int y_index = y; y_index >= y - instruction.magnitude; --y_index) {
+        for(int y_index = y+1; y_index >= y - instruction.magnitude; --y_index) {
           Point point = {x, y_index};
           stepCount++;
           std::cout << "Current Location (" << x << ", " << y_index << ") at step: " << std::to_string(stepCount) << std::endl;
@@ -140,7 +140,7 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
         y -= instruction.magnitude;
         break;
       case DIRECTION::UP:
-        for(int y_index = y; y_index <= y + instruction.magnitude; ++y_index) {
+        for(int y_index = y+1; y_index <= y + instruction.magnitude; ++y_index) {
           Point point = {x, y_index};
           stepCount++;
           std::cout << "Current Location (" << x << ", " << y_index << ") at step: " << std::to_string(stepCount) << std::endl;
@@ -153,7 +153,7 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
         y += instruction.magnitude;
         break;
       case DIRECTION::LEFT:
-        for(int x_index = x; x_index >= x - instruction.magnitude; --x_index) {
+        for(int x_index = x+1; x_index >= x - instruction.magnitude; --x_index) {
           Point point = {x_index, y};
           stepCount++;
           std::cout << "Current Location (" << x_index << ", " << y << ") at step: " << std::to_string(stepCount) << std::endl;
@@ -166,7 +166,7 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
         x -= instruction.magnitude;
         break;
       case DIRECTION::RIGHT:
-        for(int x_index = x; x_index <= x + instruction.magnitude; ++x_index) {
+        for(int x_index = x+1; x_index <= x + instruction.magnitude; ++x_index) {
           Point point = {x_index, y};
           stepCount++;
           std::cout << "Current Location (" << x_index << ", " << y << ") at step: " << std::to_string(stepCount) << std::endl;
