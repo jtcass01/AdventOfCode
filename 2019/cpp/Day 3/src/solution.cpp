@@ -17,10 +17,6 @@ DIRECTION charToDirection(char directionChar) {
     return direction;
 }
 
-void printInstruction(const Instruction instruction) {
-  std::cout << static_cast<char>(instruction.direction) << std::to_string(instruction.magnitude) << std::endl;
-}
-
 std::vector<Instruction> parseInstructions(const std::string instructionString) {
   std::stringstream lineStream;
   std::string directionString;
@@ -47,11 +43,7 @@ std::vector<Instruction> parseInstructions(const std::string instructionString) 
 }
 
 Wire::Wire(std::vector<Instruction> instructions) {
-  std::cout << "Instructions for wire:" << std::endl;
-  for(const Instruction &instruction : instructions) {
-    std::cout << "\t";
-    printInstruction(instruction);
-  }
+  std::cout << "Instructions for wire:" << instructions << std::endl;
 
   int x = 0;
   int y = 0;
@@ -136,28 +128,13 @@ long WireSet::getManhatanDistanceToClosestCross() {
   return minimum_manhattan_distance;
 }
 
-// Function to print the elements of a vector; Written entirely by ChatGPT.
-template <typename T>
-void printVector(std::string vectorName, std::vector<T> vec) {
-    std::cout << vectorName << ": [";
-    // Loop through the vector and print each element
-    for (int vector_i = 0; vector_i < vec.size(); vector_i++) {
-        std::cout << vec[vector_i];
-
-        // Add a comma after each element, except the last one
-        if (vector_i != vec.size() - 1) {
-            std::cout << ", ";
-        }
-    }
-    std::cout << "]" << std::endl;
-}
-
 long partOne(const std::string fileName) {
   std::cout << "Part 1: " << fileName << std::endl;
   std::ifstream File(fileName, std::fstream::in);
   std::vector<Wire> wires;
 
   for(std::string line; std::getline(File, line);) {
+    std::cout << "line: " << line << std::endl;
     std::vector<Instruction> wireInstructions = parseInstructions(line);
     Wire wire(wireInstructions);
     wires.push_back(wire);
