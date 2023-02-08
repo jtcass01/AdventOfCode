@@ -161,6 +161,9 @@ long WireSet::getMinimumSignalDelay() {
       }
 
       std::cout << "signal_delay: " << std::to_string(signal_delay) << std::endl;
+      for(Wire &wire : wires_) {
+        std::cout << "\tpointLocation: " << wire.findPoint(entryPoint) << std::endl;
+      }
 
       if((minimum_signal_delay == 0 ||
           signal_delay < minimum_signal_delay)
