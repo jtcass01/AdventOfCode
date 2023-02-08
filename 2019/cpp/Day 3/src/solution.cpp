@@ -58,28 +58,28 @@ Wire::Wire(std::vector<Instruction> instructions) : points() {
     std::cout << "\tNew instruction: " << instruction << std::endl;
     switch(instruction.direction) {
       case DIRECTION::DOWN:
-        for(int y_index = y; y_index >= y - instruction.magnitude; --y) {
+        for(int y_index = y; y_index >= y - instruction.magnitude; --y_index) {
           Point point = {x, y_index};
           addPoint(point);
         }
         y -= instruction.magnitude;
         break;
       case DIRECTION::UP:
-        for(int y_index = y; y <= y + instruction.magnitude; ++y) {
+        for(int y_index = y; y <= y + instruction.magnitude; ++y_index) {
           Point point = {x, y_index};
           addPoint(point);
         }
         y += instruction.magnitude;
         break;
       case DIRECTION::LEFT:
-        for(int x_index = x; x_index >= x - instruction.magnitude; --x) {
+        for(int x_index = x; x_index >= x - instruction.magnitude; --x_index) {
           Point point = {x_index, y};
           addPoint(point);
         }
         x -= instruction.magnitude;
         break;
       case DIRECTION::RIGHT:
-        for(int x_index = x; x_index >= x + instruction.magnitude; ++x) {
+        for(int x_index = x; x_index >= x + instruction.magnitude; ++x_index) {
           Point point = {x_index, y};
           addPoint(point);
         }
