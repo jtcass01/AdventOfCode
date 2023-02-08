@@ -46,21 +46,34 @@ struct Point {
     int y;
 };
 
-namespace std {
-    template<>
-    struct hash<Point> {
-        std::size_t operator()(const Point &point) const {
-            std::size_t xHash = std::hash<int>{}(point.x);
-            std::size_t yHash = std::hash<int>{}(point.y);
+// namespace std {
+//     template<>
+//     struct hash<Point> {
+//         std::size_t operator()(const Point &point) const {
+//             std::size_t xHash = std::hash<int>{}(point.x);
+//             std::size_t yHash = std::hash<int>{}(point.y);
 
-            if (xHash != yHash) {
-                return xHash ^ yHash;
-            }
+//             if (xHash != yHash) {
+//                 return xHash ^ yHash;
+//             }
 
-            return xHash;
+//             return xHash;
+//         }
+//     };
+// }
+
+struct hashPoint {
+    std::size_t operator()(const Point &point) const {
+        std::size_t xHash = std::hash<int>{}(point.x);
+        std::size_t yHash = std::hash<int>{}(point.y);
+
+        if (xHash != yHash) {
+            return xHash ^ yHash;
         }
-    };
-}
+
+        return xHash;
+    }
+};
 
 class Wire {
     public:
@@ -79,7 +92,7 @@ class WireSet {
         long getManhatanDistanceToClosestCross();
 
     private:
-        std::unordered_map<Point, int> wireMap;
+        std::unordered_map<Point, int, hashPoint> wireMap;
 };
 
 // Function to print the elements of a vector; Written entirely by ChatGPT.
