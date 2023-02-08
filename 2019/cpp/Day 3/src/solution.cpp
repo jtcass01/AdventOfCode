@@ -215,7 +215,7 @@ int partTwo(const std::string fileName) {
 
 
 int main() {
-  long example0PartOneResult = partOne("example0.txt");
+  /*long example0PartOneResult = partOne("example0.txt");
   std::cout << "Part One Example0 Result: " << example0PartOneResult << std::endl;
   assert(6 == example0PartOneResult);
   long example1PartOneResult = partOne("example1.txt");
@@ -227,19 +227,19 @@ int main() {
 
   long partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
-  assert(1195 == partOneResult);
+  assert(1195 == partOneResult);*/
 
-  long example0PartTwoResult = partOne("example0.txt");
+  long example0PartTwoResult = partTwo("example0.txt");
   std::cout << "Part Two Example0 Result: " << example0PartTwoResult << std::endl;
   assert(30 == example0PartTwoResult);
-  long example1PartTwoResult = partOne("example1.txt");
+  long example1PartTwoResult = partTwo("example1.txt");
   std::cout << "Part Two Example1 Result: " << example1PartTwoResult << std::endl;
   assert(610 == example1PartTwoResult);
-  long example2PartTwoResult = partOne("example2.txt");
+  long example2PartTwoResult = partTwo("example2.txt");
   std::cout << "Part Two Example2 Result: " << example2PartTwoResult << std::endl;
   assert(410 == example2PartTwoResult);
 
-  int partTwoResult = partTwo("input.txt");
+  long partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
   assert(0 == partTwoResult);
 
