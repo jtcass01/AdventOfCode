@@ -130,7 +130,7 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
 
     switch(instruction.direction) {
       case DIRECTION::DOWN:
-        for(int y_index = y+1; y_index >= y - instruction.magnitude; --y_index) {
+        for(int y_index = y-1; y_index >= y - instruction.magnitude; --y_index) {
           Point point = {x, y_index};
           stepCount++;
           std::cout << "\tCurrent Location (" << x << ", " << y_index << ") at step: " << std::to_string(stepCount) << std::endl;
@@ -156,7 +156,7 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
         y += instruction.magnitude;
         break;
       case DIRECTION::LEFT:
-        for(int x_index = x+1; x_index >= x - instruction.magnitude; --x_index) {
+        for(int x_index = x-1; x_index >= x - instruction.magnitude; --x_index) {
           Point point = {x_index, y};
           stepCount++;
           std::cout << "\tCurrent Location (" << x_index << ", " << y << ") at step: " << std::to_string(stepCount) << std::endl;
