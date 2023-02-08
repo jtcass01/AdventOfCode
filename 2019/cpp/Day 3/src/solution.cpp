@@ -49,15 +49,11 @@ std::vector<Instruction> parseInstructions(const std::string instructionString) 
 }
 
 Wire::Wire(std::vector<Instruction> instructions) : points_(), instructions_(instructions) {
-  // std::cout << "Instructions for wire:" << instructions_ << std::endl;
-
   int x = 0;
   int y = 0;
   int distance = 0;
 
   for(const Instruction &instruction : instructions_) {
-    // std::cout << "Current Location (" << x << ", " << y << ")" << std::endl;
-    // std::cout << "\tNew instruction: " << instruction << std::endl;
 
     switch(instruction.direction) {
       case DIRECTION::DOWN:
@@ -123,17 +119,14 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
   int y = 0;
   bool pointFound = false;
   unsigned long stepCount = 0;
-  // std::cout << "Counting steps to:" << targetPoint << std::endl;
 
   for(const Instruction &instruction : instructions_) {
-    // std::cout << "Instruction: " << instruction << std::endl;
 
     switch(instruction.direction) {
       case DIRECTION::DOWN:
         for(int y_index = y-1; y_index >= y - instruction.magnitude; --y_index) {
           Point point = {x, y_index};
           stepCount++;
-          // std::cout << "\tCurrent Location (" << x << ", " << y_index << ") at step: " << std::to_string(stepCount) << std::endl;
 
           if(point == targetPoint) {
             pointFound = true;
@@ -146,7 +139,6 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
         for(int y_index = y+1; y_index <= y + instruction.magnitude; ++y_index) {
           Point point = {x, y_index};
           stepCount++;
-          // std::cout << "\tCurrent Location (" << x << ", " << y_index << ") at step: " << std::to_string(stepCount) << std::endl;
 
           if(point == targetPoint) {
             pointFound = true;
@@ -159,7 +151,6 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
         for(int x_index = x-1; x_index >= x - instruction.magnitude; --x_index) {
           Point point = {x_index, y};
           stepCount++;
-          // std::cout << "\tCurrent Location (" << x_index << ", " << y << ") at step: " << std::to_string(stepCount) << std::endl;
 
           if(point == targetPoint) {
             pointFound = true;
@@ -172,7 +163,6 @@ unsigned long Wire::countSteps(const Point targetPoint) const {
         for(int x_index = x+1; x_index <= x + instruction.magnitude; ++x_index) {
           Point point = {x_index, y};
           stepCount++;
-          // std::cout << "\tCurrent Location (" << x_index << ", " << y << ") at step: " << std::to_string(stepCount) << std::endl;
 
           if(point == targetPoint) {
             pointFound = true;
@@ -298,7 +288,7 @@ unsigned long partTwo(const std::string fileName) {
 
 
 int main() {
-  /*long example0PartOneResult = partOne("example0.txt");
+  long example0PartOneResult = partOne("example0.txt");
   std::cout << "Part One Example0 Result: " << example0PartOneResult << std::endl;
   assert(6 == example0PartOneResult);
   long example1PartOneResult = partOne("example1.txt");
@@ -310,7 +300,7 @@ int main() {
 
   long partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
-  assert(1195 == partOneResult);*/
+  assert(1195 == partOneResult);
 
   unsigned long example0PartTwoResult = partTwo("example0.txt");
   std::cout << "Part Two Example0 Result: " << example0PartTwoResult << std::endl;
@@ -318,12 +308,9 @@ int main() {
   unsigned long example1PartTwoResult = partTwo("example1.txt");
   std::cout << "Part Two Example1 Result: " << example1PartTwoResult << std::endl;
   assert(610 == example1PartTwoResult);
-  // unsigned long example2PartTwoResult = partTwo("example2.txt");
-  // std::cout << "Part Two Example2 Result: " << example2PartTwoResult << std::endl;
-  // assert(410 == example2PartTwoResult);
   unsigned long partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
-  assert(0 == partTwoResult);
+  assert(91518 == partTwoResult);
 
   return 0;
 }
