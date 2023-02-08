@@ -99,6 +99,6 @@ class WireSet {
 template <typename T>
 void printVector(std::string vectorName, std::vector<T> vec);
 
-int partOne(const std::string fileName);
+long partOne(const std::string fileName);
 
 int partTwo(const std::string fileName);
