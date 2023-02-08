@@ -160,6 +160,8 @@ long WireSet::getMinimumSignalDelay() {
         signal_delay += wire.findPoint(entryPoint);
       }
 
+      std::cout << "signal_delay: " << std::to_string(signal_delay) << std::endl;
+
       if((minimum_signal_delay == 0 ||
           signal_delay < minimum_signal_delay)
           && signal_delay != 0) {
