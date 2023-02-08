@@ -56,52 +56,56 @@ Wire::Wire(std::vector<Instruction> instructions) : points() {
 
   for(const Instruction &instruction : instructions) {
     std::cout << "\tNew instruction: " << instruction << std::endl;
-    Point point = {};
-
     switch(instruction.direction) {
       case DIRECTION::DOWN:
         for(int y_index = y; y_index >= y - instruction.magnitude; --y) {
-          point = {x, y_index};
+          Point point = {x, y_index};
+          addPoint(point);
         }
         y -= instruction.magnitude;
         break;
       case DIRECTION::UP:
         for(int y_index = y; y <= y + instruction.magnitude; ++y) {
-          point = {x, y_index};
+          Point point = {x, y_index};
+          addPoint(point);
         }
         y += instruction.magnitude;
         break;
       case DIRECTION::LEFT:
         for(int x_index = x; x_index >= x - instruction.magnitude; --x) {
-          point = {x_index, y};
+          Point point = {x_index, y};
+          addPoint(point);
         }
         x -= instruction.magnitude;
         break;
       case DIRECTION::RIGHT:
         for(int x_index = x; x_index >= x + instruction.magnitude; ++x) {
-          point = {x_index, y};
+          Point point = {x_index, y};
+          addPoint(point);
         }
         x += instruction.magnitude;
         break;
     }
+  }
+}
 
+void Wire::addPoint(const Point point) {
+  if (points.empty()) {
+    points.push_back(point);
     std::cout << "\t\tNew Point: " << point << std::endl;
+  } else {
+    bool pointInMap = false;
 
-    if (points.empty()) {
+    for(const Point &existingPoint : points) {
+      if (existingPoint == point) {
+        pointInMap = true;
+        break;
+      }
+    }
+
+    if(!pointInMap) {
       points.push_back(point);
-    } else {
-      bool pointInMap = false;
-
-      for(const Point &existingPoint : points) {
-        if (existingPoint == point) {
-          pointInMap = true;
-          break;
-        }
-      }
-
-      if(!pointInMap) {
-        points.push_back(point);
-      }
+      std::cout << "\t\tNew Point: " << point << std::endl;
     }
   }
 }

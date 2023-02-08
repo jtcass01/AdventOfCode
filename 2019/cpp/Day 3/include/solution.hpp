@@ -68,6 +68,8 @@ class Wire {
     public:
         Wire(std::vector<Instruction> instructions);
 
+        void addPoint(const Point point);
+
         std::vector<Point> getPoints() const;
 
     private:
