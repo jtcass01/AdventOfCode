@@ -46,6 +46,10 @@ struct Point {
     int y;
 };
 
+bool operator==(const Point &point1, const Point &point2) {
+    return point1.x == point2.x && point1.y == point2.y;
+}
+
 namespace std {
     template<>
     struct hash<Point> {
@@ -80,7 +84,7 @@ class WireSet {
         long getManhatanDistanceToClosestCross();
 
     private:
-        std::unordered_map<Point, int, std::hash<Point>> wireMap;
+        std::unordered_map<Point, int> wireMap;
 };
 
 // Function to print the elements of a vector; Written entirely by ChatGPT.

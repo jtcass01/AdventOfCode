@@ -60,7 +60,14 @@ Wire::Wire(std::vector<Instruction> instructions) {
         break;
     }
 
-    bool pointInMap = std::binary_search(points.begin(), points.end(), point);
+    bool pointInMap = false;
+
+    for(const Point &existingPoint : points) {
+      if (existingPoint == point) {
+        pointInMap = true;
+        break;
+      }
+    }
 
     if(!pointInMap) {
       points.push_back(point);
