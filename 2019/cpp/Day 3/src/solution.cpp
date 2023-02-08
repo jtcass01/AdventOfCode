@@ -55,6 +55,7 @@ Wire::Wire(std::vector<Instruction> instructions) : points() {
   int distance = 0;
 
   for(const Instruction &instruction : instructions) {
+    std::cout << "\tNew instruction: " << instruction << std::endl;
     Point point = {};
 
     switch(instruction.direction) {
@@ -84,7 +85,7 @@ Wire::Wire(std::vector<Instruction> instructions) : points() {
         break;
     }
 
-    std::cout << "New Point: " << point << std::endl;
+    std::cout << "\t\tNew Point: " << point << std::endl;
 
     if (points.empty()) {
       points.push_back(point);
