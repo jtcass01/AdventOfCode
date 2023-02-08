@@ -81,7 +81,7 @@ Wire::Wire(std::vector<Instruction> instructions) : points() {
         x -= instruction.magnitude;
         break;
       case DIRECTION::RIGHT:
-        for(int x_index = x; x_index >= x + instruction.magnitude; ++x_index) {
+        for(int x_index = x; x_index <= x + instruction.magnitude; ++x_index) {
           Point point = {x_index, y};
           addPoint(point);
         }
