@@ -72,6 +72,8 @@ class Wire {
 
         std::vector<Point> getPoints() const;
 
+        int findPoint(const Point targetPoint);
+
     private:
         std::vector<Point> points;
 };
@@ -82,10 +84,15 @@ class WireSet {
 
         long getManhatanDistanceToClosestCross();
 
+        long getMinimumSignalDelay();
+
         std::unordered_map<Point, int> getMap() const;
 
+        std::vector<Wire> getWires() const;
+
     private:
-        std::unordered_map<Point, int> wireMap;
+        std::unordered_map<Point, int> wireMap_;
+        std::vector<Wire> wires_;
 };
 
 std::ostream &operator<<(std::ostream &os, const WireSet &wireSet) {

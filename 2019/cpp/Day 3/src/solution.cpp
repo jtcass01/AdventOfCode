@@ -92,39 +92,40 @@ Wire::Wire(std::vector<Instruction> instructions) : points() {
 }
 
 void Wire::addPoint(const Point point) {
-  if (points.empty()) {
+  if (points.empty() || findPoint(point) > 0) {
     points.push_back(point);
-    // std::cout << "\t\tNew Point: " << point << std::endl;
-  } else {
-    bool pointInMap = false;
-
-    for(const Point &existingPoint : points) {
-      if (existingPoint == point) {
-        pointInMap = true;
-        break;
-      }
-    }
-
-    if(!pointInMap) {
-      points.push_back(point);
-      // std::cout << "\t\tNew Point: " << point << std::endl;
-    }
   }
+}
+
+int Wire::findPoint(const Point targetPoint) {
+  int pointIndex = -1;
+
+  std::vector<Point>::iterator pointIterator = std::find_if(points.begin(),
+                                                            points.end(),
+                                                            [&](const Point &point) {
+    return point == targetPoint;
+  });
+
+  if (pointIterator != points.end()) {
+    pointIndex = std::distance(points.begin(), pointIterator);
+  }
+
+  return pointIndex;
 }
 
 std::vector<Point> Wire::getPoints() const {
   return points;
 }
 
-WireSet::WireSet(std::vector<Wire> wires) {
+WireSet::WireSet(std::vector<Wire> wires) : wires_(wires) {
   for(const Wire &wire : wires) {
     const std::vector<Point> wirePoints = wire.getPoints();
 
     for(const Point &wirePoint : wirePoints) {
-      if(wireMap.count(wirePoint) > 0) {
-        wireMap[wirePoint] += 1;
+      if(wireMap_.count(wirePoint) > 0) {
+        wireMap_[wirePoint] += 1;
       } else {
-        wireMap[wirePoint] = 1;
+        wireMap_[wirePoint] = 1;
       }
     }
   }
@@ -132,34 +133,56 @@ WireSet::WireSet(std::vector<Wire> wires) {
 
 long WireSet::getManhatanDistanceToClosestCross() {
   int minimum_manhattan_distance = 0;
-  for (const std::pair<Point, int> &pointEntry : wireMap) {
+  for (const std::pair<Point, int> &pointEntry : wireMap_) {
     if(pointEntry.second > 1) {
       Point entryPoint = pointEntry.first;
       int manhattan_distance = std::abs(entryPoint.x) + std::abs(entryPoint.y);
-      std::cout << "manhattan_distance: " << manhattan_distance << std::endl;
 
       if((minimum_manhattan_distance == 0 ||
           manhattan_distance < minimum_manhattan_distance)
           && manhattan_distance != 0) {
         minimum_manhattan_distance = manhattan_distance;
-        std::cout << "new minimum_manhattan_distance: " << minimum_manhattan_distance << std::endl;
       }
     }
   }
   return minimum_manhattan_distance;
 }
 
+long WireSet::getMinimumSignalDelay() {
+  int minimum_signal_delay = 0;
+
+  for (const std::pair<Point, int> &pointEntry : wireMap_) {
+    if(pointEntry.second > 1) {
+      Point entryPoint = pointEntry.first;
+      int signal_delay = 0;
+
+      for(Wire &wire : wires_) {
+        signal_delay += wire.findPoint(entryPoint);
+      }
+
+      if((minimum_signal_delay == 0 ||
+          signal_delay < minimum_signal_delay)
+          && signal_delay != 0) {
+        minimum_signal_delay = signal_delay;
+      }
+    }
+  }
+
+}
+
 std::unordered_map<Point, int> WireSet::getMap() const {
-  return wireMap;
+  return wireMap_;
+}
+
+std::vector<Wire> WireSet::getWires() const {
+  return wires_;
 }
 
 long partOne(const std::string fileName) {
-  // std::cout << "Part 1: " << fileName << std::endl;
   std::ifstream File(fileName, std::fstream::in);
   std::vector<Wire> wires;
 
   for(std::string line; std::getline(File, line);) {
-    // std::cout << "line: " << line << std::endl;
     std::vector<Instruction> wireInstructions = parseInstructions(line);
     Wire wire(wireInstructions);
     wires.push_back(wire);
@@ -168,25 +191,25 @@ long partOne(const std::string fileName) {
   File.close();
 
   WireSet wireSet(wires);
-  std::cout << wireSet;
 
   return wireSet.getManhatanDistanceToClosestCross();
 }
 
 int partTwo(const std::string fileName) {
-  std::cout << "Part 2: " << fileName << std::endl;
   std::ifstream File(fileName, std::fstream::in);
-  char *pLineChar = nullptr;
+  std::vector<Wire> wires;
 
   for(std::string line; std::getline(File, line);) {
-    std::cout << line << std::endl;
-    pLineChar = strcpy(new char[line.length() + 1], line.c_str());
-    //sscanf(pLineChar, "");
+    std::vector<Instruction> wireInstructions = parseInstructions(line);
+    Wire wire(wireInstructions);
+    wires.push_back(wire);
   }
 
   File.close();
 
-  return 0;
+  WireSet wireSet(wires);
+
+  return wireSet.getMinimumSignalDelay();
 }
 
 
@@ -203,11 +226,17 @@ int main() {
 
   long partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
-  assert(0 == partOneResult);
+  assert(1195 == partOneResult);
 
-  int examplePartTwoResult = partTwo("example.txt");
-  std::cout << "Part Two Example Result: " << examplePartTwoResult << std::endl;
-  assert(0 == examplePartTwoResult);
+  long example0PartTwoResult = partOne("example0.txt");
+  std::cout << "Part Two Example0 Result: " << example0PartTwoResult << std::endl;
+  assert(30 == example0PartTwoResult);
+  long example1PartTwoResult = partOne("example1.txt");
+  std::cout << "Part Two Example1 Result: " << example1PartTwoResult << std::endl;
+  assert(610 == example1PartTwoResult);
+  long example2PartTwoResult = partOne("example2.txt");
+  std::cout << "Part Two Example2 Result: " << example2PartTwoResult << std::endl;
+  assert(410 == example2PartTwoResult);
 
   int partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
