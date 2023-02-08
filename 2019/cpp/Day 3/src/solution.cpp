@@ -120,6 +120,7 @@ std::vector<Point> Wire::getPoints() const {
 WireSet::WireSet(std::vector<Wire> wires) : wires_(wires) {
   for(const Wire &wire : wires) {
     const std::vector<Point> wirePoints = wire.getPoints();
+    std::cout << "wire points: " << wirePoints << std::endl;
 
     for(const Point &wirePoint : wirePoints) {
       if(wireMap_.count(wirePoint) > 0) {
