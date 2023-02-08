@@ -1,5 +1,26 @@
 #include "../include/solution.hpp"
 
+DIRECTION charToDirection(char directionChar) {
+    DIRECTION direction;
+
+    switch(directionChar) {
+        case 'U':
+            direction = DIRECTION::UP;
+        case 'R':
+            direction = DIRECTION::RIGHT;
+        case 'L':
+            direction = DIRECTION::LEFT;
+        case 'D':
+            direction = DIRECTION::DOWN;
+    }
+
+    return direction;
+}
+
+void printInstruction(const Instruction instruction) {
+  std::cout << static_cast<char>(instruction.direction) << std::to_string(instruction.magnitude) << std::endl;
+}
+
 std::vector<Instruction> parseInstructions(const std::string instructionString) {
   std::stringstream lineStream;
   std::string directionString;
@@ -26,6 +47,12 @@ std::vector<Instruction> parseInstructions(const std::string instructionString) 
 }
 
 Wire::Wire(std::vector<Instruction> instructions) {
+  std::cout << "Instructions for wire:" << std::endl;
+  for(const Instruction &instruction : instructions) {
+    std::cout << "\t";
+    printInstruction(instruction);
+  }
+
   int x = 0;
   int y = 0;
   int distance = 0;

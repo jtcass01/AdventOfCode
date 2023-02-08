@@ -17,27 +17,14 @@ enum DIRECTION : char {
     DOWN = 'D'
 };
 
-DIRECTION charToDirection(char directionChar) {
-    DIRECTION direction;
-
-    switch(directionChar) {
-        case 'U':
-            direction = DIRECTION::UP;
-        case 'R':
-            direction = DIRECTION::RIGHT;
-        case 'L':
-            direction = DIRECTION::LEFT;
-        case 'D':
-            direction = DIRECTION::DOWN;
-    }
-
-    return direction;
-}
+DIRECTION charToDirection(char directionChar);
 
 struct Instruction {
     DIRECTION direction;
     int magnitude;
 };
+
+void printInstruction(const Instruction instruction);
 
 std::vector<Instruction> parseInstructions(const std::string instructionString);
 
