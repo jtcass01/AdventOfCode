@@ -92,7 +92,7 @@ Wire::Wire(std::vector<Instruction> instructions) : points() {
 }
 
 void Wire::addPoint(const Point point) {
-  if (points.empty() || findPoint(point) > 0) {
+  if (points.empty() || findPoint(point) == -1) {
     points.push_back(point);
   }
 }
