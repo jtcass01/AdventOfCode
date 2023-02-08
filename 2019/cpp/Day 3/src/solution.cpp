@@ -168,6 +168,7 @@ long WireSet::getMinimumSignalDelay() {
     }
   }
 
+  return minimum_signal_delay;
 }
 
 std::unordered_map<Point, int> WireSet::getMap() const {
