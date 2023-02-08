@@ -136,13 +136,13 @@ long WireSet::getManhatanDistanceToClosestCross() {
     if(pointEntry.second > 1) {
       Point entryPoint = pointEntry.first;
       int manhattan_distance = std::abs(entryPoint.x) + std::abs(entryPoint.y);
-
-      std::cout << "manhattan_distance of cross: " << manhattan_distance << std::endl;
+      std::cout << "manhattan_distance: " << manhattan_distance << std::endl;
 
       if((minimum_manhattan_distance = 0 ||
           manhattan_distance < minimum_manhattan_distance)
           && manhattan_distance != 0) {
         minimum_manhattan_distance = manhattan_distance;
+        std::cout << "new minimum_manhattan_distance: " << minimum_manhattan_distance << std::endl;
       }
     }
   }
