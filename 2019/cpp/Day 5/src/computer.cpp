@@ -1,5 +1,40 @@
 #include "../include/computer.hpp"
 
+std::ostream &operator<<(std::ostream &os, const OPCODE opcode) {
+    os << to_string(opcode);
+    return os;
+}
+
+std::string to_string(const OPCODE &opcode) {
+    std::string result = "";
+
+    switch(opcode) {
+        case OPCODE::FINISHED:
+            result = "finished";
+            break;
+        case OPCODE::ADD:
+            result = "add";
+            break;
+        case OPCODE::MULTIPLY:
+            result = "multiply";
+            break;
+        case OPCODE::WRITE:
+            result = "write";
+            break;
+        case OPCODE::READ:
+            result = "read";
+            break;
+        case OPCODE::ERROR:
+            result = "error";
+            break;
+        default:
+            throw std::runtime_error("to_string(const OPCODE &opcode) not implemented for given OPCODE");
+            break;
+    }
+
+    return result;
+}
+
 OPCODE getOpcode(int registerValue) {
     OPCODE opCode = OPCODE::ERROR;
 
@@ -13,6 +48,29 @@ OPCODE getOpcode(int registerValue) {
 
     return opCode;
 };
+
+std::ostream &operator<<(std::ostream &os, const MODE mode) {
+    os << to_string(mode);
+    return os;
+}
+
+std::string to_string(const MODE &mode) {
+    std::string result = "";
+
+    switch(mode) {
+        case MODE::PARAMETER:
+            result = "finished";
+            break;
+        case MODE::IMMEDIATE:
+            result = "add";
+            break;
+        default:
+            throw std::runtime_error("to_string(const MODE &mode) not implemented for given OPCODE");
+            break;
+    }
+
+    return result;
+}
 
 MODE getMode(int registerValue) {
     MODE mode = MODE::IMMEDIATE;
@@ -183,12 +241,14 @@ OPCODE Computer::injestIntcode(const std::vector<double> instruction) {
 void Computer::startUp(void) {
     OPCODE opCode = OPCODE::ERROR;
     std::vector<double>::iterator instructionStart = registers.begin();
-    std::cout << "Staring up computer..." << std::endl;
+    std::cout << "Staring up computer: " << getRegisters() << std::endl;
 
     while(instructionStart < registers.end()
        && opCode != OPCODE::FINISHED) {
         std::vector<double> instruction = getInstruction(&instructionStart);
         opCode = injestIntcode(instruction);
+        std::cout << "registers state: " << getRegisters() << std::endl;
+        std::cout << "\tafter instruction: " << instruction << std::endl;
     }
 }
 

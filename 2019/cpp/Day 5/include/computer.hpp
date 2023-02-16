@@ -20,6 +20,10 @@ enum OPCODE {
     ERROR = 0
 };
 
+std::ostream &operator<<(std::ostream &os, const OPCODE opcode);
+
+std::string to_string(const OPCODE &opcode);
+
 OPCODE getOpcode(int registerValue);
 
 int getInstructionSize(OPCODE opcode);
@@ -28,6 +32,10 @@ enum MODE {
     PARAMETER = 0,
     IMMEDIATE = 1
 };
+
+std::ostream &operator<<(std::ostream &os, const MODE mode);
+
+std::string to_string(const MODE &mode);
 
 MODE getMode(int registerValue);
 
