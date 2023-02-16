@@ -32,7 +32,7 @@ std::vector<bool> getParameterModes(const std::vector<double> instruction) {
     std::vector<bool> parameterModes(strOp.size() - 2, false);
 
     for(unsigned int parameterReverseIndex = strOp.size() - 2 - 1,
-        unsigned int parameterIndex;
+        parameterIndex = 0;
         parameterIndex >= 0;
         parameterReverseIndex--, parameterIndex++) {
         parameterModes[parameterIndex] = strOp[parameterIndex] == '1';
