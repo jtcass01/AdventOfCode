@@ -39,28 +39,28 @@ std::string to_string(const MODE &mode);
 
 MODE getMode(int registerValue);
 
-std::vector<bool> getParameterModes(const std::vector<double> instruction);
+std::vector<bool> getParameterModes(const std::vector<unsigned int> instruction);
 
 class Computer {
     public:
         Computer(const std::string programFile);
 
-        void setupInstruction(std::vector<double> *pInstruction);
+        void setupInstruction(std::vector<unsigned int> *pInstruction);
 
-        std::vector<double> getInstruction(std::vector<double>::iterator *instructionStart);
+        std::vector<unsigned int> getInstruction(std::vector<unsigned int>::iterator *instructionStart);
 
-        double read(const int registerNumber);
+        unsigned int read(const int registerNumber);
 
-        void write(const int registerNumber, const double registerValue);
+        void write(const int registerNumber, const unsigned int registerValue);
 
         void startUp(void);
 
-        const std::vector<double> getRegisters() const;
+        const std::vector<unsigned int> getRegisters() const;
 
     private:
-        std::vector<double> registers;
+        std::vector<unsigned int> registers;
 
-        OPCODE injestIntcode(const std::vector<double> instruction);
+        OPCODE injestIntcode(const std::vector<unsigned int> instruction);
 };
 
 std::ostream &operator<<(std::ostream &os, const Computer computer);

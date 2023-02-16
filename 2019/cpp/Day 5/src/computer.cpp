@@ -82,7 +82,7 @@ MODE getMode(int registerValue) {
     return mode;
 }
 
-std::vector<bool> getParameterModes(const std::vector<double> instruction) {
+std::vector<bool> getParameterModes(const std::vector<unsigned int> instruction) {
     std::string strOp = std::to_string(instruction[0]);
 
     assert(strOp.size() > 2);
@@ -161,8 +161,8 @@ Computer::Computer(const std::string programFileName) {
   programFile.close();
 }
 
-void Computer::setupInstruction(std::vector<double> *pInstruction) {
-    std::vector<double> instruction = *pInstruction;
+void Computer::setupInstruction(std::vector<unsigned int> *pInstruction) {
+    std::vector<unsigned int> instruction = *pInstruction;
 
     MODE mode = getMode(instruction[0]);
 
@@ -185,11 +185,11 @@ void Computer::setupInstruction(std::vector<double> *pInstruction) {
     }
 }
 
-std::vector<double> Computer::getInstruction(std::vector<double>::iterator *instructionStart) {
+std::vector<unsigned int> Computer::getInstruction(std::vector<unsigned int>::iterator *instructionStart) {
     int startIndex = std::distance(registers.begin(), *instructionStart);
     OPCODE opcode = getOpcode(registers[startIndex]);
     int instructionSize = getInstructionSize(opcode);
-    std::vector<double> instruction(*instructionStart, *instructionStart+instructionSize);
+    std::vector<unsigned int> instruction(*instructionStart, *instructionStart+instructionSize);
     std::cout << "Instruction Before Setup: " << instruction << std::endl;
     setupInstruction(&instruction);
     std::cout << "Instruction After Setup: " << instruction << std::endl;
@@ -197,13 +197,13 @@ std::vector<double> Computer::getInstruction(std::vector<double>::iterator *inst
     return instruction;
 }
 
-OPCODE Computer::injestIntcode(const std::vector<double> instruction) {
+OPCODE Computer::injestIntcode(const std::vector<unsigned int> instruction) {
     assert(instruction.size() > 0);
 
     OPCODE opcode = static_cast<OPCODE>(instruction[0]);
     int expectedIntructionSize =  getInstructionSize(opcode);
-    double registerOneValue = 0;
-    double registerTwoValue = 0;
+    unsigned int registerOneValue = 0;
+    unsigned int registerTwoValue = 0;
     assert(instruction.size() == expectedIntructionSize);
 
     switch(opcode) {
@@ -223,7 +223,7 @@ OPCODE Computer::injestIntcode(const std::vector<double> instruction) {
         case OPCODE::WRITE:
             std::cout << std::to_string(instruction[1]) << " input: ";
             std::cin >> registerOneValue;
-            write(instruction[2], registerOneValue);
+            write(instruction[1], registerOneValue);
             break;
         case OPCODE::READ:
             registerOneValue = read(instruction[1]);
@@ -240,32 +240,32 @@ OPCODE Computer::injestIntcode(const std::vector<double> instruction) {
 
 void Computer::startUp(void) {
     OPCODE opCode = OPCODE::ERROR;
-    std::vector<double>::iterator instructionStart = registers.begin();
+    std::vector<unsigned int>::iterator instructionStart = registers.begin();
     std::cout << "Staring up computer: " << getRegisters() << std::endl;
 
     while(instructionStart < registers.end()
        && opCode != OPCODE::FINISHED) {
-        std::vector<double> instruction = getInstruction(&instructionStart);
+        std::vector<unsigned int> instruction = getInstruction(&instructionStart);
         opCode = injestIntcode(instruction);
         std::cout << "registers state: " << getRegisters() << std::endl;
         std::cout << "\tafter instruction: " << instruction << std::endl;
     }
 }
 
-double Computer::read(const int registerNumber) {
+unsigned int Computer::read(const int registerNumber) {
   return registers[registerNumber];
 }
 
-void Computer::write(const int registerNumber, const double registerValue) {
+void Computer::write(const int registerNumber, const unsigned int registerValue) {
   registers[registerNumber] = registerValue;
 }
 
-const std::vector<double> Computer::getRegisters() const {
+const std::vector<unsigned int> Computer::getRegisters() const {
     return registers;
 }
 
 std::ostream &operator<<(std::ostream &os, const Computer computer) {
-    const std::vector<double> registers = computer.getRegisters();
+    const std::vector<unsigned int> registers = computer.getRegisters();
 
     os << "[";
     // Loop through the vector and print each element
