@@ -24,7 +24,7 @@ std::ostream &operator<<(std::ostream &os, const OPCODE opcode);
 
 std::string to_string(const OPCODE &opcode);
 
-OPCODE getOpcode(int registerValue);
+OPCODE getOpcode(long registerValue);
 
 int getInstructionSize(OPCODE opcode);
 
@@ -37,30 +37,30 @@ std::ostream &operator<<(std::ostream &os, const MODE mode);
 
 std::string to_string(const MODE &mode);
 
-MODE getMode(int registerValue);
+MODE getMode(long registerValue);
 
-std::vector<bool> getParameterModes(const std::vector<unsigned int> instruction);
+std::vector<bool> getParameterModes(const std::vector<unsigned long> instruction);
 
 class Computer {
     public:
         Computer(const std::string programFile);
 
-        void setupInstruction(std::vector<unsigned int> *pInstruction);
+        void setupInstruction(std::vector<unsigned long> *pInstruction);
 
-        std::vector<unsigned int> getInstruction(std::vector<unsigned int>::iterator *instructionStart);
+        std::vector<unsigned long> getInstruction(std::vector<unsigned long>::iterator *instructionStart);
 
-        unsigned int read(const int registerNumber);
-
-        void write(const int registerNumber, const unsigned int registerValue);
+        void write(const unsigned int registerNumber, const unsigned long registerValue);
 
         void startUp(void);
 
-        const std::vector<unsigned int> getRegisters() const;
+        const unsigned long read(const unsigned int registerNumber) const;
+
+        const std::vector<unsigned long> getRegisters() const;
 
     private:
-        std::vector<unsigned int> registers;
+        std::vector<unsigned long> registers;
 
-        OPCODE injestIntcode(const std::vector<unsigned int> instruction);
+        OPCODE injestIntcode(const std::vector<unsigned long> instruction);
 };
 
 std::ostream &operator<<(std::ostream &os, const Computer computer);
