@@ -120,7 +120,7 @@ std::ostream &operator<<(std::ostream &os, const std::vector<T> vec) {
     return os;
 }
 
-int getInstructionSize(OPCODE opcode) {
+unsigned int getInstructionSize(OPCODE opcode) {
     int instructionSize = 0;
 
     switch(opcode) {

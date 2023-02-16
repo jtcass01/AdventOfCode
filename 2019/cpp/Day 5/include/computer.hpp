@@ -49,7 +49,7 @@ class Computer {
 
         std::vector<signed int> getInstruction(std::vector<signed int>::iterator *instructionStart);
 
-        void write(const signed int registerNumber, const signed int registerValue);
+        void write(const unsigned int registerNumber, const signed int registerValue);
 
         void startUp(void);
 
