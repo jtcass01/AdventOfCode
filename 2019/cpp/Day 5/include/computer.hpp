@@ -13,6 +13,12 @@
 #include <sstream>
 #include <exception>
 
+template <typename T>
+T sum(std::vector<T> values);
+
+template <typename T>
+T product(std::vector<T> values);
+
 enum OPCODE {
     FINISHED = 99,
     ADD = 1,
@@ -30,6 +36,8 @@ OPCODE getOpcode(int registerValue);
 
 unsigned int getInstructionSize(const OPCODE opcode);
 
+unsigned int getParameterCount(const OPCODE opcode);
+
 enum MODE {
     POSITION = 0,
     IMMEDIATE = 1
@@ -41,13 +49,19 @@ std::string to_string(const MODE &mode);
 
 MODE getMode(int registerValue);
 
-std::vector<bool> getParameterModes(const std::vector<signed int> instruction);
+std::vector<bool> getParameterModes(const std::vector<signed int> instruction,
+                                    const OPCODE opcode);
+
+std::vector<signed int> getParameterValues(const std::vector<signed int> instruction,
+                                           const std::vector<bool> parameterModes,
+                                           const OPCODE opcode);
 
 class Computer {
     public:
         Computer(const std::string programFile);
+        Computer(std::vector<signed int> registers);
 
-        void setupInstruction(std::vector<signed int> *pInstruction);
+        // void setupInstruction(std::vector<signed int> *pInstruction);
 
         std::vector<signed int> getInstruction(std::vector<signed int>::iterator *instructionStart);
 
@@ -60,7 +74,7 @@ class Computer {
         const std::vector<signed int> getRegisters() const;
 
     private:
-        std::vector<signed int> registers;
+        std::vector<signed int> registers_;
 
         OPCODE injestIntcode(const std::vector<signed int> instruction);
 };

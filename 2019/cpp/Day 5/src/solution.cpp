@@ -31,6 +31,12 @@ int main() {
   std::cout << "Part One Example Result: " << examplePartOneResult << std::endl;
   assert(1 == examplePartOneResult);
 
+  /// EXAMPLE 2
+  std::vector<int> exampleRegisters = {1002, 4, 3, 4, 33, 99};
+  Computer testComputer(exampleRegisters);
+  testComputer.startUp();
+  assert(testComputer.read(4) == 99);
+
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
   assert(0 == partOneResult);
