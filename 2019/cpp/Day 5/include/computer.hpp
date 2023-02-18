@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <cstring>
 #include <vector>
+#include <cstdlib>
 
 enum OPCODE {
     FINISHED = 99,
