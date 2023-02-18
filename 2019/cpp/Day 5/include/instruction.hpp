@@ -7,22 +7,6 @@
 #include "../include/mode.hpp"
 #include "../include/opcode.hpp"
 
-template <typename T>
-std::ostream &operator<<(std::ostream &os, const std::vector<T> vec) {
-    os << "[";
-    // Loop through the vector and print each element
-    for (unsigned int vector_i = 0; vector_i < vec.size(); vector_i++) {
-        os << vec[vector_i];
-
-        // Add a comma after each element, except the last one
-        if (vector_i != vec.size() - 1) {
-            os << ", ";
-        }
-    }
-    os << "]";
-
-    return os;
-}
 
 class Instruction {
     public:
@@ -42,7 +26,7 @@ class Instruction {
     private:
         unsigned int getParameterCount();
         unsigned int getDestinationCount();
-        OPCODE Instruction::determineOpcode(const unsigned int registerValue);
+        OPCODE determineOpcode(const unsigned int registerValue);
         std::vector<MODE> determineModes();
 
         unsigned int opValue;
