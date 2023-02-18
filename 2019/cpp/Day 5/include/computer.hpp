@@ -52,10 +52,6 @@ MODE getMode(int registerValue);
 std::vector<MODE> getParameterModes(const std::vector<signed int> instruction,
                                     const OPCODE opcode);
 
-std::vector<signed int> getParameterValues(const std::vector<signed int> instruction,
-                                           const std::vector<MODE> parameterModes,
-                                           const OPCODE opcode);
-
 class Computer {
     public:
         Computer(const std::string programFile);

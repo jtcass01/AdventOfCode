@@ -138,7 +138,7 @@ std::vector<MODE> getParameterModes(const std::vector<signed int> instruction,
         std::cout << parameterModes[vector_i];
 
         // Add a comma after each element, except the last one
-        if (vector_i != vec.size() - 1) {
+        if (vector_i != parameterModes.size() - 1) {
             std::cout << ", ";
         }
     }
@@ -279,7 +279,8 @@ OPCODE Computer::injestIntcode(const std::vector<signed int> instruction) {
     assert(instruction.size() > 0);
 
     OPCODE opcode = static_cast<OPCODE>(instruction[0]);
-    std::vector<MODE> parameterModes = getParameterModes();
+    std::vector<MODE> parameterModes = getParameterModes(instruction,
+                                                         opcode);
     unsigned int expectedIntructionSize =  getInstructionSize(opcode);
     signed int result = 0;
     assert(instruction.size() == expectedIntructionSize);
