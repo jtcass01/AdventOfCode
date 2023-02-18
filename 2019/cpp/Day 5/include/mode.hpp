@@ -9,11 +9,6 @@ enum MODE {
     IMMEDIATE = 1
 };
 
-std::ostream &operator<<(std::ostream &os, const MODE mode) {
-    os << to_string(mode);
-    return os;
-}
-
 std::string to_string(const MODE &mode) {
     std::stringstream errorMessage;
     std::string result = "";
@@ -31,6 +26,11 @@ std::string to_string(const MODE &mode) {
     }
 
     return result;
+}
+
+std::ostream &operator<<(std::ostream &os, const MODE mode) {
+    os << to_string(mode);
+    return os;
 }
 
 #endif
