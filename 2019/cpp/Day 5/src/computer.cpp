@@ -69,7 +69,9 @@ OPCODE getOpcode(int registerValue) {
         opCode = static_cast<OPCODE>(registerValue);
     } else {
         std::string stringReprestation = std::to_string(registerValue);
+        std::cout << "stringReprestation: " << stringReprestation << std::endl;
         int opValue = stoi(stringReprestation.substr(stringReprestation.length() - 2));
+        std::cout << "opValue: " << opValue << std::endl;
         opCode = static_cast<OPCODE>(opValue);
     }
 
