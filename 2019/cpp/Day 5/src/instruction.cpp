@@ -167,7 +167,7 @@ std::vector<MODE> Instruction::determineModes() {
     return parameterModes;
 }
 
-std::ostream &operator<<(std::ostream &os, const Instruction instruction); {
+std::ostream &operator<<(std::ostream &os, const Instruction instruction) {
     os << "{";
 
     os << "opValue: " << std::to_string(instruction.getOpValue()) << ", ";
