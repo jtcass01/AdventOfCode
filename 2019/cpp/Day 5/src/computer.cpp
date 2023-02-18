@@ -6,6 +6,7 @@ std::ostream &operator<<(std::ostream &os, const OPCODE opcode) {
 }
 
 std::string to_string(const OPCODE &opcode) {
+    std::stringstream errorMessage;
     std::string result = "";
 
     switch(opcode) {
@@ -28,10 +29,8 @@ std::string to_string(const OPCODE &opcode) {
             result = "error";
             break;
         default:
-            std::cerr << "to_string(const OPCODE &opcode) not implemented for given OPCODE:" << opcode << std::endl;
-            throw std::logic_error("Not implemented.");
-            std::abort();
-            break;
+            errorMessage << "to_string(const OPCODE &opcode) not implemented for given OPCODE:" << opcode << std::endl;
+            throw errorMessage;
     }
 
     return result;
@@ -58,6 +57,7 @@ std::ostream &operator<<(std::ostream &os, const MODE mode) {
 }
 
 std::string to_string(const MODE &mode) {
+    std::stringstream errorMessage;
     std::string result = "";
 
     switch(mode) {
@@ -68,10 +68,8 @@ std::string to_string(const MODE &mode) {
             result = "add";
             break;
         default:
-            std::cerr << "to_string(const MODE &mode) not implemented for given MODE: " << mode << std::endl;
-            throw std::logic_error("Not implemented.");
-            std::abort();
-            break;
+            errorMessage << "to_string(const MODE &mode) not implemented for given MODE: " << mode << std::endl;
+            throw errorMessage;
     }
 
     return result;
@@ -125,6 +123,7 @@ std::ostream &operator<<(std::ostream &os, const std::vector<T> vec) {
 }
 
 unsigned int getInstructionSize(const OPCODE opcode) {
+    std::stringstream errorMessage;
     int instructionSize = 0;
 
     switch(opcode) {
@@ -146,10 +145,8 @@ unsigned int getInstructionSize(const OPCODE opcode) {
     case OPCODE::ERROR:
     default:
         instructionSize = 0;
-        std::cerr << "getInstructionSize(const OPCODE &opcode) not implemented for given OPCODE: " << opcode << std::endl;
-        throw std::logic_error("Not implemented.");
-        std::abort();
-        break;
+        errorMessage << "getInstructionSize(...) not implemented for given OPCODE: " << opcode << std::endl;
+        throw errorMessage;
     }
 
     return instructionSize;
@@ -172,6 +169,8 @@ Computer::Computer(const std::string programFileName) {
 }
 
 void Computer::setupInstruction(std::vector<signed int> *pInstruction) {
+    std::vector<bool> parameterModes;
+    std::stringstream errorMessage;
     std::vector<signed int> instruction = *pInstruction;
 
     MODE mode = getMode(instruction[0]);
@@ -182,7 +181,7 @@ void Computer::setupInstruction(std::vector<signed int> *pInstruction) {
             instruction[2] = read(instruction[2]);
             break;
         case MODE::PARAMETER:
-            std::vector<bool> parameterModes = getParameterModes(instruction);
+            parameterModes = getParameterModes(instruction);
 
             for(signed int parameterIndex = 0;
                 parameterIndex < parameterModes.size();
@@ -192,6 +191,9 @@ void Computer::setupInstruction(std::vector<signed int> *pInstruction) {
                 }
             }
             break;
+        default:
+            errorMessage << "Computer::setupInstruction(...) not implemented for given MODE: " << mode << std::endl;
+            throw errorMessage;
     }
 }
 
@@ -208,6 +210,7 @@ std::vector<signed int> Computer::getInstruction(std::vector<signed int>::iterat
 }
 
 OPCODE Computer::injestIntcode(const std::vector<signed int> instruction) {
+    std::stringstream errorMessage;
     assert(instruction.size() > 0);
 
     OPCODE opcode = static_cast<OPCODE>(instruction[0]);
@@ -242,9 +245,8 @@ OPCODE Computer::injestIntcode(const std::vector<signed int> instruction) {
             break;
         case OPCODE::ERROR:
         default:
-            std::cerr << "Computer::injestIntcode(...) not implemented for given OPCODE: " << opcode << std::endl;
-            throw std::logic_error("Not implemented.");
-            std::abort();
+            errorMessage << "Computer::injestIntcode(...) not implemented for given OPCODE: " << opcode << std::endl;
+            throw errorMessage;
             break;
     }
 
