@@ -122,7 +122,7 @@ std::vector<MODE> getParameterModes(const std::vector<signed int> instruction,
             parameterIndex >= 0;
             parameterReverseIndex--, parameterIndex++) {
             if (strOp[parameterReverseIndex] == '1') {
-                parameterModes[parameterIndex] = strOp[parameterIndex] == MODE::IMMEDIATE;
+                parameterModes[parameterIndex] = MODE::IMMEDIATE;
             }
         }
     }
@@ -150,17 +150,18 @@ std::ostream &operator<<(std::ostream &os, const std::vector<T> vec) {
     return os;
 }
 
-std::ostream &operator<<(std::ostream &os, const bool value) {
-    switch(value) {
-        case true:
-            os << "true";
-            break;
-        case false:
-            os << "false";
-            break;
-    }
-    return os;
-}
+// std::ostream &operator<<(std::ostream &os, const bool value) {
+//     switch(value) {
+//         case true:
+//             os << "true";
+//             break;
+//         case false:
+//             os << "false";
+//             break;
+//     }
+
+//     return os;
+// }
 
 unsigned int getInstructionSize(const OPCODE opcode) {
     std::stringstream errorMessage;
@@ -222,9 +223,11 @@ unsigned int getParameterCount(const OPCODE opcode) {
     return parameterSize;
 }
 
-std::vector<signed int> getParameterValues(const std::vector<signed int> instruction,
-                                           const std::vector<MODE> parameterModes,
-                                           const OPCODE opcode) {
+const std::vector<signed int> Computer::getParameterValues(
+    const std::vector<signed int> instruction,
+    const std::vector<MODE> parameterModes,
+    const OPCODE opcode) {
+
     std::vector<signed int> parameterValues;
 
     unsigned int parameterCount = getParameterCount(opcode);
@@ -260,43 +263,11 @@ Computer::Computer(const std::string programFileName) {
 
 Computer::Computer(std::vector<signed int> registers) : registers_(registers) {}
 
-// void Computer::setupInstruction(std::vector<signed int> *pInstruction) {
-//     std::vector<bool> parameterModes;
-//     std::stringstream errorMessage;
-//     std::vector<signed int> instruction = *pInstruction;
-
-//     MODE mode = getMode(instruction[0]);
-
-//     switch(mode) {
-//         case MODE::IMMEDIATE:
-//             parameterModes = getParameterModes(instruction);
-
-//             for(signed int parameterIndex = 0;
-//                 parameterIndex < parameterModes.size();
-//                 parameterIndex++) {
-//                 if(parameterModes[parameterIndex]) {
-//                     instruction[parameterIndex+1] = read(instruction[parameterIndex+1]);
-//                 }
-//             }
-//             break;
-//         case MODE::POSITION:
-//             instruction[1] = read(instruction[1]);
-//             instruction[2] = read(instruction[2]);
-//             break;
-//         default:
-//             errorMessage << "Computer::setupInstruction(...) not implemented for given MODE: " << mode << std::endl;
-//             throw std::runtime_error(errorMessage.str());
-//     }
-// }
-
 std::vector<signed int> Computer::getInstruction(std::vector<signed int>::iterator *instructionStart) {
     unsigned int startIndex = std::distance(registers_.begin(), *instructionStart);
     OPCODE opcode = getOpcode(registers_[startIndex]);
     unsigned int instructionSize = getInstructionSize(opcode);
     std::vector<signed int> instruction(*instructionStart, *instructionStart+instructionSize);
-    // std::cout << opcode << " instruction before setup: " << instruction << std::endl;
-    // setupInstruction(&instruction);
-    // std::cout << opcode << " instruction after setup: " << instruction << std::endl;
     *instructionStart += instructionSize;
     return instruction;
 }

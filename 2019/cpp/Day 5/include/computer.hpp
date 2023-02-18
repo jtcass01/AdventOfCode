@@ -73,6 +73,10 @@ class Computer {
 
         const std::vector<signed int> getRegisters() const;
 
+        const std::vector<signed int> getParameterValues(const std::vector<signed int> instruction,
+                                                         const std::vector<MODE> parameterModes,
+                                                         const OPCODE opcode);
+
     private:
         std::vector<signed int> registers_;
 
