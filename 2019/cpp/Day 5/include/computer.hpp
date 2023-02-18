@@ -31,7 +31,7 @@ OPCODE getOpcode(int registerValue);
 unsigned int getInstructionSize(const OPCODE opcode);
 
 enum MODE {
-    PARAMETER = 0,
+    POSITION = 0,
     IMMEDIATE = 1
 };
 
