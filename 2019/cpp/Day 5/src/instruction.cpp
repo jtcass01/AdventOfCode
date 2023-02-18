@@ -172,7 +172,7 @@ std::ostream &operator<<(std::ostream &os, const Instruction instruction) {
 
     os << "opValue: " << std::to_string(instruction.getOpValue()) << ", ";
 
-    os << "opcode: " << std::to_string(instruction.getOpcode()) << ", ";
+    os << "opcode: " << to_string(instruction.getOpcode()) << ", ";
 
     os << "parameters: " << instruction.getParameters() << ", ";
 
