@@ -26,7 +26,7 @@ std::string to_string(const OPCODE &opcode);
 
 OPCODE getOpcode(int registerValue);
 
-unsigned int getInstructionSize(OPCODE opcode);
+unsigned int getInstructionSize(const OPCODE opcode);
 
 enum MODE {
     PARAMETER = 0,

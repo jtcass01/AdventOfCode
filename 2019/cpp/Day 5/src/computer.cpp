@@ -28,7 +28,7 @@ std::string to_string(const OPCODE &opcode) {
             result = "error";
             break;
         default:
-            throw std::runtime_error("to_string(const OPCODE &opcode) not implemented for given OPCODE");
+            std::cerr << "to_string(const OPCODE &opcode) not implemented for given OPCODE:" << opcode << std::endl;
             break;
     }
 
@@ -66,7 +66,7 @@ std::string to_string(const MODE &mode) {
             result = "add";
             break;
         default:
-            throw std::runtime_error("to_string(const MODE &mode) not implemented for given OPCODE");
+            std::cerr << "to_string(const MODE &mode) not implemented for given MODE: " << mode << std::endl;
             break;
     }
 
@@ -120,7 +120,7 @@ std::ostream &operator<<(std::ostream &os, const std::vector<T> vec) {
     return os;
 }
 
-unsigned int getInstructionSize(OPCODE opcode) {
+unsigned int getInstructionSize(const OPCODE opcode) {
     int instructionSize = 0;
 
     switch(opcode) {
@@ -142,6 +142,7 @@ unsigned int getInstructionSize(OPCODE opcode) {
     case OPCODE::ERROR:
     default:
         instructionSize = 0;
+        std::cerr << "getInstructionSize(const OPCODE &opcode) not implemented for given OPCODE: " << opcode << std::endl;
         break;
     }
 
@@ -195,7 +196,7 @@ std::vector<signed int> Computer::getInstruction(std::vector<signed int>::iterat
     std::vector<signed int> instruction(*instructionStart, *instructionStart+instructionSize);
     std::cout << opcode << " instruction before setup: " << instruction << std::endl;
     setupInstruction(&instruction);
-    std::cout << opcode << "instruction after setup: " << instruction << std::endl;
+    std::cout << opcode << " instruction after setup: " << instruction << std::endl;
     *instructionStart += instructionSize;
     return instruction;
 }
@@ -235,6 +236,7 @@ OPCODE Computer::injestIntcode(const std::vector<signed int> instruction) {
             break;
         case OPCODE::ERROR:
         default:
+            std::cerr << "Computer::injestIntcode(...) not implemented for given OPCODE: " << opcode << std::endl;
             break;
     }
 
