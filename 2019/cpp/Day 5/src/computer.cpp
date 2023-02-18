@@ -61,23 +61,19 @@ std::string to_string(const OPCODE &opcode) {
 
 OPCODE getOpcode(int registerValue) {
     assert(registerValue > 0);
-    OPCODE opCode = OPCODE::ERROR;
+    OPCODE opcode = OPCODE::ERROR;
 
     std::cout << "Getting op code for value: " << registerValue << std::endl;
 
     if (registerValue < 100) {
-        opCode = static_cast<OPCODE>(registerValue);
+        opcode = static_cast<OPCODE>(registerValue);
     } else {
         std::string stringReprestation = std::to_string(registerValue);
-        std::cout << "stringReprestation: " << stringReprestation << std::endl;
         int opValue = stoi(stringReprestation.substr(stringReprestation.length() - 2));
-        std::cout << "opValue: " << opValue << std::endl;
-        opCode = static_cast<OPCODE>(opValue);
+        opcode = static_cast<OPCODE>(opValue);
     }
 
-    std::cout << "opCode: " << opCode << std::endl;
-
-    return opCode;
+    return opcode;
 };
 
 std::ostream &operator<<(std::ostream &os, const MODE mode) {
@@ -274,8 +270,11 @@ Computer::Computer(std::vector<signed int> registers) : registers_(registers) {}
 std::vector<signed int> Computer::getInstruction(std::vector<signed int>::iterator *instructionStart) {
     unsigned int startIndex = std::distance(registers_.begin(), *instructionStart);
     OPCODE opcode = getOpcode(registers_[startIndex]);
+    std::cout << "opcode: " << opcode << std::endl;
     unsigned int instructionSize = getInstructionSize(opcode);
+    std::cout << "instructionSize: " << instructionSize << std::endl;
     std::vector<signed int> instruction(*instructionStart, *instructionStart+instructionSize);
+    std::cout << "instruction: " << instructionSize << std::endl;
     *instructionStart += instructionSize;
     return instruction;
 }
@@ -327,14 +326,14 @@ OPCODE Computer::injestIntcode(const std::vector<signed int> instruction) {
 }
 
 void Computer::startUp(void) {
-    OPCODE opCode = OPCODE::ERROR;
+    OPCODE opcode = OPCODE::ERROR;
     std::vector<signed int>::iterator instructionStart = registers_.begin();
     std::cout << "Staring up computer: " << getRegisters() << std::endl;
 
     while(instructionStart < registers_.end()
-       && opCode != OPCODE::FINISHED) {
+       && opcode != OPCODE::FINISHED) {
         std::vector<signed int> instruction = getInstruction(&instructionStart);
-        opCode = injestIntcode(instruction);
+        opcode = injestIntcode(instruction);
         std::cout << "registers_ state: " << getRegisters() << std::endl;
         std::cout << "\tafter instruction: " << instruction << std::endl;
     }
