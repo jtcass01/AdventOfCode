@@ -177,10 +177,6 @@ void Computer::setupInstruction(std::vector<signed int> *pInstruction) {
 
     switch(mode) {
         case MODE::IMMEDIATE:
-            instruction[1] = read(instruction[1]);
-            instruction[2] = read(instruction[2]);
-            break;
-        case MODE::POSITION:
             parameterModes = getParameterModes(instruction);
 
             for(signed int parameterIndex = 0;
@@ -190,6 +186,10 @@ void Computer::setupInstruction(std::vector<signed int> *pInstruction) {
                     instruction[parameterIndex+1] = read(instruction[parameterIndex+1]);
                 }
             }
+            break;
+        case MODE::POSITION:
+            instruction[1] = read(instruction[1]);
+            instruction[2] = read(instruction[2]);
             break;
         default:
             errorMessage << "Computer::setupInstruction(...) not implemented for given MODE: " << mode << std::endl;
