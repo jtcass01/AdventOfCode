@@ -110,11 +110,11 @@ MODE getMode(int registerValue) {
     return mode;
 }
 
-std::vector<bool> getParameterModes(const std::vector<signed int> instruction,
+std::vector<MODE> getParameterModes(const std::vector<signed int> instruction,
                                     const OPCODE opcode) {
     std::string strOp = std::to_string(instruction[0]);
     unsigned int instructionSize = getInstructionSize(opcode);
-    std::vector<bool> parameterModes(instructionSize, MODE::POSITION);
+    std::vector<MODE> parameterModes(instructionSize, MODE::POSITION);
 
     if (instruction[0] > 99) {
         for(unsigned int parameterReverseIndex = strOp.size() - 2 - 1,
@@ -211,7 +211,7 @@ unsigned int getParameterCount(const OPCODE opcode) {
 }
 
 std::vector<signed int> getParameterValues(const std::vector<signed int> instruction,
-                                           const std::vector<bool> parameterModes,
+                                           const std::vector<MODE> parameterModes,
                                            const OPCODE opcode) {
     std::vector<signed int> parameterValues;
 
@@ -294,7 +294,7 @@ OPCODE Computer::injestIntcode(const std::vector<signed int> instruction) {
     assert(instruction.size() > 0);
 
     OPCODE opcode = static_cast<OPCODE>(instruction[0]);
-    std::vector<bool> parameterModes = getParameterModes();
+    std::vector<MODE> parameterModes = getParameterModes();
     unsigned int expectedIntructionSize =  getInstructionSize(opcode);
     signed int result = 0;
     assert(instruction.size() == expectedIntructionSize);

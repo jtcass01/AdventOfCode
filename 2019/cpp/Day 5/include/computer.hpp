@@ -49,11 +49,11 @@ std::string to_string(const MODE &mode);
 
 MODE getMode(int registerValue);
 
-std::vector<bool> getParameterModes(const std::vector<signed int> instruction,
+std::vector<MODE> getParameterModes(const std::vector<signed int> instruction,
                                     const OPCODE opcode);
 
 std::vector<signed int> getParameterValues(const std::vector<signed int> instruction,
-                                           const std::vector<bool> parameterModes,
+                                           const std::vector<MODE> parameterModes,
                                            const OPCODE opcode);
 
 class Computer {
