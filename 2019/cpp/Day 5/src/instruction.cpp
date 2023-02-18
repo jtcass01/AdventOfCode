@@ -5,8 +5,8 @@ Instruction::Instruction(std::vector<signed int>::iterator *instructionStart,
         opValue(registers[std::distance(registers.begin(), *instructionStart)]),
         opcode(determineOpcode(opValue)),
         modes(determineModes()),
-        parametersStart(instructionStart+1),
-        parametersEnd(instructionStart+1+getParameterCount()) {
+        parametersStart(*instructionStart+1),
+        parametersEnd(*instructionStart+1+getParameterCount()) {
     unsigned int startIndex = std::distance(registers.begin(), *instructionStart);
 
     if(getDestinationCount() == 1) {

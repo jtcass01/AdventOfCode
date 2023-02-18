@@ -32,8 +32,8 @@ class Instruction {
         unsigned int opValue;
         OPCODE opcode;
         std::vector<MODE> modes;
-        std::vector<signed int>::iterator *parametersStart;
-        std::vector<signed int>::iterator *parametersEnd;
+        std::vector<signed int>::iterator parametersStart;
+        std::vector<signed int>::iterator parametersEnd;
         signed int *destination;
 };
 
