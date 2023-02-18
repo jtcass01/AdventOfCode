@@ -127,7 +127,22 @@ std::vector<MODE> getParameterModes(const std::vector<signed int> instruction,
         }
     }
 
-    std::cout << "Parameter modes for " << instruction << " are " << parameterModes << std::endl;
+    std::cout << "Parameter modes for " << instruction << " are ";
+
+    std::cout << "[";
+    // Loop through the vector and print each element
+    for(MODE &mode : parameterModes) {
+
+    }
+    for (unsigned int vector_i = 0; vector_i < parameterModes.size(); vector_i++) {
+        std::cout << parameterModes[vector_i];
+
+        // Add a comma after each element, except the last one
+        if (vector_i != vec.size() - 1) {
+            std::cout << ", ";
+        }
+    }
+    std::cout << "]" << std::endl;
 
     return parameterModes;
 }
@@ -149,19 +164,6 @@ std::ostream &operator<<(std::ostream &os, const std::vector<T> vec) {
 
     return os;
 }
-
-// std::ostream &operator<<(std::ostream &os, const bool value) {
-//     switch(value) {
-//         case true:
-//             os << "true";
-//             break;
-//         case false:
-//             os << "false";
-//             break;
-//     }
-
-//     return os;
-// }
 
 unsigned int getInstructionSize(const OPCODE opcode) {
     std::stringstream errorMessage;
