@@ -11,6 +11,7 @@
 #include <cstring>
 #include <vector>
 #include <sstream>
+#include <exception>
 
 enum OPCODE {
     FINISHED = 99,

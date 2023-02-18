@@ -30,7 +30,7 @@ std::string to_string(const OPCODE &opcode) {
             break;
         default:
             errorMessage << "to_string(const OPCODE &opcode) not implemented for given OPCODE:" << opcode << std::endl;
-            throw errorMessage;
+            throw std::runtime_error(errorMessage.str());
     }
 
     return result;
@@ -69,7 +69,7 @@ std::string to_string(const MODE &mode) {
             break;
         default:
             errorMessage << "to_string(const MODE &mode) not implemented for given MODE: " << mode << std::endl;
-            throw errorMessage;
+            throw std::runtime_error(errorMessage.str());
     }
 
     return result;
@@ -146,7 +146,7 @@ unsigned int getInstructionSize(const OPCODE opcode) {
     default:
         instructionSize = 0;
         errorMessage << "getInstructionSize(...) not implemented for given OPCODE: " << opcode << std::endl;
-        throw errorMessage;
+        throw std::runtime_error(errorMessage.str());
     }
 
     return instructionSize;
@@ -193,7 +193,7 @@ void Computer::setupInstruction(std::vector<signed int> *pInstruction) {
             break;
         default:
             errorMessage << "Computer::setupInstruction(...) not implemented for given MODE: " << mode << std::endl;
-            throw errorMessage;
+            throw std::runtime_error(errorMessage.str());
     }
 }
 
@@ -246,8 +246,7 @@ OPCODE Computer::injestIntcode(const std::vector<signed int> instruction) {
         case OPCODE::ERROR:
         default:
             errorMessage << "Computer::injestIntcode(...) not implemented for given OPCODE: " << opcode << std::endl;
-            throw errorMessage;
-            break;
+            throw std::runtime_error(errorMessage.str());
     }
 
     return opcode;
