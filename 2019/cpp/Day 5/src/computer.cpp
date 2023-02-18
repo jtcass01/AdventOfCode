@@ -21,9 +21,10 @@ Computer::Computer(std::vector<signed int> registers) : registers_(registers) {}
 OPCODE Computer::injestIntcode(const Instruction instruction) {
     std::stringstream errorMessage;
     assert(instruction.size() > 0);
+    const OPCODE opcode = instruction.getOpcode();
     signed int result = 0;
 
-    switch(instruction.getOpcode()) {
+    switch(opcode) {
         case OPCODE::FINISHED:
             std::cout << "STOP OPCODE RECEIVED." << std::endl;
             break;
@@ -51,7 +52,7 @@ OPCODE Computer::injestIntcode(const Instruction instruction) {
             throw std::runtime_error(errorMessage.str());
     }
 
-    return instruction.getOpcode();
+    return opcode;
 }
 
 void Computer::write(const unsigned int registerNumber, const signed int registerValue) {

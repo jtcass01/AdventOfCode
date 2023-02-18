@@ -5,7 +5,8 @@ Instruction::Instruction(std::vector<signed int>::iterator *instructionStart,
         opValue(registers[std::distance(registers.begin(), *instructionStart)]),
         opcode(determineOpcode(opValue)),
         modes(determineModes()),
-        parameters(std::vector<signed int>(*instructionStart+1, *instructionStart+1+getParameterCount())) {
+        parametersStart(instructionStart+1),
+        parametersEnd(instructionStart+1+getParameterCount()) {
     unsigned int startIndex = std::distance(registers.begin(), *instructionStart);
 
     if(getDestinationCount() == 1) {
@@ -58,11 +59,12 @@ const std::vector<MODE> Instruction::getModes() const {
 }
 
 const signed int Instruction::getParameter(const int parameterIndex) const {
+    const std::vector<signed int> parameters = getParameters();
     return parameters[parameterIndex];
 }
 
 const std::vector<signed int> Instruction::getParameters() const {
-    return parameters;
+    return std::vector<signed int>(parametersStart, parametersEnd);
 }
 
 const signed int Instruction::getDestination() const {
