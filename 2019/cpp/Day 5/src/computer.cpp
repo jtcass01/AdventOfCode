@@ -333,8 +333,9 @@ void Computer::startUp(void) {
     while(instructionStart < registers_.end()
        && opcode != OPCODE::FINISHED) {
         std::vector<signed int> instruction = getInstruction(&instructionStart);
+        std::cout << "instruction: " << instruction << std::endl;
+        std::cout << "\tbefore registers_ state: " << getRegisters() << std::endl;
         opcode = injestIntcode(instruction);
-        std::cout << "registers_ state: " << getRegisters() << std::endl;
         std::cout << "\tafter instruction: " << instruction << std::endl;
     }
 }

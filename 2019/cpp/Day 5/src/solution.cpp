@@ -32,7 +32,7 @@ int main() {
   assert(1 == examplePartOneResult);
 
   /// EXAMPLE 2
-  std::vector<int> exampleRegisters = {1002, 4, 3, 4, 33, 99};
+  std::vector<signed int> exampleRegisters = {1002, 4, 3, 4, 33};
   Computer testComputer(exampleRegisters);
   testComputer.startUp();
   assert(testComputer.read(4) == 99);
