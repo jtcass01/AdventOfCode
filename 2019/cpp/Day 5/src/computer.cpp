@@ -31,6 +31,7 @@ std::string to_string(const OPCODE &opcode) {
             std::cerr << "to_string(const OPCODE &opcode) not implemented for given OPCODE:" << opcode << std::endl;
             throw std::logic_error("Not implemented.");
             std::abort();
+            break;
     }
 
     return result;
@@ -70,6 +71,7 @@ std::string to_string(const MODE &mode) {
             std::cerr << "to_string(const MODE &mode) not implemented for given MODE: " << mode << std::endl;
             throw std::logic_error("Not implemented.");
             std::abort();
+            break;
     }
 
     return result;
@@ -147,6 +149,7 @@ unsigned int getInstructionSize(const OPCODE opcode) {
         std::cerr << "getInstructionSize(const OPCODE &opcode) not implemented for given OPCODE: " << opcode << std::endl;
         throw std::logic_error("Not implemented.");
         std::abort();
+        break;
     }
 
     return instructionSize;
@@ -242,6 +245,7 @@ OPCODE Computer::injestIntcode(const std::vector<signed int> instruction) {
             std::cerr << "Computer::injestIntcode(...) not implemented for given OPCODE: " << opcode << std::endl;
             throw std::logic_error("Not implemented.");
             std::abort();
+            break;
     }
 
     return opcode;
