@@ -61,11 +61,11 @@ std::string to_string(const MODE &mode) {
     std::string result = "";
 
     switch(mode) {
-        case MODE::PARAMETER:
-            result = "finished";
+        case MODE::POSITION:
+            result = "position";
             break;
         case MODE::IMMEDIATE:
-            result = "add";
+            result = "immediate";
             break;
         default:
             errorMessage << "to_string(const MODE &mode) not implemented for given MODE: " << mode << std::endl;
@@ -78,10 +78,10 @@ std::string to_string(const MODE &mode) {
 MODE getMode(int registerValue) {
     assert(registerValue > 0);
 
-    MODE mode = MODE::IMMEDIATE;
+    MODE mode = MODE::POSITION;
 
     if (registerValue > 99) {
-        mode = MODE::PARAMETER;
+        mode = MODE::IMMEDIATE;
     }
 
     return mode;
@@ -180,7 +180,7 @@ void Computer::setupInstruction(std::vector<signed int> *pInstruction) {
             instruction[1] = read(instruction[1]);
             instruction[2] = read(instruction[2]);
             break;
-        case MODE::PARAMETER:
+        case MODE::POSITION:
             parameterModes = getParameterModes(instruction);
 
             for(signed int parameterIndex = 0;
