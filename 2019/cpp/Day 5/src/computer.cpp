@@ -150,6 +150,18 @@ std::ostream &operator<<(std::ostream &os, const std::vector<T> vec) {
     return os;
 }
 
+std::ostream &operator<<(std::ostream &os, const bool value) {
+    switch(value) {
+        case true:
+            os << "true";
+            break;
+        case false:
+            os << "false";
+            break;
+    }
+    return os;
+}
+
 unsigned int getInstructionSize(const OPCODE opcode) {
     std::stringstream errorMessage;
     int instructionSize = 0;
