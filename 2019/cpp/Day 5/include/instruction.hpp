@@ -37,20 +37,6 @@ class Instruction {
         signed int *destination;
 };
 
-std::ostream &operator<<(std::ostream &os, const Instruction instruction) {
-    os << "{";
-
-    os << "opValue: " << std::to_string(instruction.getOpValue()) << ", ";
-
-    os << "opcode: " << std::to_string(instruction.getOpcode()) << ", ";
-
-    os << "parameters: " << instruction.getParameters() << ", ";
-
-    os << "destination: " << instruction.getDestination() << ", ";
-
-    os << "}";
-
-    return os;
-}
+std::ostream &operator<<(std::ostream &os, const Instruction instruction);
 
 #endif
