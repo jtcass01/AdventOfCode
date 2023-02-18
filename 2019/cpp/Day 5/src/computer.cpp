@@ -193,9 +193,9 @@ std::vector<signed int> Computer::getInstruction(std::vector<signed int>::iterat
     OPCODE opcode = getOpcode(registers[startIndex]);
     unsigned int instructionSize = getInstructionSize(opcode);
     std::vector<signed int> instruction(*instructionStart, *instructionStart+instructionSize);
-    std::cout << "Instruction Before Setup: " << instruction << std::endl;
+    std::cout << opcode << " instruction before setup: " << instruction << std::endl;
     setupInstruction(&instruction);
-    std::cout << "Instruction After Setup: " << instruction << std::endl;
+    std::cout << opcode << "instruction after setup: " << instruction << std::endl;
     *instructionStart += instructionSize;
     return instruction;
 }
