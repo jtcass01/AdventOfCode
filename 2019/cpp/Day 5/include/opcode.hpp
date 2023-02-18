@@ -13,7 +13,7 @@ enum OPCODE {
     ERROR = 0
 };
 
-std::string to_string(const OPCODE &opcode) {
+inline std::string to_string(const OPCODE &opcode) {
     std::stringstream errorMessage;
     std::string result = "";
 
@@ -44,7 +44,7 @@ std::string to_string(const OPCODE &opcode) {
     return result;
 }
 
-std::ostream &operator<<(std::ostream &os, const OPCODE opcode) {
+inline std::ostream &operator<<(std::ostream &os, const OPCODE opcode) {
     os << to_string(opcode);
     return os;
 }
