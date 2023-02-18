@@ -75,6 +75,8 @@ OPCODE getOpcode(int registerValue) {
         opCode = static_cast<OPCODE>(opValue);
     }
 
+    std::cout << "opCode: " << opCode << std::endl;
+
     return opCode;
 };
 
