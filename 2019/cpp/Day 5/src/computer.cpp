@@ -274,7 +274,7 @@ std::vector<signed int> Computer::getInstruction(std::vector<signed int>::iterat
     unsigned int instructionSize = getInstructionSize(opcode);
     std::cout << "instructionSize: " << instructionSize << std::endl;
     std::vector<signed int> instruction(*instructionStart, *instructionStart+instructionSize);
-    std::cout << "instruction: " << instructionSize << std::endl;
+    std::cout << "instruction: " << instruction << std::endl;
     *instructionStart += instructionSize;
     return instruction;
 }
