@@ -176,9 +176,7 @@ std::ostream &operator<<(std::ostream &os, const Instruction instruction) {
 
     os << "parameters: " << instruction.getParameters() << ", ";
 
-    os << "destination: " << instruction.getDestination() << ", ";
-
-    os << "}";
+    os << "destination: " << instruction.getDestination() << "}";
 
     return os;
 }

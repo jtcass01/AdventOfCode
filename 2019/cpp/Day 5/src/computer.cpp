@@ -78,7 +78,7 @@ void Computer::startUp(void) {
         opcode = injestIntcode(instruction);
         std::cout << "\tafter registers_ state: " << getRegisters() << std::endl;
 
-        *instructionStart += instruction.size();
+        instructionStart += instruction.size();
     }
 }
 
