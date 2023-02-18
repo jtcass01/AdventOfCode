@@ -63,6 +63,8 @@ OPCODE getOpcode(int registerValue) {
     assert(registerValue > 0);
     OPCODE opCode = OPCODE::ERROR;
 
+    std::cout << "Getting op code for value: " << registerValue << std::endl;
+
     if (registerValue < 100) {
         opCode = static_cast<OPCODE>(registerValue);
     } else {
