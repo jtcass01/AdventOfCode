@@ -29,11 +29,11 @@ OPCODE Computer::injestIntcode(const Instruction instruction) {
             std::cout << "STOP OPCODE RECEIVED." << std::endl;
             break;
         case OPCODE::ADD:
-            result = sum<signed int>(instruction.getParameters());
+            result = sum<signed int>(getInstructionParameters(instruction));
             write(instruction.getDestination(), result);
             break;
         case OPCODE::MULTIPLY:
-            result = product<signed int>(instruction.getParameters());
+            result = product<signed int>(getInstructionParameters(instruction));
             write(instruction.getDestination(), result);
             break;
         case OPCODE::WRITE:
@@ -61,6 +61,19 @@ void Computer::write(const unsigned int registerNumber, const signed int registe
 
 const signed int Computer::read(const unsigned int registerNumber) const {
   return registers_[registerNumber];
+}
+
+const std::vector<signed int> Computer::getInstructionParameters(const Instruction instruction) {
+    std::vector<signed int> parameters = instruction.getParameters();
+    std::vector<MODE> modes = instruction.getModes();
+
+    for(signed int modeIndex = 0; modeIndex < modes.size(); modeIndex++) {
+        if(modes[modeIndex] == MODE::POSITION) {
+            parameters[modeIndex] = read(parameters[modeIndex]);
+        }
+    }
+
+    return parameters;
 }
 
 void Computer::startUp(void) {

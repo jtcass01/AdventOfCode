@@ -28,6 +28,8 @@ class Computer {
 
         const signed int read(const unsigned int registerNumber) const;
 
+        const std::vector<signed int> getInstructionParameters(const Instruction instruction);
+
         void startUp(void);
 
         const std::vector<signed int> getRegisters() const;
