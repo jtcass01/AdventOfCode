@@ -91,7 +91,7 @@ void Computer::startUp(void) {
         std::cout << "instruction: " << instruction << std::endl;
         opcode = injestIntcode(instruction);
 
-        instructionStart += instruction.size();
+        instructionStart += instruction.size()-1;
     }
 }
 
