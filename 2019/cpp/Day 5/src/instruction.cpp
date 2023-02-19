@@ -55,6 +55,8 @@ const signed int Instruction::getDestination() const {
 OPCODE Instruction::determineOpcode(const unsigned int registerValue) {
     OPCODE opcode = OPCODE::ERROR;
 
+    std::cout << "registerValue:" << registerValue << std::endl;
+
     if (registerValue < 100) {
         opcode = static_cast<OPCODE>(registerValue);
     } else {
