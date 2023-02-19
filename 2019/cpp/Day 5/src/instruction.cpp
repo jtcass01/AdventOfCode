@@ -7,6 +7,7 @@ Instruction::Instruction(std::vector<signed int>::iterator *instructionStart,
         modes_(determineModes()),
         parametersStart_(*instructionStart+1),
         parametersEnd_(*instructionStart+1+getParameterCount()) {
+    std::cout << "At least Ive made it this far." << std::endl;
     unsigned int startIndex = std::distance(registers.begin(), *instructionStart);
 
     if(getDestinationCount() == 1) {
