@@ -25,6 +25,7 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
     std::cout << "OPCODE = "<< opcode << std::endl;
     signed int result = 0;
     std::vector<signed int> instructionParameters = getInstructionParameters(instruction);
+    std::cout << "instructionParameters = "<< instructionParameters << std::endl;
 
     switch(opcode) {
         case OPCODE::FINISHED:
