@@ -2,17 +2,17 @@
 
 Instruction::Instruction(std::vector<signed int>::iterator *instructionStart,
                          std::vector<signed int> registers) :
-        opValue(registers[std::distance(registers.begin(), *instructionStart)]),
-        opcode(determineOpcode(opValue)),
-        modes(determineModes()),
-        parametersStart(*instructionStart+1),
-        parametersEnd(*instructionStart+1+getParameterCount()) {
+        opValue_(registers[std::distance(registers.begin(), *instructionStart)]),
+        opcode_(determineOpcode(opValue_)),
+        modes_(determineModes()),
+        parametersStart_(*instructionStart+1),
+        parametersEnd_(*instructionStart+1+getParameterCount()) {
     unsigned int startIndex = std::distance(registers.begin(), *instructionStart);
 
     if(getDestinationCount() == 1) {
-        destination = &registers[startIndex+size()];
+        destination_ = &registers[startIndex+size()];
     } else {
-        destination = nullptr;
+        destination_ = nullptr;
     }
 }
 
@@ -20,7 +20,7 @@ unsigned int Instruction::size() const {
     std::stringstream errorMessage;
     int instructionSize = 0;
 
-    switch(opcode) {
+    switch(opcode_) {
         case OPCODE::FINISHED:
             instructionSize = 1;
             break;
@@ -39,7 +39,7 @@ unsigned int Instruction::size() const {
         case OPCODE::ERROR:
         default:
             instructionSize = 0;
-            errorMessage << "Instruction.size(...) not implemented for given OPCODE: " << opcode << std::endl;
+            errorMessage << "Instruction.size(...) not implemented for given OPCODE: " << opcode_ << std::endl;
             throw std::runtime_error(errorMessage.str());
     }
 
@@ -47,15 +47,15 @@ unsigned int Instruction::size() const {
 }
 
 const unsigned int Instruction::getOpValue() const {
-    return opValue;
+    return opValue_;
 }
 
 const OPCODE Instruction::getOpcode() const {
-    return opcode;
+    return opcode_;
 }
 
 const std::vector<MODE> Instruction::getModes() const {
-    return modes;
+    return modes_;
 }
 
 const signed int Instruction::getParameter(const int parameterIndex) const {
@@ -64,14 +64,14 @@ const signed int Instruction::getParameter(const int parameterIndex) const {
 }
 
 const std::vector<signed int> Instruction::getParameters() const {
-    return std::vector<signed int>(parametersStart, parametersEnd);
+    return std::vector<signed int>(parametersStart_, parametersEnd_);
 }
 
 const signed int Instruction::getDestination() const {
-    if (destination == nullptr) {
+    if (destination_ == nullptr) {
         return -1;
     } else {
-        return *destination;
+        return *destination_;
     }
 }
 
@@ -79,7 +79,7 @@ unsigned int Instruction::getParameterCount() {
     std::stringstream errorMessage;
     int parameterSize = 0;
 
-    switch(opcode) {
+    switch(opcode_) {
     case OPCODE::FINISHED:
         parameterSize = 0;
         break;
@@ -98,7 +98,7 @@ unsigned int Instruction::getParameterCount() {
     case OPCODE::ERROR:
     default:
         parameterSize = 0;
-        errorMessage << "getInstructionSize(...) not implemented for given OPCODE: " << opcode << std::endl;
+        errorMessage << "getInstructionSize(...) not implemented for given OPCODE: " << opcode_ << std::endl;
         throw std::runtime_error(errorMessage.str());
     }
 
@@ -109,7 +109,7 @@ unsigned int Instruction::getDestinationCount() {
     std::stringstream errorMessage;
     unsigned int destinationSize = 0;
 
-    switch(opcode) {
+    switch(opcode_) {
     case OPCODE::FINISHED:
         destinationSize = 0;
         break;
@@ -128,7 +128,7 @@ unsigned int Instruction::getDestinationCount() {
     case OPCODE::ERROR:
     default:
         destinationSize = 0;
-        errorMessage << "getInstructionSize(...) not implemented for given OPCODE: " << opcode << std::endl;
+        errorMessage << "getInstructionSize(...) not implemented for given OPCODE: " << opcode_ << std::endl;
         throw std::runtime_error(errorMessage.str());
     }
 
@@ -142,19 +142,21 @@ OPCODE Instruction::determineOpcode(const unsigned int registerValue) {
         opcode = static_cast<OPCODE>(registerValue);
     } else {
         std::string stringReprestation = std::to_string(registerValue);
-        std::cout << "opCode string: " << stringReprestation << std::endl;
+        std::cout << "opCode string: " << stringReprestation << " with substr " << stringReprestation.substr(stringReprestation.length() - 2 << std::endl;
         int opValue = stoi(stringReprestation.substr(stringReprestation.length() - 2));
+        std::cout << "opValue: " << opValue << std::endl;
         opcode = static_cast<OPCODE>(opValue);
+        std::cout << "opcode: " << opcode << std::endl;
     }
 
     return opcode;
 };
 
 std::vector<MODE> Instruction::determineModes() {
-    std::string strOp = std::to_string(opValue);
+    std::string strOp = std::to_string(opValue_);
     std::vector<MODE> parameterModes(size(), MODE::POSITION);
 
-    if (opValue > 99) {
+    if (opValue_ > 99) {
         for(unsigned int parameterReverseIndex = strOp.size() - 2 - 1,
             parameterIndex = 0;
             parameterIndex >= 0;
@@ -171,13 +173,13 @@ std::vector<MODE> Instruction::determineModes() {
 std::ostream &operator<<(std::ostream &os, const Instruction instruction) {
     os << "{";
 
-    os << "opValue: " << std::to_string(instruction.getOpValue()) << ", ";
+    os << "opValue_: " << std::to_string(instruction.getOpValue()) << ", ";
 
-    os << "opcode: " << to_string(instruction.getOpcode()) << ", ";
+    os << "opcode_: " << to_string(instruction.getOpcode()) << ", ";
 
     os << "parameters: " << instruction.getParameters() << ", ";
 
-    os << "destination: " << instruction.getDestination() << "}";
+    os << "destination_: " << instruction.getDestination() << "}";
 
     return os;
 }

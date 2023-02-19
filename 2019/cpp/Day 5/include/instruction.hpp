@@ -29,12 +29,12 @@ class Instruction {
         OPCODE determineOpcode(const unsigned int registerValue);
         std::vector<MODE> determineModes();
 
-        unsigned int opValue;
-        OPCODE opcode;
-        std::vector<MODE> modes;
-        std::vector<signed int>::iterator parametersStart;
-        std::vector<signed int>::iterator parametersEnd;
-        signed int *destination;
+        unsigned int opValue_;
+        OPCODE opcode_;
+        std::vector<MODE> modes_;
+        std::vector<signed int>::iterator parametersStart_;
+        std::vector<signed int>::iterator parametersEnd_;
+        signed int *destination_;
 };
 
 std::ostream &operator<<(std::ostream &os, const Instruction instruction);
