@@ -90,9 +90,9 @@ void Computer::startUp(void) {
                                               &registers_);
 
         std::cout << "instruction: " << instruction << std::endl;
-        std::cout << "\tbefore registers_ state: " << getRegisters() << std::endl;
+        // std::cout << "\tbefore registers_ state: " << getRegisters() << std::endl;
         opcode = injestIntcode(instruction);
-        std::cout << "\tafter registers_ state: " << getRegisters() << std::endl;
+        // std::cout << "\tafter registers_ state: " << getRegisters() << std::endl;
 
         instructionStart += instruction.size();
     }
