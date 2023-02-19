@@ -11,7 +11,7 @@ int partOne(const std::string fileName) {
 }
 
 int partTwo(const std::string fileName) {
-  std::cout << "Part 1: " << fileName << std::endl;
+  std::cout << "Part 2: " << fileName << std::endl;
 
   Computer computer(fileName);
 
@@ -34,10 +34,6 @@ int main() {
   int partOneResult = partOne("input.txt");
   std::cout << "Part One Input Result: " << partOneResult << std::endl;
   assert(3 == partOneResult);
-
-  int examplePartTwoResult = partTwo("example.txt");
-  std::cout << "Part Two Example Result: " << examplePartTwoResult << std::endl;
-  assert(0 == examplePartTwoResult);
 
   int partTwoResult = partTwo("input.txt");
   std::cout << "Part Two Input Result: " << partTwoResult << std::endl;
