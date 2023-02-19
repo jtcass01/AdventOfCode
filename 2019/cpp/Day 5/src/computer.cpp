@@ -106,6 +106,10 @@ const std::vector<signed int> Computer::getInstructionParameters(const Instructi
     std::vector<signed int> parameters = instruction.getParameters();
     std::vector<MODE> modes = instruction.getModes();
 
+    if(parameters.size() == 0) {
+        return parameters;
+    }
+
     for(signed int modeIndex = 0; modeIndex < modes.size()-1; modeIndex++) {
         if(modes[modeIndex] == MODE::POSITION) {
             parameters[modeIndex] = read(parameters[modeIndex]);
