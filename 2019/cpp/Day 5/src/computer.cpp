@@ -83,6 +83,7 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             throw std::runtime_error(errorMessage.str());
     }
 
+    std::cout << "hmmm" << std::endl;
     return instruction.getParametersStart()+instruction.size()-1;
 }
 
