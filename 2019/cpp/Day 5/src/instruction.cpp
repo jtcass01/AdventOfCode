@@ -48,7 +48,11 @@ const std::vector<signed int>::iterator Instruction::getParametersStop() const {
 }
 
 const std::vector<signed int> Instruction::getParameters() const {
-    return std::vector<signed int>(parametersStart_, parametersStop_);
+    if(getParameterCount(opcode_) > 0) {
+        return std::vector<signed int>(parametersStart_, parametersStop_);
+    }
+
+    return std::vector<signed int>();
 }
 
 const signed int Instruction::getDestination() const {
