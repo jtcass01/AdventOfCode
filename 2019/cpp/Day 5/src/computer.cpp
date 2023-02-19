@@ -121,6 +121,8 @@ void Computer::startUp(void) {
 
         instructionStart = injestIntcode(instruction);
         opcode = instruction.getOpcode();
+
+        std::cout << "\topcode: " << opcode << std::endl;
     }
 }
 
