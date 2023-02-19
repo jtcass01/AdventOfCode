@@ -52,7 +52,7 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             throw std::runtime_error(errorMessage.str());
     }
 
-    return instruction.getParametersStop()+1;
+    return instruction.getParametersStart()+instruction.size()-1;
 }
 
 void Computer::write(const unsigned int registerNumber, const signed int registerValue) {
