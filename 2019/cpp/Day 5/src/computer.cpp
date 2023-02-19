@@ -73,6 +73,8 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             }
             break;
         case OPCODE::EQUALS:
+            std::cout << instructionParameters[0] << " == " << instructionParameters[1] << instructionParameters[0] == instructionParameters[1] << std::endl;
+
             if(instructionParameters[0] == instructionParameters[1]) {
                 write(instruction.getDestination(), 1);
             } else {
