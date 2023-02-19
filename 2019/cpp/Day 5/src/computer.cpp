@@ -91,6 +91,8 @@ void Computer::startUp(void) {
         opcode = injestIntcode(instruction);
 
         instructionStart += instruction.size();
+
+        std::cout << "\tnew *instructionStart: " << *instructionStart << " after shift of size " << instruction.size() << std::endl;
     }
 }
 
