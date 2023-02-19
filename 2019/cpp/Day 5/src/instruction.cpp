@@ -159,7 +159,7 @@ std::vector<MODE> Instruction::determineModes() {
     if (opValue_ > 99) {
         for(unsigned int parameterReverseIndex = strOp.size() - 2 - 1,
             parameterIndex = 0;
-            parameterIndex >= 0;
+            parameterReverseIndex >= 0;
             parameterReverseIndex--, parameterIndex++) {
             std::cout << "parameterReverseIndex: " << parameterReverseIndex << std::endl;
             std::cout << "parameterIndex: " << parameterIndex << std::endl;
