@@ -22,10 +22,10 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
     std::stringstream errorMessage;
     assert(instruction.size() > 0);
     const OPCODE opcode = instruction.getOpcode();
-    std::cout << "OPCODE = "<< opcode << std::endl;
+    // std::cout << "OPCODE = "<< opcode << std::endl;
     signed int result = 0;
     std::vector<signed int> instructionParameters = getInstructionParameters(instruction);
-    std::cout << "instructionParameters = "<< instructionParameters << std::endl;
+    // std::cout << "instructionParameters = "<< instructionParameters << std::endl;
 
     switch(opcode) {
         case OPCODE::FINISHED:
@@ -85,7 +85,7 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             throw std::runtime_error(errorMessage.str());
     }
 
-    std::cout << "hmmm" << std::endl;
+    // std::cout << "hmmm" << std::endl;
 
     if(opcode == OPCODE::FINISHED) {
         return registers_.end();
@@ -134,7 +134,7 @@ void Computer::startUp(void) {
         instructionStart = injestIntcode(instruction);
         opcode = instruction.getOpcode();
 
-        std::cout << "\topcode: " << opcode << std::endl;
+        // std::cout << "\topcode: " << opcode << std::endl;
     }
 }
 
