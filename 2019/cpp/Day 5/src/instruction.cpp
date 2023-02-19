@@ -7,14 +7,15 @@ Instruction::Instruction(std::vector<signed int>::iterator *instructionStart,
         modes_(determineModes()),
         parametersStart_(*instructionStart+1),
         parametersEnd_(*instructionStart+1+getParameterCount()) {
-    std::cout << "At least Ive made it this far." << std::endl;
     unsigned int startIndex = std::distance(registers.begin(), *instructionStart);
+    std::cout << "startIndex:" << startIndex << std::endl;
 
     if(getDestinationCount() == 1) {
         destination_ = &registers[startIndex+size()];
     } else {
         destination_ = nullptr;
     }
+    std::cout << "destination_:" << getDestination() << std::endl;
 }
 
 unsigned int Instruction::size() const {
@@ -40,7 +41,7 @@ unsigned int Instruction::size() const {
         case OPCODE::ERROR:
         default:
             instructionSize = 0;
-            errorMessage << "Instruction.size(...) not implemented for given OPCODE: " << opcode_ << std::endl;
+            errorMessage << "Instruction.size() not implemented for given OPCODE: " << opcode_ << std::endl;
             throw std::runtime_error(errorMessage.str());
     }
 
@@ -99,7 +100,7 @@ unsigned int Instruction::getParameterCount() {
     case OPCODE::ERROR:
     default:
         parameterSize = 0;
-        errorMessage << "getInstructionSize(...) not implemented for given OPCODE: " << opcode_ << std::endl;
+        errorMessage << "Instruction::getParameterCount() not implemented for given OPCODE: " << opcode_ << std::endl;
         throw std::runtime_error(errorMessage.str());
     }
 
@@ -129,7 +130,7 @@ unsigned int Instruction::getDestinationCount() {
     case OPCODE::ERROR:
     default:
         destinationSize = 0;
-        errorMessage << "getInstructionSize(...) not implemented for given OPCODE: " << opcode_ << std::endl;
+        errorMessage << "Instruction::getDestinationCount() not implemented for given OPCODE: " << opcode_ << std::endl;
         throw std::runtime_error(errorMessage.str());
     }
 
@@ -153,8 +154,6 @@ OPCODE Instruction::determineOpcode(const unsigned int registerValue) {
 std::vector<MODE> Instruction::determineModes() {
     std::string strOp = std::to_string(opValue_);
     std::vector<MODE> parameterModes(size(), MODE::POSITION);
-
-    std::cout << "strOp: " << strOp << std::endl;
 
     if (opValue_ > 99) {
         std::string parameterValuesStr = strOp.substr(0, strOp.size()-2);
