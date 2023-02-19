@@ -70,7 +70,7 @@ void Computer::startUp(void) {
 
     while(instructionStart < registers_.end()
        && opcode != OPCODE::FINISHED) {
-        Instruction instruction = Instruction(&instructionStart,
+        Instruction instruction = Instruction(instructionStart,
                                               getRegisters());
 
         std::cout << "instruction: " << instruction << std::endl;

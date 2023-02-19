@@ -1,13 +1,13 @@
 #include "../include/instruction.hpp"
 
-Instruction::Instruction(std::vector<signed int>::iterator *instructionStart,
+Instruction::Instruction(std::vector<signed int>::const_iterator instructionStart,
                          std::vector<signed int> registers) :
-        opValue_(registers[std::distance(registers.begin(), *instructionStart)]),
+        opValue_(registers[std::distance(registers.cbegin(), instructionStart)]),
         opcode_(determineOpcode(opValue_)),
         modes_(determineModes()),
-        parametersStart_(*instructionStart+1),
-        parametersEnd_(*instructionStart+1+getParameterCount()) {
-    unsigned int startIndex = std::distance(registers.begin(), instructionStart);
+        parametersStart_(instructionStart+1),
+        parametersEnd_(instructionStart+1+getParameterCount()) {
+    unsigned int startIndex = std::distance(registers.cbegin(), instructionStart);
     std::cout << "startIndex:" << startIndex << std::endl;
 
     if(getDestinationCount() == 1) {
