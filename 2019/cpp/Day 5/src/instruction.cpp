@@ -161,6 +161,8 @@ std::vector<MODE> Instruction::determineModes() {
             parameterIndex = 0;
             parameterIndex >= 0;
             parameterReverseIndex--, parameterIndex++) {
+            std::cout << "parameterReverseIndex: " << parameterReverseIndex << std::endl;
+            std::cout << "parameterIndex: " << parameterIndex << std::endl;
             if (strOp[parameterIndex] == '1') {
                 parameterModes[parameterIndex] = MODE::IMMEDIATE;
             }
