@@ -8,14 +8,14 @@ Instruction::Instruction(std::vector<signed int>::iterator *instructionStart,
         parametersStart_(*instructionStart+1),
         parametersEnd_(*instructionStart+1+getParameterCount()) {
     unsigned int startIndex = std::distance(registers->begin(), *instructionStart);
-    std::cout << "startIndex:" << startIndex << std::endl;
+    // std::cout << "startIndex:" << startIndex << std::endl;
 
     if(getDestinationCount() == 1) {
         destination_ = &(*registers)[startIndex+size()-1];
     } else {
         destination_ = nullptr;
     }
-    std::cout << "destination_:" << getDestination() << std::endl;
+    // std::cout << "destination_:" << getDestination() << std::endl;
 }
 
 unsigned int Instruction::size() const {
@@ -168,7 +168,7 @@ std::vector<MODE> Instruction::determineModes() {
         }
     }
 
-    std::cout << "parameterModes: " << parameterModes << std::endl;
+    // std::cout << "parameterModes: " << parameterModes << std::endl;
 
     return parameterModes;
 }
