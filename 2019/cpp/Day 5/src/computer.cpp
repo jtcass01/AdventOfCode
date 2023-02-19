@@ -22,6 +22,7 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
     std::stringstream errorMessage;
     assert(instruction.size() > 0);
     const OPCODE opcode = instruction.getOpcode();
+    std::cout << "OPCODE = "<< opcode << std::endl;
     signed int result = 0;
     std::vector<signed int> instructionParameters = getInstructionParameters(instruction);
 
