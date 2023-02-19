@@ -165,6 +165,8 @@ std::vector<MODE> Instruction::determineModes() {
         }
     }
 
+    std::cout << "Modes: " << parameterModes << std::endl;
+
     return parameterModes;
 }
 
