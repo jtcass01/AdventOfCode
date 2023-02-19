@@ -80,7 +80,7 @@ inline unsigned int getParameterCount(const OPCODE opcode) {
         parameterSize = 2;
         break;
     case OPCODE::WRITE:
-        parameterSize = 1;
+        parameterSize = 0;
         break;
     case OPCODE::READ:
         parameterSize = 1;
