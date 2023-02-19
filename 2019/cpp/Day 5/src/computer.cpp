@@ -83,8 +83,6 @@ void Computer::startUp(void) {
 
     while(instructionStart < registers_.end()
        && opcode != OPCODE::FINISHED) {
-        std::cout << "instruction start: " << *instructionStart << std::endl;
-
         Instruction instruction = Instruction(&instructionStart,
                                               &registers_);
 
