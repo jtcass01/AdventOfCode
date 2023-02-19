@@ -53,7 +53,7 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             result = instructionParameters[0];
 
             if (result != 0) {
-                return registers_.begin() + instructionParameters[1];
+                return registers_.begin() + instruction.getDestination();
             }
 
             break;
@@ -61,7 +61,7 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             result = instructionParameters[0];
 
             if (result == 0) {
-                return registers_.begin() + instructionParameters[1];
+                return registers_.begin() + instruction.getDestination();
             }
 
             break;
@@ -84,8 +84,6 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             errorMessage << "Computer::injestIntcode(...) not implemented for given OPCODE: " << opcode << std::endl;
             throw std::runtime_error(errorMessage.str());
     }
-
-    // std::cout << "hmmm" << std::endl;
 
     if(opcode == OPCODE::FINISHED) {
         return registers_.end();
