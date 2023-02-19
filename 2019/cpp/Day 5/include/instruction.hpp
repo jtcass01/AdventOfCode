@@ -24,8 +24,6 @@ class Instruction {
         unsigned int size() const;
 
     private:
-        unsigned int getParameterCount();
-        unsigned int getDestinationCount();
         OPCODE determineOpcode(const unsigned int registerValue);
         std::vector<MODE> determineModes();
 

@@ -6,10 +6,10 @@ Instruction::Instruction(std::vector<signed int>::iterator *instructionStart,
         opcode_(determineOpcode(opValue_)),
         modes_(determineModes()),
         parametersStart_(*instructionStart+1),
-        parametersEnd_(*instructionStart+1+getParameterCount()) {
+        parametersEnd_(*instructionStart+1+getParameterCount(opcode_)) {
     unsigned int startIndex = std::distance(registers->begin(), *instructionStart);
 
-    if(getDestinationCount() == 1) {
+    if(getDestinationCount(opcode_) == 1) {
         destination_ = &(*registers)[startIndex+size()-1];
     } else {
         destination_ = nullptr;
@@ -17,31 +17,7 @@ Instruction::Instruction(std::vector<signed int>::iterator *instructionStart,
 }
 
 unsigned int Instruction::size() const {
-    std::stringstream errorMessage;
-    int instructionSize = 0;
-
-    switch(opcode_) {
-        case OPCODE::FINISHED:
-            instructionSize = 1;
-            break;
-        case OPCODE::ADD:
-            instructionSize = 4;
-            break;
-        case OPCODE::MULTIPLY:
-            instructionSize = 4;
-            break;
-        case OPCODE::WRITE:
-            instructionSize = 2;
-            break;
-        case OPCODE::READ:
-            instructionSize = 2;
-            break;
-        case OPCODE::ERROR:
-        default:
-            instructionSize = 0;
-            errorMessage << "Instruction.size() not implemented for given OPCODE: " << opcode_ << std::endl;
-            throw std::runtime_error(errorMessage.str());
-    }
+    unsigned int instructionSize = getParameterCount(opcode_)+getDestinationCount(opcode_)+1;
 
     return instructionSize;
 }
@@ -75,65 +51,6 @@ const signed int Instruction::getDestination() const {
     }
 }
 
-unsigned int Instruction::getParameterCount() {
-    std::stringstream errorMessage;
-    int parameterSize = 0;
-
-    switch(opcode_) {
-    case OPCODE::FINISHED:
-        parameterSize = 0;
-        break;
-    case OPCODE::ADD:
-        parameterSize = 2;
-        break;
-    case OPCODE::MULTIPLY:
-        parameterSize = 2;
-        break;
-    case OPCODE::WRITE:
-        parameterSize = 1;
-        break;
-    case OPCODE::READ:
-        parameterSize = 1;
-        break;
-    case OPCODE::ERROR:
-    default:
-        parameterSize = 0;
-        errorMessage << "Instruction::getParameterCount() not implemented for given OPCODE: " << opcode_ << std::endl;
-        throw std::runtime_error(errorMessage.str());
-    }
-
-    return parameterSize;
-}
-
-unsigned int Instruction::getDestinationCount() {
-    std::stringstream errorMessage;
-    unsigned int destinationSize = 0;
-
-    switch(opcode_) {
-    case OPCODE::FINISHED:
-        destinationSize = 0;
-        break;
-    case OPCODE::ADD:
-        destinationSize = 1;
-        break;
-    case OPCODE::MULTIPLY:
-        destinationSize = 1;
-        break;
-    case OPCODE::WRITE:
-        destinationSize = 1;
-        break;
-    case OPCODE::READ:
-        destinationSize = 1;
-        break;
-    case OPCODE::ERROR:
-    default:
-        destinationSize = 0;
-        errorMessage << "Instruction::getDestinationCount() not implemented for given OPCODE: " << opcode_ << std::endl;
-        throw std::runtime_error(errorMessage.str());
-    }
-
-    return destinationSize;
-}
 
 OPCODE Instruction::determineOpcode(const unsigned int registerValue) {
     OPCODE opcode = OPCODE::ERROR;
