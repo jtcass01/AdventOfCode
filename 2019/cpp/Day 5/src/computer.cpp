@@ -37,9 +37,9 @@ OPCODE Computer::injestIntcode(const Instruction instruction) {
             write(instruction.getDestination(), result);
             break;
         case OPCODE::WRITE:
-            std::cout << std::to_string(instruction.getParameter(0)) << " input: ";
+            std::cout << std::to_string(instruction.getDestination()) << " input: ";
             std::cin >> result;
-            write(instruction.getParameter(0), result);
+            write(instruction.getDestination(), result);
             break;
         case OPCODE::READ:
             result = read(instruction.getParameter(0));
