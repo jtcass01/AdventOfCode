@@ -142,6 +142,7 @@ OPCODE Instruction::determineOpcode(const unsigned int registerValue) {
         opcode = static_cast<OPCODE>(registerValue);
     } else {
         std::string stringReprestation = std::to_string(registerValue);
+        std::cout << "opCode string: " << stringReprestation << std::endl;
         int opValue = stoi(stringReprestation.substr(stringReprestation.length() - 2));
         opcode = static_cast<OPCODE>(opValue);
     }
