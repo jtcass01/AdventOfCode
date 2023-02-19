@@ -79,6 +79,10 @@ OPCODE Instruction::determineOpcode(const unsigned int registerValue) {
 };
 
 std::vector<MODE> Instruction::determineModes() {
+    if(size() == 1) {
+        return std::vector<MODE>();
+    }
+
     std::string strOp = std::to_string(opValue_);
     std::vector<MODE> parameterModes(size()-1, MODE::POSITION);
 
