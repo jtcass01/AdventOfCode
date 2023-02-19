@@ -45,7 +45,7 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             write(instruction.getDestination(), result);
             break;
         case OPCODE::READ:
-            result = instructionParameters[0];
+            result = read(instructionParameters[0]);
             std::cout << std::to_string(instructionParameters[0]) << " output: ";
             std::cout << result << std::endl;
             break;
