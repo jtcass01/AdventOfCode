@@ -95,6 +95,8 @@ std::ostream &operator<<(std::ostream &os, const Instruction instruction) {
 
     os << "opcode_: " << to_string(instruction.getOpcode()) << ", ";
 
+    os << "instructionSize:" << instruction.size() << ", ";
+
     os << "parameters: " << instruction.getParameters() << ", ";
 
     os << "modes_: " << instruction.getModes() << ", ";
