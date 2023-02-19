@@ -157,13 +157,21 @@ std::vector<MODE> Instruction::determineModes() {
     std::cout << "strOp: " << strOp << std::endl;
 
     if (opValue_ > 99) {
-        for(unsigned int parameterReverseIndex = strOp.size() - 2 - 1,
+        std::string parameterValuesStr = strOp.substr(0, strOp.size()-2);
+
+        for(std::string::reverse_iterator parameterValuesStr_itr = parameterValuesStr.rbegin();
+            parameterValuesStr_itr != parameterValuesStr.rend();
+            ++parameterValuesStr_itr) {
+
+        }
+
+        for(int parameterReverseIndex = parameterValuesStr.size() - 1,
             parameterIndex = 0;
             parameterReverseIndex >= 0;
             parameterReverseIndex--, parameterIndex++) {
             std::cout << "parameterReverseIndex: " << parameterReverseIndex << std::endl;
             std::cout << "parameterIndex: " << parameterIndex << std::endl;
-            if (strOp[parameterIndex] == '1') {
+            if (parameterValuesStr[parameterReverseIndex] == '1') {
                 parameterModes[parameterIndex] = MODE::IMMEDIATE;
             }
         }
