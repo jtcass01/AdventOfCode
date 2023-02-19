@@ -28,7 +28,7 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
     switch(opcode) {
         case OPCODE::FINISHED:
             std::cout << "STOP OPCODE RECEIVED." << std::endl;
-            break;
+            return registers_.end();
         case OPCODE::ADD:
             result = sum<signed int>(instructionParameters);
             write(instruction.getDestination(), result);
