@@ -154,6 +154,8 @@ std::vector<MODE> Instruction::determineModes() {
     std::string strOp = std::to_string(opValue_);
     std::vector<MODE> parameterModes(size(), MODE::POSITION);
 
+    std::cout << "strOp: " << strOp << std::endl;
+
     if (opValue_ > 99) {
         for(unsigned int parameterReverseIndex = strOp.size() - 2 - 1,
             parameterIndex = 0;
@@ -164,8 +166,6 @@ std::vector<MODE> Instruction::determineModes() {
             }
         }
     }
-
-    std::cout << "Modes: " << parameterModes << std::endl;
 
     return parameterModes;
 }
