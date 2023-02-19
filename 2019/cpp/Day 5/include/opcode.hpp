@@ -86,10 +86,10 @@ inline unsigned int getParameterCount(const OPCODE opcode) {
         parameterSize = 1;
         break;
     case OPCODE::JUMP_IF_TRUE:
-        parameterSize = 2;
+        parameterSize = 1;
         break;
     case OPCODE::JUMP_IF_FALSE:
-        parameterSize = 2;
+        parameterSize = 1;
         break;
     case OPCODE::LESS_THAN:
         parameterSize = 2;
@@ -128,10 +128,10 @@ inline unsigned int getDestinationCount(const OPCODE opcode) {
         destinationSize = 0;
         break;
     case OPCODE::JUMP_IF_TRUE:
-        destinationSize = 0;
+        destinationSize = 1;
         break;
     case OPCODE::JUMP_IF_FALSE:
-        destinationSize = 0;
+        destinationSize = 1;
         break;
     case OPCODE::LESS_THAN:
         destinationSize = 1;

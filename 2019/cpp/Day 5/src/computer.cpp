@@ -18,7 +18,7 @@ Computer::Computer(const std::string programFileName) {
 
 Computer::Computer(std::vector<signed int> registers) : registers_(registers) {}
 
-OPCODE Computer::injestIntcode(const Instruction instruction) {
+std::vector<signed int>::iterator Computer::injestIntcode(const Instruction instruction) {
     std::stringstream errorMessage;
     assert(instruction.size() > 0);
     const OPCODE opcode = instruction.getOpcode();
@@ -52,7 +52,7 @@ OPCODE Computer::injestIntcode(const Instruction instruction) {
             throw std::runtime_error(errorMessage.str());
     }
 
-    return opcode;
+    return instruction.getParametersStop()+1;
 }
 
 void Computer::write(const unsigned int registerNumber, const signed int registerValue) {
@@ -83,14 +83,13 @@ void Computer::startUp(void) {
 
     while(instructionStart < registers_.end()
        && opcode != OPCODE::FINISHED) {
+        std::cout << "\tinstructionStart: " << *instructionStart << std::endl;
         Instruction instruction = Instruction(&instructionStart,
                                               &registers_);
 
         std::cout << "\tinstruction: " << instruction << std::endl;
 
-        opcode = injestIntcode(instruction);
-
-        instructionStart += instruction.size();
+        instructionStart = injestIntcode(instruction);
     }
 }
 

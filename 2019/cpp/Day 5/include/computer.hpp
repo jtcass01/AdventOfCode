@@ -37,7 +37,7 @@ class Computer {
     private:
         std::vector<signed int> registers_;
 
-        OPCODE injestIntcode(const Instruction instruction);
+        std::vector<signed int>::iterator injestIntcode(const Instruction instruction);
 };
 
 std::ostream &operator<<(std::ostream &os, const Computer computer);
