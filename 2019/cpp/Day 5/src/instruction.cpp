@@ -11,7 +11,7 @@ Instruction::Instruction(std::vector<signed int>::iterator *instructionStart,
     std::cout << "startIndex:" << startIndex << std::endl;
 
     if(getDestinationCount() == 1) {
-        destination_ = &(*registers)[startIndex+size()];
+        destination_ = &(*registers)[startIndex+size()-1];
     } else {
         destination_ = nullptr;
     }
