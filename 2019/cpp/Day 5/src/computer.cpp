@@ -67,9 +67,6 @@ const std::vector<signed int> Computer::getInstructionParameters(const Instructi
     std::vector<signed int> parameters = instruction.getParameters();
     std::vector<MODE> modes = instruction.getModes();
 
-    std::cout << "parameters: " << parameters << std::endl;
-    std::cout << "modes: " << modes << std::endl;
-
     for(signed int modeIndex = 0; modeIndex < modes.size()-1; modeIndex++) {
         if(modes[modeIndex] == MODE::POSITION) {
             parameters[modeIndex] = read(parameters[modeIndex]);
@@ -90,9 +87,7 @@ void Computer::startUp(void) {
                                               &registers_);
 
         std::cout << "instruction: " << instruction << std::endl;
-        // std::cout << "\tbefore registers_ state: " << getRegisters() << std::endl;
         opcode = injestIntcode(instruction);
-        // std::cout << "\tafter registers_ state: " << getRegisters() << std::endl;
 
         instructionStart += instruction.size();
     }
