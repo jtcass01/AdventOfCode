@@ -23,17 +23,18 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
     assert(instruction.size() > 0);
     const OPCODE opcode = instruction.getOpcode();
     signed int result = 0;
+    std::vector<signed int> instructionParameters = getInstructionParameters(instruction);
 
     switch(opcode) {
         case OPCODE::FINISHED:
             std::cout << "STOP OPCODE RECEIVED." << std::endl;
             break;
         case OPCODE::ADD:
-            result = sum<signed int>(getInstructionParameters(instruction));
+            result = sum<signed int>(instructionParameters);
             write(instruction.getDestination(), result);
             break;
         case OPCODE::MULTIPLY:
-            result = product<signed int>(getInstructionParameters(instruction));
+            result = product<signed int>(instructionParameters);
             write(instruction.getDestination(), result);
             break;
         case OPCODE::WRITE:
@@ -42,9 +43,39 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             write(instruction.getDestination(), result);
             break;
         case OPCODE::READ:
-            result = read(instruction.getParameter(0));
-            std::cout << std::to_string(instruction.getParameter(0)) << " output: ";
+            result = instructionParameters[0];
+            std::cout << std::to_string(instructionParameters[0]) << " output: ";
             std::cout << result << std::endl;
+            break;
+        case OPCODE::JUMP_IF_TRUE:
+            result = instructionParameters[0];
+
+            if (result != 0) {
+                return registers_.begin() + instructionParameters[1];
+            }
+
+            break;
+        case OPCODE::JUMP_IF_FALSE:
+            result = instructionParameters[0];
+
+            if (result == 0) {
+                return registers_.begin() + instructionParameters[1];
+            }
+
+            break;
+        case OPCODE::LESS_THAN:
+            if(instructionParameters[0] < instructionParameters[1]) {
+                write(instruction.getDestination(), 1);
+            } else {
+                write(instruction.getDestination(), 0);
+            }
+            break;
+        case OPCODE::EQUALS:
+            if(instructionParameters[0] == instructionParameters[1]) {
+                write(instruction.getDestination(), 1);
+            } else {
+                write(instruction.getDestination(), 0);
+            }
             break;
         case OPCODE::ERROR:
         default:
