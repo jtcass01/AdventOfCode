@@ -10,8 +10,8 @@
 
 class Instruction {
     public:
-        Instruction(std::vector<signed int>::const_iterator instructionStart,
-                    std::vector<signed int> registers);
+        Instruction(std::vector<signed int>::iterator *instructionStart,
+                    std::vector<signed int> *registers);
 
         // Getters
         const unsigned int getOpValue() const;

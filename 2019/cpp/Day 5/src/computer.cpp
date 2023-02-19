@@ -66,12 +66,12 @@ const signed int Computer::read(const unsigned int registerNumber) const {
 void Computer::startUp(void) {
     OPCODE opcode = OPCODE::ERROR;
     std::vector<signed int>::iterator instructionStart = registers_.begin();
-    std::cout << "Staring up computer: " << getRegisters() << std::endl;
+    std::cout << "Staring up computer: " << registers_ << std::endl;
 
     while(instructionStart < registers_.end()
        && opcode != OPCODE::FINISHED) {
-        Instruction instruction = Instruction(instructionStart,
-                                              getRegisters());
+        Instruction instruction = Instruction(&instructionStart,
+                                              &registers_);
 
         std::cout << "instruction: " << instruction << std::endl;
         std::cout << "\tbefore registers_ state: " << getRegisters() << std::endl;

@@ -1,17 +1,17 @@
 #include "../include/instruction.hpp"
 
-Instruction::Instruction(std::vector<signed int>::const_iterator instructionStart,
-                         std::vector<signed int> registers) :
-        opValue_(registers[std::distance(registers.cbegin(), instructionStart)]),
+Instruction::Instruction(std::vector<signed int>::iterator *instructionStart,
+                         std::vector<signed int> *registers) :
+        opValue_((*registers)[std::distance(registers->begin(), *instructionStart)]),
         opcode_(determineOpcode(opValue_)),
         modes_(determineModes()),
-        parametersStart_(instructionStart+1),
-        parametersEnd_(instructionStart+1+getParameterCount()) {
-    unsigned int startIndex = std::distance(registers.cbegin(), instructionStart);
+        parametersStart_(*instructionStart+1),
+        parametersEnd_(*instructionStart+1+getParameterCount()) {
+    unsigned int startIndex = std::distance(registers->begin(), *instructionStart);
     std::cout << "startIndex:" << startIndex << std::endl;
 
     if(getDestinationCount() == 1) {
-        destination_ = &registers[startIndex+size()];
+        destination_ = &(*registers)[startIndex+size()];
     } else {
         destination_ = nullptr;
     }
