@@ -153,7 +153,7 @@ OPCODE Instruction::determineOpcode(const unsigned int registerValue) {
 
 std::vector<MODE> Instruction::determineModes() {
     std::string strOp = std::to_string(opValue_);
-    std::vector<MODE> parameterModes(size(), MODE::POSITION);
+    std::vector<MODE> parameterModes(size()-1, MODE::POSITION);
 
     if (opValue_ > 99) {
         std::string parameterValuesStr = strOp.substr(0, strOp.size()-2);
@@ -181,6 +181,8 @@ std::ostream &operator<<(std::ostream &os, const Instruction instruction) {
     os << "opcode_: " << to_string(instruction.getOpcode()) << ", ";
 
     os << "parameters: " << instruction.getParameters() << ", ";
+
+    os << "modes_: " << instruction.getModes() << ", ";
 
     os << "destination_: " << instruction.getDestination() << "}";
 

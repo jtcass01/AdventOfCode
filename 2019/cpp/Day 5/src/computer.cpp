@@ -70,7 +70,7 @@ const std::vector<signed int> Computer::getInstructionParameters(const Instructi
     std::cout << "parameters: " << parameters << std::endl;
     std::cout << "modes: " << modes << std::endl;
 
-    for(signed int modeIndex = 0; modeIndex < modes.size(); modeIndex++) {
+    for(signed int modeIndex = 0; modeIndex < modes.size()-1; modeIndex++) {
         if(modes[modeIndex] == MODE::POSITION) {
             parameters[modeIndex] = read(parameters[modeIndex]);
         }
