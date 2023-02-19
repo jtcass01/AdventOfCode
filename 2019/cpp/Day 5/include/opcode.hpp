@@ -125,7 +125,7 @@ inline unsigned int getDestinationCount(const OPCODE opcode) {
         destinationSize = 1;
         break;
     case OPCODE::READ:
-        destinationSize = 1;
+        destinationSize = 0;
         break;
     case OPCODE::JUMP_IF_TRUE:
         destinationSize = 0;
