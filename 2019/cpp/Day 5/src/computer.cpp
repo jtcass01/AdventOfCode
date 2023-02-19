@@ -120,10 +120,9 @@ const std::vector<signed int> Computer::getInstructionParameters(const Instructi
 void Computer::startUp(void) {
     OPCODE opcode = OPCODE::ERROR;
     std::vector<signed int>::iterator instructionStart = registers_.begin();
-    std::cout << "Staring up computer: " << registers_ << std::endl;
-
     while(instructionStart < registers_.end()
        && opcode != OPCODE::FINISHED) {
+        std::cout << "computer registers: " << registers_ << std::endl;
         Instruction instruction = Instruction(&instructionStart,
                                               &registers_);
 
@@ -131,8 +130,6 @@ void Computer::startUp(void) {
 
         instructionStart = injestIntcode(instruction);
         opcode = instruction.getOpcode();
-
-        // std::cout << "\topcode: " << opcode << std::endl;
     }
 }
 
