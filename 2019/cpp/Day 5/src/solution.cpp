@@ -11,19 +11,13 @@ int partOne(const std::string fileName) {
 }
 
 int partTwo(const std::string fileName) {
-  std::cout << "Part 2: " << fileName << std::endl;
-  std::ifstream File(fileName, std::fstream::in);
-  char *pLineChar = nullptr;
+  std::cout << "Part 1: " << fileName << std::endl;
 
-  for(std::string line; std::getline(File, line);) {
-    std::cout << line << std::endl;
-    pLineChar = strcpy(new char[line.length() + 1], line.c_str());
-    //sscanf(pLineChar, "");
-  }
+  Computer computer(fileName);
 
-  File.close();
+  computer.startUp();
 
-  return 0;
+  return computer.read(0);
 }
 
 int main() {
