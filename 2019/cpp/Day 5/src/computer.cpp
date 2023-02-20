@@ -74,7 +74,7 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             break;
         case OPCODE::EQUALS:
             std::cout << std::to_string(instructionParameters[0]) << " == ";
-            std::cout << std::to_string(instructionParameters[1]);
+            std::cout << std::to_string(instructionParameters[1]) << " = ";
             std::cout << std::to_string(instructionParameters[0] == instructionParameters[1]);
             std::cout << std::endl;
 
