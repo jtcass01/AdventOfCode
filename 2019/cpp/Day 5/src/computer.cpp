@@ -115,7 +115,8 @@ const std::vector<signed int> Computer::getInstructionParameters(const Instructi
         return parameters;
     }
 
-    for(signed int modeIndex = 0; modeIndex < modes.size()-1; modeIndex++) {
+    for(signed int modeIndex = 0;
+        modeIndex < static_cast<signed int>(modes.size()-1); modeIndex++) {
         if(modes[modeIndex] == MODE::POSITION) {
             parameters[modeIndex] = read(parameters[modeIndex]);
         }
