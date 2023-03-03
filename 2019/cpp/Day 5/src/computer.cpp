@@ -125,13 +125,9 @@ const std::vector<signed int> Computer::getInstructionParameters(const Instructi
 }
 
 const unsigned int Computer::getDestination(const Instruction instruction) {
-    std::cout << "Computer::getDestination" << std::endl;
     const signed int destination = instruction.getDestination();
-    std::cout << "destination = "<< destination << std::endl;
     std::vector<signed int> parameters = instruction.getParameters();
-    std::cout << "parameters = "<< parameters << std::endl;
     std::vector<MODE> modes = instruction.getModes();
-    std::cout << "modes = "<< modes << std::endl;
 
     if(destination < 0) {
         return destination;
