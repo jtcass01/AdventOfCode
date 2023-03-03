@@ -2,7 +2,7 @@
 CXX = g++
 
 # compile flags
-CXXFLAGS = -Wall -g -std=c++17 -lgtest
+CXXFLAGS = -Wall -g -std=c++17
 
 GTEST = /usr/local/lib/libgtest.a
 
@@ -22,7 +22,7 @@ all: $(TARGET)
 
 # Generates the target executable
 $(TARGET):$(OBJS)
-	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
+	$(CXX) -o $(TARGET) $(OBJS) $(LIBS) $(GTEST)
 
 # Generates the output files
 %.o: %.c
