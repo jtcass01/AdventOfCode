@@ -4,6 +4,7 @@
 #include "gtest/gtest.h"
 #include "computer.hpp"
 #include "instruction.hpp"
+#include <sstream>
 #include <vector>
 
 template <typename T>

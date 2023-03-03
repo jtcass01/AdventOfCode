@@ -2,6 +2,9 @@
 
 namespace {
 
+/*
+ * Day 2 unittests
+*/
 TEST(Day2Test, AddTest) {
     std::vector<signed int> exampleRegisters = {1, 0, 0, 0, 99};
     const std::vector<signed int> expectedResult = {2, 0, 0, 0, 99};
@@ -51,13 +54,25 @@ TEST(Day2Test, Part1) {
     EXPECT_EQ(3790689, testComputer.read(0));
 }
 
-#if UNUSED_CODE
-TEST(Day5Test, Part1Example) {
+/*
+ * Day 5 unittests
+*/
+TEST(Day5Test, ImmediateModeMultiply) {
     std::vector<signed int> exampleRegisters = {1002, 4, 3, 4, 33};
+    const std::vector<signed int> expectedResult = {1002, 4, 3, 4, 99};
     Computer testComputer(exampleRegisters);
     testComputer.startUp();
-    EXPECT_EQ(testComputer.read(4), 99);
+    EXPECT_EQ(sameVectors(testComputer.getRegisters(), expectedResult),
+              true);
 }
-#endif
+
+TEST(Day5Test, ImmediateModeAdd) {
+    std::vector<signed int> exampleRegisters = {1101, 100, -1, 4, 0};
+    const std::vector<signed int> expectedResult = {1101, 100, -1, 4, 99};
+    Computer testComputer(exampleRegisters);
+    testComputer.startUp();
+    EXPECT_EQ(sameVectors(testComputer.getRegisters(), expectedResult),
+              true);
+}
 
 }
