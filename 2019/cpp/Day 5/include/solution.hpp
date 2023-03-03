@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <cstring>
 #include <vector>
+#include "gtest/gtest.h"
 #include "computer.hpp"
 
 int partOne(const std::string fileName);
