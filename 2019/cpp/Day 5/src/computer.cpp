@@ -126,7 +126,7 @@ const std::vector<signed int> Computer::getInstructionParameters(const Instructi
 
 const unsigned int Computer::getDestination(const Instruction instruction) {
     std::cout << "Computer::getDestination" << std::endl;
-    unsigned int destination = instruction.getDestination();
+    const signed int destination = instruction.getDestination();
     std::cout << "destination = "<< destination << std::endl;
     std::vector<signed int> parameters = instruction.getParameters();
     std::cout << "parameters = "<< parameters << std::endl;
