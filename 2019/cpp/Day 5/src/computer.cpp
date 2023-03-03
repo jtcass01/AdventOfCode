@@ -35,16 +35,16 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             break;
         case OPCODE::ADD:
             result = sum<signed int>(instructionParameters);
-            write(destination, result);
+            write(instruction.getDestination(), result);
             break;
         case OPCODE::MULTIPLY:
             result = product<signed int>(instructionParameters);
-            write(destination, result);
+            write(instruction.getDestination(), result);
             break;
         case OPCODE::WRITE:
-            std::cout << std::to_string(destination) << " input: ";
+            std::cout << std::to_string(instruction.getDestination()) << " input: ";
             std::cin >> result;
-            write(destination, result);
+            write(instruction.getDestination(), result);
             break;
         case OPCODE::READ:
             result = read(instructionParameters[0]);
