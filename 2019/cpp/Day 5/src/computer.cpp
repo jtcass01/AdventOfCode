@@ -22,7 +22,6 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
     std::stringstream errorMessage;
     assert(instruction.size() > 0);
     const OPCODE opcode = instruction.getOpcode();
-    std::cout << "OPCODE = "<< opcode << std::endl;
     signed int result = 0;
     std::vector<signed int> instructionParameters = getInstructionParameters(instruction);
     const signed int destination = getDestination(instruction);
@@ -126,9 +125,13 @@ const std::vector<signed int> Computer::getInstructionParameters(const Instructi
 }
 
 const unsigned int Computer::getDestination(const Instruction instruction) {
+    std::cout << "Computer::getDestination" << std::endl;
     unsigned int destination = instruction.getDestination();
+    std::cout << "destination = "<< destination << std::endl;
     std::vector<signed int> parameters = instruction.getParameters();
+    std::cout << "parameters = "<< parameters << std::endl;
     std::vector<MODE> modes = instruction.getModes();
+    std::cout << "modes = "<< modes << std::endl;
 
     if(destination < 0) {
         return destination;
