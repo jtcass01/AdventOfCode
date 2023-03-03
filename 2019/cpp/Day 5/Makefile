@@ -1,8 +1,10 @@
 # compiler
-CC = g++
+CXX = g++
 
 # compile flags
-CFLAGS = -wall -g
+CXXFLAGS = -wall -g -std=c++17
+
+GTEST = /usr/local/lib/libgtest.a
 
 # libs
 LIBS = include/utils.hpp include/mode.hpp include/opcode.hpp include/instruction.hpp include/computer.hpp include/solution.hpp
@@ -20,11 +22,11 @@ all: $(TARGET)
 
 # Generates the target executable
 $(TARGET):$(OBJS)
-	$(CC) -o $(TARGET) $(OBJS) $(LIBS)
+	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
 
 # Generates the output files
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Removes object files and target
 clean:
