@@ -2,7 +2,7 @@
 CXX = g++
 
 # compile flags
-CXXFLAGS = -Wall -g -std=c++17
+CXXFLAGS = -Wall -g -std=c++17 -lgtest
 
 GTEST = /usr/local/lib/libgtest.a
 
