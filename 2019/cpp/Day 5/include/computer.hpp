@@ -30,6 +30,8 @@ class Computer {
 
         const std::vector<signed int> getInstructionParameters(const Instruction instruction);
 
+        const unsigned int getDestination(const Instruction instruction);
+
         void startUp(void);
 
         const std::vector<signed int> getRegisters() const;

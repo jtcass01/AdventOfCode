@@ -25,6 +25,8 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
     // std::cout << "OPCODE = "<< opcode << std::endl;
     signed int result = 0;
     std::vector<signed int> instructionParameters = getInstructionParameters(instruction);
+    const signed int destination = getDestination(instruction);
+
     // std::cout << "instructionParameters = "<< instructionParameters << std::endl;
 
     switch(opcode) {
@@ -33,16 +35,16 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             break;
         case OPCODE::ADD:
             result = sum<signed int>(instructionParameters);
-            write(instruction.getDestination(), result);
+            write(destination, result);
             break;
         case OPCODE::MULTIPLY:
             result = product<signed int>(instructionParameters);
-            write(instruction.getDestination(), result);
+            write(destination, result);
             break;
         case OPCODE::WRITE:
-            std::cout << std::to_string(instruction.getDestination()) << " input: ";
+            std::cout << std::to_string(destination) << " input: ";
             std::cin >> result;
-            write(instruction.getDestination(), result);
+            write(destination, result);
             break;
         case OPCODE::READ:
             result = read(instructionParameters[0]);
@@ -53,7 +55,7 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             result = instructionParameters[0];
 
             if (result != 0) {
-                return registers_.begin() + instruction.getDestination();
+                return registers_.begin() + destination;
             }
 
             break;
@@ -61,15 +63,15 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             result = instructionParameters[0];
 
             if (result == 0) {
-                return registers_.begin() + instruction.getDestination();
+                return registers_.begin() + destination;
             }
 
             break;
         case OPCODE::LESS_THAN:
             if(instructionParameters[0] < instructionParameters[1]) {
-                write(instruction.getDestination(), 1);
+                write(destination, 1);
             } else {
-                write(instruction.getDestination(), 0);
+                write(destination, 0);
             }
             break;
         case OPCODE::EQUALS:
@@ -79,9 +81,9 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             std::cout << std::endl;
 
             if(instructionParameters[0] == instructionParameters[1]) {
-                write(instruction.getDestination(), 1);
+                write(destination, 1);
             } else {
-                write(instruction.getDestination(), 0);
+                write(destination, 0);
             }
             break;
         case OPCODE::ERROR:
@@ -120,6 +122,22 @@ const std::vector<signed int> Computer::getInstructionParameters(const Instructi
     }
 
     return parameters;
+}
+
+const unsigned int Computer::getDestination(const Instruction instruction) {
+    unsigned int destination = instruction.getDestination();
+    std::vector<signed int> parameters = instruction.getParameters();
+    std::vector<MODE> modes = instruction.getModes();
+
+    if(destination < 0) {
+        return destination;
+    }
+
+    if(modes.back() == MODE::POSITION) {
+        return read(destination);
+    }
+
+    return destination;
 }
 
 void Computer::startUp(void) {
