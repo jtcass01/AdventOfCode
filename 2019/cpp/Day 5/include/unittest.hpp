@@ -16,7 +16,7 @@ inline bool sameVectors(const std::vector<T> a,
     }
 
     if (same) {
-        for(std::vector<T>::iterator itA = a.begin(),
+        for(auto itA = a.begin(),
             itB = b.begin();
             itA != a.end();
             itA++, itB++) {
