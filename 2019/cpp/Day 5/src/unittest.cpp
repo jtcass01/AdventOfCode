@@ -51,6 +51,8 @@ TEST(Day2Test, Part1) {
     testComputer.write(1, 12);
     testComputer.write(2, 2);
 
+    testComputer.startUp();
+
     EXPECT_EQ(3790689, testComputer.read(0));
 }
 
