@@ -35,7 +35,9 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
 
     switch(opcode) {
         case OPCODE::FINISHED:
-            std::cout << "STOP OPCODE RECEIVED." << std::endl;
+            if(isVerbose()) {
+                std::cout << "STOP OPCODE RECEIVED." << std::endl;
+            }
             break;
         case OPCODE::ADD:
             result = sum<signed int>(instructionParameters);
