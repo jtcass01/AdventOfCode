@@ -21,8 +21,8 @@
 
 class Computer {
     public:
-        Computer(const std::string programFile);
-        Computer(std::vector<signed int> registers);
+        Computer(const std::string programFile, const bool verbose);
+        Computer(std::vector<signed int> registers, const bool verbose);
 
         void write(const unsigned int registerNumber, const signed int registerValue);
 
@@ -36,8 +36,11 @@ class Computer {
 
         const std::vector<signed int> getRegisters() const;
 
+        const bool isVerbose() const;
+
     private:
         std::vector<signed int> registers_;
+        const bool verbose_;
 
         std::vector<signed int>::iterator injestIntcode(const Instruction instruction);
 };

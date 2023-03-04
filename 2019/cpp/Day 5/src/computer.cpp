@@ -1,6 +1,7 @@
 #include "../include/computer.hpp"
 
-Computer::Computer(const std::string programFileName) {
+Computer::Computer(const std::string programFileName,
+                   const bool verbose) : verbose_(verbose){
   std::string programText;
   std::ifstream programFile;
   std::stringstream programStream;
@@ -16,7 +17,8 @@ Computer::Computer(const std::string programFileName) {
   programFile.close();
 }
 
-Computer::Computer(std::vector<signed int> registers) : registers_(registers) {}
+Computer::Computer(std::vector<signed int> registers, const bool verbose) :
+    registers_(registers), verbose_(verbose) {}
 
 std::vector<signed int>::iterator Computer::injestIntcode(const Instruction instruction) {
     std::stringstream errorMessage;
@@ -26,8 +28,10 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
     std::vector<signed int> instructionParameters = getInstructionParameters(instruction);
     const signed int destination = getDestination(instruction);
 
-    std::cout << "instructionParameters = "<< instructionParameters << std::endl;
-    std::cout << "destination = "<< destination << std::endl;
+    if(isVerbose()) {
+        std::cout << "instructionParameters = "<< instructionParameters << std::endl;
+        std::cout << "destination = "<< destination << std::endl;
+    }
 
     switch(opcode) {
         case OPCODE::FINISHED:
@@ -146,11 +150,15 @@ void Computer::startUp(void) {
     std::vector<signed int>::iterator instructionStart = registers_.begin();
     while(instructionStart < registers_.end()
        && opcode != OPCODE::FINISHED) {
-        std::cout << "computer registers: " << registers_ << std::endl;
+        if(isVerbose()) {
+            std::cout << "computer registers: " << registers_ << std::endl;
+        }
         Instruction instruction = Instruction(&instructionStart,
                                               &registers_);
 
-        std::cout << "\tinstruction: " << instruction << std::endl;
+        if(isVerbose()) {
+            std::cout << "\tinstruction: " << instruction << std::endl;
+        }
 
         instructionStart = injestIntcode(instruction);
         opcode = instruction.getOpcode();
@@ -159,6 +167,10 @@ void Computer::startUp(void) {
 
 const std::vector<signed int> Computer::getRegisters() const {
     return registers_;
+}
+
+const bool Computer::isVerbose() const {
+    return verbose_;
 }
 
 std::ostream &operator<<(std::ostream &os, const Computer computer) {
