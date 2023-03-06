@@ -103,4 +103,159 @@ TEST(Day5Test, EqualPositionTrue) {
     EXPECT_EQ(1, testComputer.getLastOutput());
 }
 
+TEST(Day5Test, EqualPositionFalse) {
+    std::vector<signed int> exampleRegisters = {3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8};
+    std::stringstream exampleInput("1\n");
+
+    std::streambuf *oldCinBuffer = std::cin.rdbuf(exampleInput.rdbuf());
+
+    Computer testComputer(exampleRegisters, false);
+    testComputer.startUp();
+
+    std::cin.rdbuf(oldCinBuffer);
+
+    EXPECT_EQ(0, testComputer.getLastOutput());
+}
+
+TEST(Day5Test, LessThanPositionTrue) {
+    std::vector<signed int> exampleRegisters = {3, 9, 7, 9, 10, 9, 4, 9, 99, -1, 8};
+    std::stringstream exampleInput("1\n");
+
+    std::streambuf *oldCinBuffer = std::cin.rdbuf(exampleInput.rdbuf());
+
+    Computer testComputer(exampleRegisters, false);
+    testComputer.startUp();
+
+    std::cin.rdbuf(oldCinBuffer);
+
+    EXPECT_EQ(1, testComputer.getLastOutput());
+}
+
+TEST(Day5Test, LessThanPositionFalse) {
+    std::vector<signed int> exampleRegisters = {3, 9, 7, 9, 10, 9, 4, 9, 99, -1, 8};
+    std::stringstream exampleInput("9\n");
+
+    std::streambuf *oldCinBuffer = std::cin.rdbuf(exampleInput.rdbuf());
+
+    Computer testComputer(exampleRegisters, false);
+    testComputer.startUp();
+
+    std::cin.rdbuf(oldCinBuffer);
+
+    EXPECT_EQ(0, testComputer.getLastOutput());
+}
+
+TEST(Day5Test, EqualImmediateTrue) {
+    std::vector<signed int> exampleRegisters = {3, 3, 1108, -1, 8, 3, 4, 3, 99};
+    std::stringstream exampleInput("8\n");
+
+    std::streambuf *oldCinBuffer = std::cin.rdbuf(exampleInput.rdbuf());
+
+    Computer testComputer(exampleRegisters, false);
+    testComputer.startUp();
+
+    std::cin.rdbuf(oldCinBuffer);
+
+    EXPECT_EQ(1, testComputer.getLastOutput());
+}
+
+TEST(Day5Test, EqualImmediateFalse) {
+    std::vector<signed int> exampleRegisters = {3, 3, 1108, -1, 8, 3, 4, 3, 99};
+    std::stringstream exampleInput("1\n");
+
+    std::streambuf *oldCinBuffer = std::cin.rdbuf(exampleInput.rdbuf());
+
+    Computer testComputer(exampleRegisters, false);
+    testComputer.startUp();
+
+    std::cin.rdbuf(oldCinBuffer);
+
+    EXPECT_EQ(0, testComputer.getLastOutput());
+}
+
+TEST(Day5Test, LessThanImmediateTrue) {
+    std::vector<signed int> exampleRegisters = {3, 3, 1107, -1, 8, 3, 4, 3, 99};
+    std::stringstream exampleInput("1\n");
+
+    std::streambuf *oldCinBuffer = std::cin.rdbuf(exampleInput.rdbuf());
+
+    Computer testComputer(exampleRegisters, false);
+    testComputer.startUp();
+
+    std::cin.rdbuf(oldCinBuffer);
+
+    EXPECT_EQ(1, testComputer.getLastOutput());
+}
+
+TEST(Day5Test, LessThanImmediateFalse) {
+    std::vector<signed int> exampleRegisters = {3, 3, 1107, -1, 8, 3, 4, 3, 99};
+    std::stringstream exampleInput("9\n");
+
+    std::streambuf *oldCinBuffer = std::cin.rdbuf(exampleInput.rdbuf());
+
+    Computer testComputer(exampleRegisters, false);
+    testComputer.startUp();
+
+    std::cin.rdbuf(oldCinBuffer);
+
+    EXPECT_EQ(0, testComputer.getLastOutput());
+}
+
+TEST(Day5Test, JumpPositionModeTrue) {
+    std::vector<signed int> exampleRegisters = {3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9};
+    std::stringstream exampleInput("3\n");
+
+    std::streambuf *oldCinBuffer = std::cin.rdbuf(exampleInput.rdbuf());
+
+    Computer testComputer(exampleRegisters, false);
+    testComputer.startUp();
+
+    std::cin.rdbuf(oldCinBuffer);
+
+    EXPECT_EQ(1, testComputer.getLastOutput());
+}
+
+TEST(Day5Test, JumpPositionModeFalse) {
+    std::vector<signed int> exampleRegisters = {3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9};
+    std::stringstream exampleInput("0\n");
+
+    std::streambuf *oldCinBuffer = std::cin.rdbuf(exampleInput.rdbuf());
+
+    Computer testComputer(exampleRegisters, false);
+    testComputer.startUp();
+
+    std::cin.rdbuf(oldCinBuffer);
+
+    EXPECT_EQ(0, testComputer.getLastOutput());
+}
+
+TEST(Day5Test, JumpImmediateModeTrue) {
+    std::vector<signed int> exampleRegisters = {3, 3, 1105, -1, 9, 1101, 0, 0, 12, 4, 12, 99, 1};
+    std::stringstream exampleInput("3\n");
+
+    std::streambuf *oldCinBuffer = std::cin.rdbuf(exampleInput.rdbuf());
+
+    Computer testComputer(exampleRegisters, false);
+    testComputer.startUp();
+
+    std::cin.rdbuf(oldCinBuffer);
+
+    EXPECT_EQ(1, testComputer.getLastOutput());
+}
+
+TEST(Day5Test, JumpImmediateModeFalse) {
+    std::vector<signed int> exampleRegisters = {3, 3, 1105, -1, 9, 1101, 0, 0, 12, 4, 12, 99, 1};
+    std::stringstream exampleInput("0\n");
+
+    std::streambuf *oldCinBuffer = std::cin.rdbuf(exampleInput.rdbuf());
+
+    Computer testComputer(exampleRegisters, false);
+    testComputer.startUp();
+
+    std::cin.rdbuf(oldCinBuffer);
+
+    EXPECT_EQ(0, testComputer.getLastOutput());
+}
+
+
 }
