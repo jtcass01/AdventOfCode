@@ -78,9 +78,13 @@ TEST(Day5Test, ImmediateModeAdd) {
 }
 
 TEST(Day5Test, Part1) {
-    Computer testComputer("input.txt", false);
+    std::stringstream exampleInput("1\n");
+    std::streambuf *oldCinBuffer = std::cin.rdbuf(exampleInput.rdbuf());
 
+    Computer testComputer("input.txt", false);
     testComputer.startUp();
+
+    std::cin.rdbuf(oldCinBuffer);
 
     EXPECT_EQ(3790689, testComputer.read(0));
 }
@@ -92,7 +96,6 @@ TEST(Day5Test, EqualPositionTrue) {
     std::streambuf *oldCinBuffer = std::cin.rdbuf(exampleInput.rdbuf());
 
     Computer testComputer(exampleRegisters, false);
-
     testComputer.startUp();
 
     std::cin.rdbuf(oldCinBuffer);
