@@ -38,9 +38,12 @@ class Computer {
 
         const bool isVerbose() const;
 
+        signed int getLastOutput() const;
+
     private:
         std::vector<signed int> registers_;
         const bool verbose_;
+        signed int lastOutput_;
 
         std::vector<signed int>::iterator injestIntcode(const Instruction instruction);
 };

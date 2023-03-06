@@ -86,7 +86,7 @@ TEST(Day5Test, Part1) {
 
     std::cin.rdbuf(oldCinBuffer);
 
-    EXPECT_EQ(3790689, testComputer.read(0));
+    EXPECT_EQ(16225258, testComputer.getLastOutput());
 }
 
 TEST(Day5Test, EqualPositionTrue) {
@@ -99,6 +99,8 @@ TEST(Day5Test, EqualPositionTrue) {
     testComputer.startUp();
 
     std::cin.rdbuf(oldCinBuffer);
+
+    EXPECT_EQ(1, testComputer.getLastOutput());
 }
 
 }

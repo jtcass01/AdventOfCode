@@ -56,6 +56,7 @@ std::vector<signed int>::iterator Computer::injestIntcode(const Instruction inst
             result = read(instructionParameters[0]);
             std::cout << std::to_string(instructionParameters[0]) << " output: ";
             std::cout << result << std::endl;
+            lastOutput_ = result;
             break;
         case OPCODE::JUMP_IF_TRUE:
             result = instructionParameters[0];
@@ -173,6 +174,10 @@ const std::vector<signed int> Computer::getRegisters() const {
 
 const bool Computer::isVerbose() const {
     return verbose_;
+}
+
+signed int Computer::getLastOutput() const {
+    return lastOutput_;
 }
 
 std::ostream &operator<<(std::ostream &os, const Computer computer) {
