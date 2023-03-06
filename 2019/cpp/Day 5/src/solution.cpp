@@ -24,12 +24,7 @@ int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
 
   std::cout << "RUNNING TESTS ..." << std::endl;
-  int ret{RUN_ALL_TESTS()};
-  if (!ret) {
-    std::cout << "<<<SUCCESS>>>" << std::endl;
-  } else {
-    std::cout << "FAILED" << std::endl;
-  }
+  RUN_ALL_TESTS();
 
   int examplePartOneResult = partOne("example.txt");
   std::cout << "Part One Example Result: " << examplePartOneResult << std::endl;

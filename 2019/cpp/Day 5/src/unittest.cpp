@@ -77,4 +77,25 @@ TEST(Day5Test, ImmediateModeAdd) {
               true);
 }
 
+TEST(Day5Test, Part1) {
+    Computer testComputer("input.txt", false);
+
+    testComputer.startUp();
+
+    EXPECT_EQ(3790689, testComputer.read(0));
+}
+
+TEST(Day5Test, EqualPositionTrue) {
+    std::vector<signed int> exampleRegisters = {3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8};
+    std::stringstream exampleInput("8\n");
+
+    std::streambuf *oldCinBuffer = std::cin.rdbuf(exampleInput.rdbuf());
+
+    Computer testComputer(exampleRegisters, false);
+
+    testComputer.startUp();
+
+    std::cin.rdbuf(oldCinBuffer);
+}
+
 }
